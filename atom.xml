@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description></description>
+    <link>
+    http://localhost:4000</link>
+    
+      
+      <item>
+        <title>machine-learning-basic</title>
+        
+          <description>
+</description>
+        
+        <pubDate>Sat, 05 Sep 2020 04:34:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/machine-learning</link>
+        <guid isPermaLink="true">http://localhost:4000/machine-learning</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>python-basic</title>
+        
+          <description>
+</description>
+        
+        <pubDate>Fri, 28 Sep 2018 01:40:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/python-basic</link>
+        <guid isPermaLink="true">http://localhost:4000/python-basic</guid>
+      </item>
+      
+    
+  </channel>
+</rss>
