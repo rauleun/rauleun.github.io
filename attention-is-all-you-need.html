@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Attention is All You Need</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/attention-is-all-you-need" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="TECHNOTE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Attention is All You Need" />
+    <meta property="og:description" content="원문 : Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017. 본 글은 Google Brain에서 2017 NIPS에 발표한 Attention is All You Need 논문에 대한 리뷰이며 동시에 제 첫 논문 리뷰글입니다. 자연어 처리(NLP)등의 분야에서는 순서를 가진 sequence형 데이터를 학습하기 위해 그동안 많은 모델을" />
+    <meta property="og:url" content="http://localhost:4000/attention-is-all-you-need" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2020-09-07T20:00:00+09:00" />
+    <meta property="article:modified_time" content="2020-09-07T20:00:00+09:00" />
+    <meta property="article:tag" content="Machine-learning" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Attention is All You Need" />
+    <meta name="twitter:description" content="원문 : Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017. 본 글은 Google Brain에서 2017 NIPS에 발표한 Attention is All You Need 논문에 대한 리뷰이며 동시에 제 첫 논문 리뷰글입니다. 자연어 처리(NLP)등의 분야에서는 순서를 가진 sequence형 데이터를 학습하기 위해 그동안 많은 모델을" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="TECHNOTE" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Machine-learning" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "TECHNOTE",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/attention-is-all-you-need",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/attention-is-all-you-need"
+    },
+    "description": "원문 : Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017. 본 글은 Google Brain에서 2017 NIPS에 발표한 Attention is All You Need 논문에 대한 리뷰이며 동시에 제 첫 논문 리뷰글입니다. 자연어 처리(NLP)등의 분야에서는 순서를 가진 sequence형 데이터를 학습하기 위해 그동안 많은 모델을"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Attention is All You Need" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">TECHNOTE</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-python" role="menuitem"><a href="/tag/python/">Python</a></li>
+    <li class="nav-machine-learning" role="menuitem"><a href="/tag/machine-learning/">Machine Learning</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-machine-learning  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 7 September 2020"> 7 September 2020</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/machine-learning/'>MACHINE-LEARNING</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Attention is All You Need</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://arxiv.org/pdf/1706.03762.pdf">Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.</a>
+<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+
+<p>본 글은 Google Brain에서 2017 NIPS에 발표한 <strong><em>Attention is All You Need</em></strong> 논문에 대한 리뷰이며 동시에 <strong>제 첫 논문 리뷰글</strong>입니다.</p>
+
+<p>자연어 처리(NLP)등의 분야에서는 순서를 가진 sequence형 데이터를 학습하기 위해 그동안 많은 모델을 제시했습니다. 대표적으로 encoder와 decoder 방식을 활용한 RNN 또는 CNN이 있는데, 이들은 순서가 있는 데이터의 특성상 순차적으로 input을 학습하고 output을 도출할 수밖에 없었습니다.
+<img src="assets/images/attention-is-all-you-need/1-seqtoseq.png" alt="1-seqtoseq" />
+순차적으로 데이터를 처리하는 방식은 근본적으로 병렬화(parallelization)를 불가능하게 만들어 계산적 효율성을 제한할뿐만 아니라 긴 문장이 들어왔을 때 여러 layer를 거치면서 앞의 input에 대한 정보가 희미해지는 등의 문제가 있었습니다. 이를 해결하기 위해 ‘output을 도출할 때 어떤 input에 집중해야 하는지’에 대한 정보를 추가하는 attention 메커니즘을 추가하기도 하였지만(seq2seq 모델) 여전히 학습 속도 저하에 대한 한계가 존재했습니다.
+<img src="assets/images/attention-is-all-you-need/2-transformer.png" alt="2-transformer" />
+위 논문에서 제안한 Transformer는 <strong>병렬화</strong>를 가능하게 하여 학습의 효율성과 모델의 성능을 기존보다 월등히 끌어올렸다는 점에서 NLP 및 다양한 분야에 많은 기여를 했다고 생각합니다. 또한 순차적인 과정 없이 attention 메커니즘만을 이용하였기 때문에 input과 output 사이에 포괄적인 상관관계(global dependency)를 이끌어냈습니다. 
+<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+
+<h2 id="self-attention">Self-Attention</h2>
+<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+Transformer의 핵심 개념은 attention 메커니즘, 그 중에서도 self-attention 메커니즘이라고 할 수 있습니다.
+Transformer는 attention 정보를 얻기 위해 각 sequential input에 대한 <strong><em>Query, Key, Value</em></strong> 값을 생성하고, Query와 Key 값을 매칭하여 input (NLP에서는 단어, vision에서는 pixel) 사이의 연관성 또는 유사도(compatibility)를 나타내는 attention score를 계산합니다.
+Attention score는 해당 input과 다른 sequence inputs 사이의 의미론적 연관성을 나타내는 값이기 때문에, 이를 기존의 sequence input에 곱하면 전체 sequence 내에서 각 input이 갖는 의미를 강조한 새로운 sequence를 얻을 수 있습니다. 
+<img src="assets/images/attention-is-all-you-need/3-attention-mechanism.png" alt="3-attention-mechanism" />
+Attention layer에 들어가기 전에 모든 input은 그 특성을 가장 잘 나타낼 수 있는 다차원의 embedding 벡터로 변환됩니다. Embedding 벡터는 d<sub>model</sub> 의 차원을 가지게 되고, 이는 각 encoder 또는 decoder 블럭을 지나도 동일하게 유지됩니다. 위 그림에서 d<sub>model</sub>=4로 표현되었지만, 실제 논문에서는 d<sub>model</sub>=512를 사용하였습니다. Input sequence를 embedding 벡터로 변환하는 과정은 학습시킨 Linear layer을 통과함으로써 이루어집니다.</p>
+
+<p><img src="assets/images/attention-is-all-you-need/4-attention-mechanism.png" alt="4-attention-mechanism" /></p>
+
+<p>Self-attention 과정에서 embedding 벡터는 W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup> 의 세 행렬을 통해 각각 query, key, value 벡터로 변환됩니다. Self-attention 과정이 일반적인 attention 메커니즘과 다른 점은, query, key, value 벡터를 하나의 동일한 벡터로부터 생성한다는 점입니다. 변환 행렬의 크기를 (d<sub>model</sub> x d<sub>query</sub>, d<sub>model</sub> x d<sub>key</sub>, d<sub>model</sub> x d<sub>value</sub>)라고 한다면 output 벡터의 차원은 d<sub>query</sub>, d<sub>key</sub>, d<sub>value</sub>가 됩니다. (본문에서는 d<sub>query</sub> = d<sub>key</sub> = d<sub>value</sub> = 64로 설정하였습니다.)</p>
+
+<p>여기서 W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup>는 우리가 학습시켜야 하는 Transformer의 parameter입니다. 세 행렬 W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup>에 적당한 값을 넣어줘야 input 사이의 관계를 가장 잘 나타내는 attention score를 얻을 수 있습니다.</p>
+
+<p><img src="assets/images/attention-is-all-you-need/5-attention-mechanism.png" alt="5-attention-mechanism" /></p>
+
+<p>이제 query 벡터와 모든 sequence input의 key 벡터 사이의 연관성을 계산해야 합니다. Self-attention에서 Query와 Key 행렬의 크기는 같고 그 결과로 나온 query와 key 벡터의 차원도 같기 때문에, 내적(inner-product)을 통해 두 벡터의 유사도를 계산할 수 있습니다.</p>
+
+<p>논문에서는 내적을 통해 계산된 attention score를 d<sub>key</sub>의 제곱근으로 나눠주었습니다. 이는 embedding 또는 key 벡터의 차원이 증가함에 따라 score 값이 커지는 현상을 방지하기 위해서이며, 역전파 과정에서 발생하는 gradient의 크기를 안정화하는 효과가 있습니다.</p>
+
+<p>마지막으로 softmax 연산을 통해 합이 1인 형태로 결과값을 normalize하여 최종적인 attention score을 얻을 수 있습니다.</p>
+
+<p><img src="assets/images/attention-is-all-you-need/6-attention-mechanism.png" alt="6-attention-mechanism" /></p>
+
+<p>이제 각 value 벡터에 attention score를 곱해서 최종적인 attention layer의 output을 얻게됩니다. 이는 각 벡터들 사이의 연관성(또는 유사도)를 가중합한 value 벡터입니다. 이것으로 Self-attention 메커니즘이 마무리되고, 결과로 얻은 벡터는 feed-forward network를 거쳐 다음 encoder block의 input 역할을 하게 됩니다.</p>
+
+<p><img src="assets/images/attention-is-all-you-need/7-attention-mechanism.png" alt="7-attention-mechanism" /></p>
+
+<p>이 모든 과정은 행렬 연산으로 아주 빠르게 처리할 수 있습니다. 행렬 연산이라는 attention 메커니즘의 특성 덕분에 Transformer에서는 기존 RNN 기반 네트워크에서 이루지 못한 <strong><em>sequential 데이터의 병렬화</em></strong> 가 가능해집니다.
+<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<h2 id="multi-head-attention">Multi-head attention</h2>
+<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+Transformer에서는 attention의 성능을 높이기 위해 <strong><em>Multi-head attention</em></strong>을 도입하였습니다. Multi-head attention이란, weight를 공유하지 않는 N(number of heads)개의 Query, Key, Value 행렬을 병렬적으로 두어 서로 다른 attention score을 계산할 수 있도록 한 방식입니다. (본문에서 N=8 입니다.)
+Multi-head attention을 이용하는 이유는, <strong>다양한 관점에서 단어(또는 pixel) 사이의 관계를 파악하기 위해서</strong>입니다. 아래 아주 유명한 예시가 있습니다.</p>
+
+<p><img src="assets/images/attention-is-all-you-need/8-multi-head-attention.png" alt="8-multi-head-attention" /></p>
+
+<blockquote>The animal didn't cross the street because it was too tired</blockquote>
+<p>위 문장에서, `it` 이라는 단어는 `animal`을 지칭할 수도 있고 `street`을 지칭할 수도 있습니다.
+우리는 `it`이 `animal`을 지칭하는 것을 알고 있지만, 만약 학습이 잘못되어 `street`의 attention score가 커지게 된다면 좋은 translation 성능을 내지 못할 것입니다.
+이러한 오류를 방지하기 위해 Transformer 에서는 여러 개의 <strong><em>Attention head</em></strong> 를 병렬적으로 두어 각 module에서 서로 다른 관점의 attention score을 가지게 하였습니다.
+서로 다른 관점으로 input sequence를 파악하길 바라는 의도로 추가하였으니, weight sharing을 하지 않는 것은 당연하게 됩니다.</p>
+
+<p><img src="assets/images/attention-is-all-you-need/9-multi-head-attention.png" alt="9-multi-head-attention" /></p>
+
+<p>Multi-head attention을 거치게 되면 N개의 output을 얻게 됩니다. 다음 layer를 통과하기 전에 N개의 output을 하나로 합쳐야 하는데 본 논문에서는 단순히 concatenate 연산을 통해 해결하였습니다. 이후 feed-forward network를 거쳐 input과 같은 차원을 가지는 벡터로 변환됩니다.
+Multi-head attention을 이용하더라도 일반적으로 weight parameter 개수는 일정하게 유지되는데, N개의 head를 둠으로써 행렬 개수가 N개로 늘어나는 만큼 행렬의 차원이 1/N배로 줄어들기 때문입니다.<br />
+<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<h2 id="positional-encoding">Positional Encoding</h2>
+<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<img src="assets/images/attention-is-all-you-need/10-positional-encoding.png" alt="10-positional-encoding" />
+그렇다면 Transformer는 순차적인 구조가 아닌데 어떻게 sequential 데이터의 위치 정보를 전달할 수 있을까요? 본문에서는 그에 대한 답으로 <strong><em>positional encoding</em></strong>을 제안합니다.</p>
+
+<p>Positional encoding이란 embedding 벡터가 encoder 또는 decoder에 들어가기 전에 <strong>위치정보를 지닌 벡터를 더해주는 과정</strong>을 의미합니다. 만약 position encoding을 가하지 않는다면, 문장 맨 앞에 나온 `Animal` 이라는 단어와 문장 맨 뒤에 나온 `Animal`이 같은 값을 가진 채로 네트워크에 입력되게 됩니다. 하나는 주어 역할을 하고, 다른 하나는 목적어 역할을 할 수도 있는데 말입니다.</p>
+
+<p>Transformer에서는 embedding 벡터에 위치에 따라 값이 달라지는 값을 더해줌으로써 sequence의 순서를 고려하였습니다.
+Positional encoding 벡터에는 여러 종류가 있을 수 있지만, 본문에서는 sinosoidal positional encoding 형식을 활용하였습니다.
+<img src="assets/images/attention-is-all-you-need/equation1.gif" alt="equation-1" />
+d<sub>model</sub>=512인 경우에 대한 positional encoding 값은 colormap 형식으로 아래와 같이 나타낼 수 있습니다.
+20개(y-axis)의 input에 대해 512차원(x-axis)의 연속적이며 상대적인 정보를 잘 나타내고 있습니다.
+<img src="assets/images/attention-is-all-you-need/11-positional-encoding.png" alt="11-positional-encoding" />
+이외에 positional encoding 벡터를 학습 과정에서 결정하는 Learned positional encoding 방법이 있습니다. 다만 Learned positional encoding 방법은, 이전에 학습을 진행한 적 없던 긴 sequence의 input이 들어왔을 때, 적절한 positional encoding을 가하지 못하게 되는 한계점이 있습니다.
+<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<h2 id="transformer-architecture">Transformer Architecture</h2>
+<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+이제 Transformer가 어떤 구조를 가지고 있으며 각 구조는 어떤 역할을 하는지 살펴보겠습니다.
+<img src="assets/images/attention-is-all-you-need/12-transformer.png" alt="12-transformer" />
+Transformer는 여러 개의 encoder 블럭과 decoder 블럭으로 구성되어 있습니다. 본문에서는 각각 6개의 블럭을 사용하였습니다. Input sequence가 같은 구조의 encoder/decoder 블럭을 연속해서 통과해야 하므로, 각 블럭의 input과 output은 항상 같은 크기를 가져야 합니다. 이를 위해 보통 마지막 layer에 feed-forward network를 배치하여 차원을 맞춰주는 역할을 합니다.</p>
+
+<h4 id="1-encoder-blocks">1. Encoder blocks</h4>
+
+<p><img src="assets/images/attention-is-all-you-need/13-encoder.png" alt="13-encoder" />
+하나의 Encoder block은 두 부분의 sub-layer로 구분할 수 있습니다.
+첫 번째 layer은 Transformer의 핵심 개념인 self-attention을 수행하는 layer입니다.
+Self-attention을 거쳐 얻은 output은 두 번째 layer인 feed-forward layer를 통과합니다.</p>
+
+<p>각 sub-layer의 output은 residual connection과 layer normalization 과정을 거치게 됩니다. Residual connection은 여러 encoder 블럭을 지나게 되면서 positional encoding 정보가 희미해지는 현상을 방지하기 위해서 추가되었습니다. 또한 layer normalization은 parameter 분포를 일정하게 만들어 학습의 안정성 및 성능을 향상시키기 위해 추가되었습니다.</p>
+
+<h4 id="2-decoder-blocks">2. Decoder blocks</h4>
+
+<p><img src="assets/images/attention-is-all-you-need/14-decoder.png" alt="14-decoder" />
+Decoder는 encoder의 두 sub-layer 사이에 attention을 가해주는 sub-layer가 하나 더 추가된 형태로 구성되었습니다.</p>
+
+<p>이 sub-layer은 decoder의 self-attention layer의 output을 query로, encoder의 output을 key와 value로 받는 attention layer입니다. 즉 decoder의 input이 encoder에서 학습된 representative input의 어떤 부분과 유사하며, 따라서 올바른 output을 도출하기 위해서는 input의 어떤 부분에 집중해야 하는지를 파악하는 부분이라고 할 수 있습니다.
+Sub-layer 내의 연산은 W<sup>K</sup>, W<sup>V</sup>(weight parameter)가 encoder의 output 벡터를 key와 value 행렬로 변환하고, W<sup>Q</sup>가 decoder의 첫 번째 sub-layer의 output 벡터를 query 행렬로 변환하는 형태로 진행됩니다.</p>
+
+<p>또한 decoder의 첫 번째 sub-layer인 self-attention layer은 attention을 학습할 때 아직 보거나 도출되지 않은 output sequence 값들에 대해 아무런 영향을 받지 않도록 attention score의 뒷부분에 <strong><em>masking</em></strong>을 가해줍니다.
+이는 내적을 통해서 계산된 score 아주 큰 음수를 더하는 더하는 형태로 이루어지는데, softmax 연산을 거치면서 0에 수렴하는 attention score가 만들어지기 때문입니다.</p>
+
+<p>각 sub-layer의 output은 encoder에서와 마찬가지로 residual connection과 layer normalization 과정을 거칩니다. Input과 output의 크기는 항상 같게 연산되고, decoder는 병렬적이지 않고 순차적으로 결과를 예측합니다.</p>
+
+<p>결과적으로 탄생한 Transformer의 전체 구조는 다음과 같습니다.
+<img src="assets/images/attention-is-all-you-need/15-transformer.gif" alt="15-transformer" /></p>
+
+<h2 id="training">Training</h2>
+<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+Transformer의 학습은 Workshop on Machine Translation(WNT) 데이터셋 중 English-German과 English-French를 활용하여 진행하였습니다.</p>
+
+<p>학습 과정은 Adam optimizer로 최적화하였고, 일정한 학습 단계가 지나면 learning rate가 일정한 비율로 감소하게끔 스케줄링하였습니다.</p>
+
+<p>네트워크의 일반화를 위해 각 sub-layer의 output에 dropout(p=0.1)을 적용하였으며 손실 함수를 계산할 때 one-hot label이 아닌 soft label (eta = 0.1)을 이용하는 label smoothing 기법을 사용하였습니다. 이러한 일반화 과정을 거치면 Transformer의 예측이 불확실해지는 경향을 보이기에 perplexity metric 관점에서는 손해를 보이지만, over-fitting을 방지하여 정확도 및 BLEU score 등의 metric 관점에서는 향상된 성능을 기대할 수 있습니다.</p>
+
+<h2 id="summary">Summary</h2>
+<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학습의 비효율성을 Self-attention 메커니즘을 통한 병렬화로 단번에 해결한 획기적인 발명이라고 생각합니다. Attention을 가하는 과정에서도 다양한 관점의 compatibility를 얻기 위해 병렬적으로 여러 개의 head를 학습하는 multi-head attention 기법이나, sequence의 순서 정보를 가하기 위한 positional encoding 기법 등 많은 창의적인 기법도 구조의 성능을 높이기 위해 고안되었습니다. 자연어와 같은 순차적인 데이터를 다루는 ML 연구자분들은 한번쯤 꼭 읽어보시면 좋을 것 같습니다. 읽어주셔서 감사합니다 :)
+<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://arxiv.org/pdf/1706.03762.pdf">https://arxiv.org/pdf/1706.03762.pdf</a></li>
+  <li><a href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></li>
+  <li><a href="https://medium.com/analytics-vidhya/seq2seq-model-and-the-exposure-bias-problem-962bb5607097">https://medium.com/analytics-vidhya/seq2seq-model-and-the-exposure-bias-problem-962bb5607097</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to TECHNOTE</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>TECHNOTE</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Attention is All You Need</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Attention+is+All+You+Need&amp;url=https://rauleun.github.io/attention-is-all-you-need"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/attention-is-all-you-need"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">TECHNOTE</a> &copy; 2020</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to TECHNOTE</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

@@ -8,29 +8,17 @@
     
       
       <item>
-        <title>machine-learning-basic</title>
+        <title>Attention is All You Need</title>
         
-          <description>
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.&lt;/a&gt;
+&lt;img src=&quot;assets/images/attention-is-all-you-need/blank.png&quot; alt=&quot;blank&quot; /&gt;&lt;/p&gt;
+
 </description>
         
-        <pubDate>Sat, 05 Sep 2020 04:34:00 +0900</pubDate>
+        <pubDate>Mon, 07 Sep 2020 20:00:00 +0900</pubDate>
         <link>
-        http://localhost:4000/machine-learning</link>
-        <guid isPermaLink="true">http://localhost:4000/machine-learning</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>python-basic</title>
-        
-          <description>
-</description>
-        
-        <pubDate>Fri, 28 Sep 2018 01:40:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/python-basic</link>
-        <guid isPermaLink="true">http://localhost:4000/python-basic</guid>
+        http://localhost:4000/attention-is-all-you-need</link>
+        <guid isPermaLink="true">http://localhost:4000/attention-is-all-you-need</guid>
       </item>
       
     
