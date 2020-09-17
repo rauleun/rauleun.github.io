@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>End-to-End Object Detection with Transformers (DETR)</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/DETR" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RAULEUN TECHNOTE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="End-to-End Object Detection with Transformers (DETR)" />
+    <meta property="og:description" content="원문 : Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). 본 글은 Facebook AI에서 2020년 arxiv에 발표한 End-to-End Object Detection with Transformers (DETR) 논문에 대한 리뷰입니다. 리뷰를 읽기 전 Transformer가 익숙하지 않으신 분들은 Attention is All You Need 관련 리뷰를 보고 나서 읽으시는 것을 권장드립니다." />
+    <meta property="og:url" content="http://localhost:4000/DETR" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2020-09-14T20:00:00+09:00" />
+    <meta property="article:modified_time" content="2020-09-14T20:00:00+09:00" />
+    <meta property="article:tag" content="Machine-learning" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="End-to-End Object Detection with Transformers (DETR)" />
+    <meta name="twitter:description" content="원문 : Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). 본 글은 Facebook AI에서 2020년 arxiv에 발표한 End-to-End Object Detection with Transformers (DETR) 논문에 대한 리뷰입니다. 리뷰를 읽기 전 Transformer가 익숙하지 않으신 분들은 Attention is All You Need 관련 리뷰를 보고 나서 읽으시는 것을 권장드립니다." />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RAULEUN TECHNOTE" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Machine-learning" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RAULEUN TECHNOTE",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/DETR",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/DETR"
+    },
+    "description": "원문 : Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). 본 글은 Facebook AI에서 2020년 arxiv에 발표한 End-to-End Object Detection with Transformers (DETR) 논문에 대한 리뷰입니다. 리뷰를 읽기 전 Transformer가 익숙하지 않으신 분들은 Attention is All You Need 관련 리뷰를 보고 나서 읽으시는 것을 권장드립니다."
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="End-to-End Object Detection with Transformers (DETR)" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">RAULEUN TECHNOTE</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-python" role="menuitem"><a href="/tag/python/">Python</a></li>
+    <li class="nav-machine-learning" role="menuitem"><a href="/tag/machine-learning/">Machine Learning</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-machine-learning  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="14 September 2020">14 September 2020</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/machine-learning/'>MACHINE-LEARNING</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">End-to-End Object Detection with Transformers (DETR)</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://arxiv.org/abs/2005.12872">Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). </a></p>
+
+<p><img src="assets/images/DETR/detr.png" alt="" /></p>
+
+<p>본 글은 Facebook AI에서 2020년 arxiv에 발표한 <strong><em>End-to-End Object Detection with Transformers (DETR)</em></strong> 논문에 대한 리뷰입니다. 리뷰를 읽기 전 Transformer가 익숙하지 않으신 분들은 Attention is All You Need 관련 리뷰를 보고 나서 읽으시는 것을 권장드립니다.</p>
+
+<p>객체 탐지(Object detection)에 관한 연구는 인공지능 연구가 시작된 이래로 지속적으로 발전해왔습니다. Regional-CNN, Faster R-CNN, Single Shot Detector, YOLO 등 많은 방법론들이 제안되었으며 학습의 효율성과 성능은 점점 향상되고 있습니다. 객체 탐지 문제의 목표는 input 이미지에서 찾을 수 있는 모든 객체들에 대한 class와 bounding box 정보를 얻는 것입니다. 이는 단순히 이미지를 분류(classification)하는 문제에 비해 훨씬 더 복잡하기 때문에, 기존의 여러 방법론들에서는 전/후처리 과정을 추가하거나 customize된 모델 구조를 활용하는 방법으로 문제를 해결하였습니다.</p>
+
+<p>본문에서 소개한 DETR은 Transformer 구조와 Bipartite matching 기법을 활용하여 기존의 방법론들과 달리 end-to-end로 결과를 도출하였습니다. 기존에 꼭 필요했던 non-maximum suppression(NMS)나 anchor generation 과정이 생략되어 간단하고 빠르게 결과를 얻을 수 있습니다. 또한 Faster R-CNN과 비교했을 때 뒤지지 않는 성능을 보여주었습니다. 그럼 DETR에 대해서 지금부터 파헤쳐 보겠습니다.
+<img src="assets/images/blank.png" alt="" /></p>
+<h2 id="set-prediction-with-bipartite-matching-loss">Set prediction with bipartite matching loss</h2>
+<p><img src="assets/images/blank.png" alt="" />
+DETR은 output으로 정해진 개수(N)의 객체에 대한 class와 bounding box를 도출합니다. 이 때 output의 개수(본문에서 N=100)는 일반적인 이미지에서 존재하는 객체의 개수보다 충분히 큰 값으로 사전에 설정해줍니다. Class 집합에는 사전에 정의한 class 외에 no-object class를 추가하여, output 중 객체가 없는 경우에 no-object class에 배정하도록 합니다.</p>
+
+<p>이제 학습을 위해서 결과로 나온 N쌍의 class와 bounding box를 target의 class, bounding box와 비교하여 손실 함수를 계산해야 합니다. 이 때 N개의 output에 대한 (class, bounding box)가  각각 target의 어떤 (class, bounding box)와 매칭되어 손실 함수를 계산할 것인지 결정해야합니다. 이를 이분 매칭(bipartite matching)이라고 부릅니다. Grid search로 모든 경우에 대한 matching loss를 계산하여 비교하게 되면 총 <em>O(n!*n)</em> 의 complexity를 가지지만 본문에서는 Hungarian 알고리즘을 활용하여 complexity를 <em>O(n<sup>3</sup>)</em> 로 향상시켰습니다.</p>
+
+<p>이렇게 이분 매칭을 활용하여 유일한 최적의 output-target 조합을 찾으면, output에 대한 loss를 계산하여 back-propagation에 활용할 수 있습니다. 만약 output을 도출하는 네트워크가 다른 추가적인 처리 모듈 없이 one-stage로 구성되어 있다면, end-to-end로 direct하게 객체 탐지 결과를 얻을 수 있습니다.</p>
+
+<p>또한 하나의 target object에 대해 여러 output을 생성해버리는 near-duplicate prediction 문제도 이분 매칭을 활용하게 되면 결국 하나의 output-target 쌍으로 매칭이 되기 때문에, 학습 과정에서 어느 정도 해결된다고 할 수 있습니다. 이는 이후에 살펴볼 decoder 단의 attention layer와 함께 DETR이 NMS 모듈 없이도 잘 동작할 수 있는 근거가 됩니다.
+<img src="assets/images/blank.png" alt="" /></p>
+<h2 id="detr-architecture">DETR Architecture</h2>
+<p><img src="assets/images/blank.png" alt="" />
+DETR의 구조는 크게 CNN Backbone, Transformer(encoder-decoder), Feed-forward의 세 부분으로 나눌 수 있습니다.</p>
+
+<p><img src="assets/images/DETR/detr-architecture.png" alt="" /></p>
+
+<ul>
+  <li>CNN Backbone</li>
+</ul>
+
+<p>Backbone 구조는 3-color channel image를 받아 feature extraction을 하는 CNN 구조를 사용했습니다. 본문에서는 ImageNet을 활용하여 학습한 ResNet50이나 ResNet101을 이용하였습니다. CNN backbone을 거쳐서 나온 feature map(본문에서는 channels=2048, height과 width는 input의 1/32)은 1x1 convolution 과정을 통해 channel 차원을 감소한 뒤에 형변환을 거쳐서 Transformer로 들어갔습니다.</p>
+
+<p>Transformer는 input 사이의 순서를 고려하지 않고 병렬적으로 attention score를 연산합니다. 따라서 일반적으로 sequential 데이터를 넣어줄 때는 순서 정보를 포함한 positional encoding 벡터를 더해서 넣어주는데요, DETR에서도 Transformer encoder로 들어가기 전에 pixel들 사이의 순서 정보(여기서는 pixel의 위치 정보라고 할 수 있겠네요)를 더해주기 위하여 spatial positional encoding 벡터를 더해주었습니다. Positional encoding은 Vanilla Transformer에서 사용했던 1D sinosoidal encoding을 2D로 일반화하여 사용하였으며 ablation study 과정에서 sinosoidal 대신 linear layer을 학습한 learned positional encoding을 사용하기도 하였습니다.</p>
+
+<ul>
+  <li>Transformer (Encoder-Decoder)</li>
+</ul>
+
+<p>Transformer 구조는 2017년 발표된 Attention is All You Need 논문에서 제안된 것으로, sequential한 데이터 간의 연관성을 병렬적으로 파악하여 자연어 처리 및 음성 처리 등의 분야에서 활발히 활용되고 있습니다. DETR은 다차원 행렬의 형태를 띈 이미지를 sequential한 형태로 변경하여 Transformer에 넣어주면 pixel 간의 연관성 및 유사도(compatibility)를 거시적으로 파악할 수 있을 것이라는 관점에서 고안되었습니다.</p>
+
+<p>Encoder input으로는 sequence의 pixel값을 embedding 벡터로 변환하여 positional encoding을 더해준 값을 사용하였습니다. Encoder는 Multi-haed self-attention 메커니즘을 활용하여 전체 이미지 내에서 pixel들 사이의 관계 정보를 추출하였고, 이를 attention score에 반영하게끔 학습하였습니다. 실제로 학습된 encoder에서 어떤 input 이미지에 대한 encoder의 attention score를 시각화했을 때, 아래 그림과 같이 같은 객체 내에 포함되는 pixel들 사이의 attention score가 높은 경향을 보였습니다.</p>
+
+<p><img src="assets/images/DETR/encoder-attention-score.png" alt="" /></p>
+
+<p>Decoder 부분도 Vanilla Transformer의 decoder 블럭과 같이 multi-head self-attention과 encoder-decoder attention을 활용하여 구현하였습니다. 다만 기존처럼 sequence output을 auto-regressive하게 하나씩 얻어내는 방식이 아니라 parallel하게 N개의 output을 한번에 얻는 방식을 활용하였습니다. 이것에 대해 조금 설명하자면 decoder가 해주는 multi-head self-attention 연산은 input의 순서와 무관하게 같은 결과를 도출하는 permutation-invariant한 연산입니다. 따라서 N개의 input이 서로 다른 객체 탐지 결과(class 및 bounding box)를 도출하려면 input 자체가 서로 다른 embedding 벡터로 구성되어야 합니다. DETR에서는 이 N개의 decoder input을 <em>object query</em> 라고 부릅니다. Object query 값은 positional encoding과 마찬가지로 1D sinosoidal encoding 벡터를 이용하거나 linear layer을 학습시켜서 나온 output 벡터를 이용하였습니다.</p>
+
+<p>이러한 non-autoregressive한 decoder 구조는 autoregressive한 구조에 비해 inference에 대한 시간적-계산적 효율성이 높습니다. 기존의  Autoregressive한 decoding 과정은 각 과정마다 하나의 output만을 얻을 수 있기에 N=100인 경우 100번의 inference를 거쳐야 하나의 이미지에 대한 객체 탐색 결과를 얻을 수 있습니다. 반면에 DETR에서 활용한 구조는 100개의 output을 병렬적으로 decoding 할 수 있기 때문에 빠르고 효율적입니다.</p>
+
+<p>Encoder의 역할이 이미지의 전체 pixel들 중 같은 객체의 pixel들 사이에 높은 attention score를 부여하여 객체의 존재 여부와 형태를 파악했다면, decoder의 기본적인 역할은 그 객체가 어떤 객체인지를 파악하는 데에 있습니다. 아래의 그림은 decoder의 attention score(encoder-decoder attention)를 시각화한 그림인데요, 탐지된 객체에서 class와 bounding box 정보를 추출해내기 위해 객체의 머리나 다리 같은 가장자리 부분에 대한 attention score가 크게 나타난 것을 확인할 수 있습니다.</p>
+
+<p><img src="assets/images/DETR/decoder-attention-score.png" alt="" /></p>
+
+<p>또한 decoder는 한 객체에 대해 생성된 여러 개의 중복된 prediction을 제거해주는 역할도 하고 있습니다. Decoder의 self-attention 메커니즘을 통해 모든 object query가 서로 pair-wise relation에 대한 연산을 하면서 같은 예측값을 제거하는 방향으로 학습이 되는 형태입니다.</p>
+
+<p>이를 증명하기 위해 본문에서는 decoder의 output에 non-max suppression(NMS) 처리를 하여 기존의 output의 average precision(AP) 값을 비교해보았습니다. Input과 가까운 몇 단계의 decoder block에서는 NMS 연산을 통해 향상된 결과를 얻을 수 있었지만, decoder layer가 쌓이면 쌓일수록 그 정도가 줄어들다가 마지막 layer에서는 NMS가 서로 다른 object에 대한 prediction을 제거하여 오히려 성능을 떨어트렸습니다. 이는 decoder layer를 거치면 거칠수록 near-duplicate prediction들이 자연스럽게 제거되었고 결국 NMS 없이도 좋은 결과를 얻을 수 있었던 것으로 해석할 수 있습니다.
+<img src="assets/images/DETR/decoder-nms.png" alt="" /></p>
+
+<p>Decoder의 학습을 돕기 위해 각 decoder 블럭에 class와 bounding box를 예측하는 feed-forward 네트워크를 추가하여 loss를 계산하였습니다. Decoder에 연결된 feed-forward 네트워크는 서로 weight parameter를 공유하고, 계산한 loss function은 역전파를 통해 decoder의 학습 성능을 높히게 됩니다. 논문에서는 이를 auxiliary loss라고 부르며 F1/DICE loss를 사용하였다고 합니다.</p>
+
+<ul>
+  <li>Feed-forward</li>
+</ul>
+
+<p>Feed-forward 네트워크는 N개의 decoder output을 독립적인 input으로 받아서 각각의 class와 bounding box 값을 예측합니다. 네트워크는 3-layer의 perceptron과 ReLu activation function으로 구성되었습니다. Class output은 softmax layer을 통과하여 각 class에 대한 확률값을 나타내고, bounding box output은 이미지의 원래 크기에 따라 normalize된 box의 중심 좌표와 너비, 높이에 대한 값을 나타냅니다. Class의 결과로는 기존에 정의한 class 외에 no-object라는 class를 추가하여 예측된 영역(slot)에 객체가 없는 경우를 표현하였으며, 다른 몇몇 모델에서 사용하는 background class와 유사한 역할을 합니다.
+<img src="assets/images/blank.png" alt="" /></p>
+<h2 id="training">Training</h2>
+<p><img src="assets/images/blank.png" alt="" />
+지금부터는 DETR의 학습에 대해서 설명하겠습니다.</p>
+<ul>
+  <li>Dataset</li>
+</ul>
+
+<p>DETR은 COCO 2017의 object detection 및 panoptic segmentation 데이터셋을 이용하여 학습하였습니다. 약 120000장과 5000장의 이미지를 학습과 검증에 활용하였습니다. 학습 데이터는 평균 7개, 최대 63개의 객체를 포함하고 있었습니다.</p>
+
+<ul>
+  <li>Matching cost</li>
+</ul>
+
+<p>DETR은 모델을 통해 예측한 100개의 output과 이미지에 실제로 존재하는 객체들을 매칭해서, 최적의 조합을 찾은 후에 손실 함수를 계산합니다. 이 때, 매칭에 사용되는 cost는 class와 bounding box의 유사도를 잘 나타낼 수 있는 값으로 설정해야 합니다. 본문에서는 class에 대한 확률값과 bounding box에 대한 L1 loss, IOU loss를 이용해 matching cost를 정의하였습니다.
+<img src="assets/images/DETR/matching-cost.png" alt="" />
+이후 Hungarian 알고리즘을 통해 최적의 cost 값을 가지는 output-target 조합을 정하고 나서 손실 함수를 계산하게 됩니다.</p>
+
+<ul>
+  <li>Loss function</li>
+</ul>
+
+<p>손실 함수는 matching cost와 비슷하게 class에 대한 negative log-likelihood와 bounding box에 대한 L1 loss, IOU loss를 1:5:2의 비율로 가중합하여 정의하였습니다. 
+<img src="assets/images/DETR/loss-function.png" alt="" />
+손실 함수로 IOU loss를 사용하는 이유는, DETR이 작은 객체 검출에 대한 성능이 부족하기 때문에 이를 보완하기 위해서입니다. DETR의 Transformer encoder는 모든 pixel에 대한 global relation을 파악하기 때문에 큰 객체에 대한 탐지 성능이 높습니다. 하지만 DETR은 CNN backbone에서 하나의 feature map만을 추출하여 객체 검출에 활용하기 때문에, Feature Pyramid Network(FPN)와 같이 여러 scale의 feature map을 추출하여 객체를 검출하는 밤식과 비교해서 작은 객체에 대한 탐지 성능이 떨어집니다. L1 loss 만을 이용하면, 작은 객체는 손실 함수에 작게 기여할 수밖에 없습니다. 하지만 IOU 값은 작은 객체든 큰 객체든 면적이 겹치는 비율에 따라 결정되기 때문에, IOU loss를 이용하면 작은 객체도 손실 함수에 크게 기여할 수 있게 됩니다.</p>
+
+<p>손실 함수는 각 이미지가 포함하는 객체의 개수에 독립적인 값이어야 하기 때문에, 항상 마지막에 객체 개수로 나눠주어 normalize 하였습니다.</p>
+
+<ul>
+  <li>그 외 Details</li>
+</ul>
+
+<p>Weight parameter의 초기값은 Xavier initialization을 활용하여 설정해주었고, Learning rate은 10<sup>-4</sup>를 이용하여 학습하다가 200 epoch가 지나면 10<sup>-5</sup>로 바꿔주었습니다.</p>
+
+<p>최적화는 Adam W optimizer을 사용하였으며, 일반화를 위해 학습 과정에서 dropout 기법(p=0.1)을 사용하였습니다.</p>
+
+<p>데이터 증강을 위해 random resize, random crop, random horizontal flip을 통한 scale augmentation를 진행하였습니다.</p>
+
+<p>Baseline 모델은 16개의 V100 GPU로 3일 동안 300 epoch를 학습하였습니다. (학습 시간이 아주 길게 필요합니다.)
+<img src="assets/images/blank.png" alt="" /></p>
+<h2 id="result">Result</h2>
+<p><img src="assets/images/blank.png" alt="" />
+<img src="assets/images/DETR/result.png" alt="" /></p>
+
+<p>DETR은 Faster R-CNN과 비교했을 때 구조적으로 훨씬 간단하고 빠른 추론 속도를 보이면서 높은 AP score의 객체 탐지 결과를 도출하였습니다.</p>
+
+<p>다만 앞서 말씀드렸듯 single-scale feature map으로부터 결과를 도출하기 때문에, 작은 객체에 대한 탐지 능력이 큰 객체에 비해 떨어지는 경향을 보였습니다.
+<img src="assets/images/DETR/missing.png" alt="" />
+또한 60개 이상의 많은 객체를 포함한 이미지에 대해서는 잘 동작하지 못하는 모습을 보여주었습니다.
+평균적으로 학습한 이미지들이 7개 정도의 객체를 가지고 있었기 때문에, 60개 이상의 객체를 가진 이미지는 out-of-distribution 데이터이고 그에 따라 네트워크가 잘 반응하지 못하는 것 같습니다. 
+<img src="assets/images/blank.png" alt="" /></p>
+<h2 id="panoptic-segmentation">Panoptic segmentation</h2>
+<p><img src="assets/images/blank.png" alt="" />
+<img src="assets/images/DETR/panoptic-result.png" alt="" />
+Panoptic segmentation이라는 개념은 semantic segmentation과 instance segmentation을 융합한 개념으로, 배경 관련 객체인 `stuff`와 배경이 아닌 객체인 `thing`을 instance 단위로 모두 구별해주는 segmentation입니다.</p>
+
+<p>Faster R-CNN에 segmentation head를 추가하여 Mask R-CNN을 구현했듯, DETR의 decoder output에 head를 추가하여 panoptic segmentation 결과를 얻을 수 있습니다. Segmentation head의 구조는 아래와 같습니다.
+<img src="assets/images/DETR/panoptic-head.png" alt="" />
+Decoder의 output으로 나온 각 객체들과 인코딩 된 원본 이미지를 multi-head attention 메커니즘에 통과시키면, 원본 이미지에서 각 객체와 연관성이 높은 pixel을 찾을 수 있습니다. 이렇게 나온 output을 FPN 형태의 CNN에 넣어주어 각 객체에 대한 mask image를 얻고, pixel별로 argmax 연산을 하여, 최종적으로 전체 이미지에 대한 segmentation map을 얻었습니다. 
+<img src="assets/images/blank.png" alt="" /></p>
+<h2 id="summary">Summary</h2>
+<p><img src="assets/images/blank.png" alt="" />
+DETR은 이분 매칭(bipartite matching)을 통한 최적의 손실 함수 계산과 Transformer 구조를 통해 pixel 사이의 관계를 파악하여 객체 탐지 태스크를 end-to-end로 학습하였습니다. 기존의 Transformer와 달리 non-autoregressive하게 decoding하기 때문에 inference cost를 최소화할 수 있었습니다. 또한 decoder output에 몇 가지 layer를 추가하여 panoptic segmentation 태스크를 수행하는 등의 확장성도 보여주었습니다. 최근에 발표된 EfficientDet이나 DeTectORs 만큼의 성능을 보여주지는 못했지만, 복잡한 모듈이나 Custom layer 없이 간단하게 구현할 수 있고 end-to-end로 직접 결과를 얻을 수 있다는 점에서 큰 가치가 있는 논문이라고 생각합니다. 읽어주셔서 감사합니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://arxiv.org/abs/2005.12872">https://arxiv.org/abs/2005.12872</a></li>
+  <li><a href="https://github.com/facebookresearch/detr">https://github.com/facebookresearch/detr</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RAULEUN TECHNOTE</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RAULEUN TECHNOTE &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/machine-learning/">Machine-learning</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/attention-is-all-you-need">Attention is All You Need</a></li>
+                                        
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/machine-learning/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/attention-is-all-you-need">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Machine-learning</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Attention is All You Need</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>RAULEUN TECHNOTE</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">End-to-End Object Detection with Transformers (DETR)</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=End-to-End+Object+Detection+with+Transformers+%28DETR%29&amp;url=https://rauleun.github.io/DETR"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/DETR"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">RAULEUN TECHNOTE</a> &copy; 2020</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RAULEUN TECHNOTE</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

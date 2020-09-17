@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>End-to-End Object Detection with Transformers (DETR)</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2005.12872&quot;&gt;Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). &lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 14 Sep 2020 20:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/DETR</link>
+        <guid isPermaLink="true">http://localhost:4000/DETR</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Attention is All You Need</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.&lt;/a&gt;

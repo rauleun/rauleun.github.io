@@ -43,7 +43,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
-    <meta property="og:site_name" content="TECHNOTE" />
+    <meta property="og:site_name" content="RAULEUN TECHNOTE" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Attention is All You Need" />
     <meta property="og:description" content="원문 : Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017. 본 글은 Google Brain에서 2017 NIPS에 발표한 Attention is All You Need 논문에 대한 리뷰이며 동시에 제 첫 논문 리뷰글입니다. 자연어 처리(NLP)등의 분야에서는 순서를 가진 sequence형 데이터를 학습하기 위해 그동안 많은 모델을" />
@@ -60,7 +60,7 @@
     <meta name="twitter:url" content="http://localhost:4000/" />
     <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="TECHNOTE" />
+    <meta name="twitter:data1" content="RAULEUN TECHNOTE" />
     <meta name="twitter:label2" content="Filed under" />
     <meta name="twitter:data2" content="Machine-learning" />
     <meta name="twitter:site" content="@" />
@@ -74,7 +74,7 @@
     "@type": "Website",
     "publisher": {
         "@type": "Organization",
-        "name": "TECHNOTE",
+        "name": "RAULEUN TECHNOTE",
         "logo": "http://localhost:4000/"
     },
     "url": "http://localhost:4000/attention-is-all-you-need",
@@ -120,7 +120,7 @@ into the {body} of the default.hbs template -->
     <div class="site-nav-left">
         
             
-                <a class="site-nav-logo" href="http://localhost:4000/">TECHNOTE</a>
+                <a class="site-nav-logo" href="http://localhost:4000/">RAULEUN TECHNOTE</a>
             
         
         
@@ -184,10 +184,9 @@ into the {body} of the default.hbs template -->
 순차적으로 데이터를 처리하는 방식은 근본적으로 병렬화(parallelization)를 불가능하게 만들어 계산적 효율성을 제한할뿐만 아니라 긴 문장이 들어왔을 때 여러 layer를 거치면서 앞의 input에 대한 정보가 희미해지는 등의 문제가 있었습니다. 이를 해결하기 위해 ‘output을 도출할 때 어떤 input에 집중해야 하는지’에 대한 정보를 추가하는 attention 메커니즘을 추가하기도 하였지만(seq2seq 모델) 여전히 학습 속도 저하에 대한 한계가 존재했습니다.
 <img src="assets/images/attention-is-all-you-need/2-transformer.png" alt="2-transformer" />
 위 논문에서 제안한 Transformer는 <strong>병렬화</strong>를 가능하게 하여 학습의 효율성과 모델의 성능을 기존보다 월등히 끌어올렸다는 점에서 NLP 및 다양한 분야에 많은 기여를 했다고 생각합니다. 또한 순차적인 과정 없이 attention 메커니즘만을 이용하였기 때문에 input과 output 사이에 포괄적인 상관관계(global dependency)를 이끌어냈습니다. 
-<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
-
+<img src="assets/images/blank.png" alt="" /></p>
 <h2 id="self-attention">Self-Attention</h2>
-<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<p><img src="assets/images/blank.png" alt="" />
 Transformer의 핵심 개념은 attention 메커니즘, 그 중에서도 self-attention 메커니즘이라고 할 수 있습니다.
 Transformer는 attention 정보를 얻기 위해 각 sequential input에 대한 <strong><em>Query, Key, Value</em></strong> 값을 생성하고, Query와 Key 값을 매칭하여 input (NLP에서는 단어, vision에서는 pixel) 사이의 연관성 또는 유사도(compatibility)를 나타내는 attention score를 계산합니다.
 Attention score는 해당 input과 다른 sequence inputs 사이의 의미론적 연관성을 나타내는 값이기 때문에, 이를 기존의 sequence input에 곱하면 전체 sequence 내에서 각 input이 갖는 의미를 강조한 새로운 sequence를 얻을 수 있습니다. 
@@ -215,9 +214,9 @@ Attention layer에 들어가기 전에 모든 input은 그 특성을 가장 잘 
 <p><img src="assets/images/attention-is-all-you-need/7-attention-mechanism.png" alt="7-attention-mechanism" /></p>
 
 <p>이 모든 과정은 행렬 연산으로 아주 빠르게 처리할 수 있습니다. 행렬 연산이라는 attention 메커니즘의 특성 덕분에 Transformer에서는 기존 RNN 기반 네트워크에서 이루지 못한 <strong><em>sequential 데이터의 병렬화</em></strong> 가 가능해집니다.
-<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<img src="assets/images/blank.png" alt="" /></p>
 <h2 id="multi-head-attention">Multi-head attention</h2>
-<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<p><img src="assets/images/blank.png" alt="" />
 Transformer에서는 attention의 성능을 높이기 위해 <strong><em>Multi-head attention</em></strong>을 도입하였습니다. Multi-head attention이란, weight를 공유하지 않는 N(number of heads)개의 Query, Key, Value 행렬을 병렬적으로 두어 서로 다른 attention score을 계산할 수 있도록 한 방식입니다. (본문에서 N=8 입니다.)
 Multi-head attention을 이용하는 이유는, <strong>다양한 관점에서 단어(또는 pixel) 사이의 관계를 파악하기 위해서</strong>입니다. 아래 아주 유명한 예시가 있습니다.</p>
 
@@ -233,9 +232,9 @@ Multi-head attention을 이용하는 이유는, <strong>다양한 관점에서 �
 
 <p>Multi-head attention을 거치게 되면 N개의 output을 얻게 됩니다. 다음 layer를 통과하기 전에 N개의 output을 하나로 합쳐야 하는데 본 논문에서는 단순히 concatenate 연산을 통해 해결하였습니다. 이후 feed-forward network를 거쳐 input과 같은 차원을 가지는 벡터로 변환됩니다.
 Multi-head attention을 이용하더라도 일반적으로 weight parameter 개수는 일정하게 유지되는데, N개의 head를 둠으로써 행렬 개수가 N개로 늘어나는 만큼 행렬의 차원이 1/N배로 줄어들기 때문입니다.<br />
-<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<img src="assets/images/blank.png" alt="" /></p>
 <h2 id="positional-encoding">Positional Encoding</h2>
-<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<p><img src="assets/images/blank.png" alt="" />
 <img src="assets/images/attention-is-all-you-need/10-positional-encoding.png" alt="10-positional-encoding" />
 그렇다면 Transformer는 순차적인 구조가 아닌데 어떻게 sequential 데이터의 위치 정보를 전달할 수 있을까요? 본문에서는 그에 대한 답으로 <strong><em>positional encoding</em></strong>을 제안합니다.</p>
 
@@ -248,9 +247,9 @@ d<sub>model</sub>=512인 경우에 대한 positional encoding 값은 colormap �
 20개(y-axis)의 input에 대해 512차원(x-axis)의 연속적이며 상대적인 정보를 잘 나타내고 있습니다.
 <img src="assets/images/attention-is-all-you-need/11-positional-encoding.png" alt="11-positional-encoding" />
 이외에 positional encoding 벡터를 학습 과정에서 결정하는 Learned positional encoding 방법이 있습니다. 다만 Learned positional encoding 방법은, 이전에 학습을 진행한 적 없던 긴 sequence의 input이 들어왔을 때, 적절한 positional encoding을 가하지 못하게 되는 한계점이 있습니다.
-<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<img src="assets/images/blank.png" alt="" /></p>
 <h2 id="transformer-architecture">Transformer Architecture</h2>
-<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<p><img src="assets/images/blank.png" alt="" />
 이제 Transformer가 어떤 구조를 가지고 있으며 각 구조는 어떤 역할을 하는지 살펴보겠습니다.
 <img src="assets/images/attention-is-all-you-need/12-transformer.png" alt="12-transformer" />
 Transformer는 여러 개의 encoder 블럭과 decoder 블럭으로 구성되어 있습니다. 본문에서는 각각 6개의 블럭을 사용하였습니다. Input sequence가 같은 구조의 encoder/decoder 블럭을 연속해서 통과해야 하므로, 각 블럭의 input과 output은 항상 같은 크기를 가져야 합니다. 이를 위해 보통 마지막 layer에 feed-forward network를 배치하여 차원을 맞춰주는 역할을 합니다.</p>
@@ -279,19 +278,18 @@ Sub-layer 내의 연산은 W<sup>K</sup>, W<sup>V</sup>(weight parameter)가 enc
 
 <p>결과적으로 탄생한 Transformer의 전체 구조는 다음과 같습니다.
 <img src="assets/images/attention-is-all-you-need/15-transformer.gif" alt="15-transformer" /></p>
-
 <h2 id="training">Training</h2>
-<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<p><img src="assets/images/blank.png" alt="" />
 Transformer의 학습은 Workshop on Machine Translation(WNT) 데이터셋 중 English-German과 English-French를 활용하여 진행하였습니다.</p>
 
 <p>학습 과정은 Adam optimizer로 최적화하였고, 일정한 학습 단계가 지나면 learning rate가 일정한 비율로 감소하게끔 스케줄링하였습니다.</p>
 
-<p>네트워크의 일반화를 위해 각 sub-layer의 output에 dropout(p=0.1)을 적용하였으며 손실 함수를 계산할 때 one-hot label이 아닌 soft label (eta = 0.1)을 이용하는 label smoothing 기법을 사용하였습니다. 이러한 일반화 과정을 거치면 Transformer의 예측이 불확실해지는 경향을 보이기에 perplexity metric 관점에서는 손해를 보이지만, over-fitting을 방지하여 정확도 및 BLEU score 등의 metric 관점에서는 향상된 성능을 기대할 수 있습니다.</p>
-
+<p>네트워크의 일반화를 위해 각 sub-layer의 output에 dropout(p=0.1)을 적용하였으며 손실 함수를 계산할 때 one-hot label이 아닌 soft label (eta = 0.1)을 이용하는 label smoothing 기법을 사용하였습니다. 이러한 일반화 과정을 거치면 Transformer의 예측이 불확실해지는 경향을 보이기에 perplexity metric 관점에서는 손해를 보이지만, over-fitting을 방지하여 정확도 및 BLEU score 등의 metric 관점에서는 향상된 성능을 기대할 수 있습니다.
+<img src="assets/images/blank.png" alt="" /></p>
 <h2 id="summary">Summary</h2>
-<p><img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" />
+<p><img src="assets/images/blank.png" alt="" />
 Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학습의 비효율성을 Self-attention 메커니즘을 통한 병렬화로 단번에 해결한 획기적인 발명이라고 생각합니다. Attention을 가하는 과정에서도 다양한 관점의 compatibility를 얻기 위해 병렬적으로 여러 개의 head를 학습하는 multi-head attention 기법이나, sequence의 순서 정보를 가하기 위한 positional encoding 기법 등 많은 창의적인 기법도 구조의 성능을 높이기 위해 고안되었습니다. 자연어와 같은 순차적인 데이터를 다루는 ML 연구자분들은 한번쯤 꼭 읽어보시면 좋을 것 같습니다. 읽어주셔서 감사합니다 :)
-<img src="assets/images/attention-is-all-you-need/blank.png" alt="blank" /></p>
+<img src="assets/images/blank.png" alt="" /></p>
 
 <p><strong>참고 문헌 및 출처</strong></p>
 
@@ -309,7 +307,7 @@ Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학�
             <!--
             
                 <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe to TECHNOTE</h3>
+                    <h3 class="subscribe-form-title">Subscribe to RAULEUN TECHNOTE</h3>
                     <p>Get the latest posts delivered right to your inbox</p>
                     <!--
 <form method="post" action="/subscribe/" class="">
@@ -366,9 +364,93 @@ Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학�
                 
                 
                 
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RAULEUN TECHNOTE &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/machine-learning/">Machine-learning</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/DETR">End-to-End Object Detection with Transformers (DETR)</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/machine-learning/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
             
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/DETR">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Machine-learning</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">End-to-End Object Detection with Transformers (DETR)</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
             
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
@@ -383,7 +465,7 @@ Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학�
     <div class="floating-header-logo">
         <a href="http://localhost:4000/">
             
-            <span>TECHNOTE</span>
+            <span>RAULEUN TECHNOTE</span>
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
@@ -423,7 +505,7 @@ Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학�
         <!-- The footer at the very bottom of the screen -->
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="http://localhost:4000/">TECHNOTE</a> &copy; 2020</section>
+                <section class="copyright"><a href="http://localhost:4000/">RAULEUN TECHNOTE</a> &copy; 2020</section>
                 <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
                     <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
                     <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
@@ -444,7 +526,7 @@ Transformer는 순차적인 학습 모델의 내재적인 한계에 의한 학�
             <a class="subscribe-overlay-close" href="#"></a>
             <div class="subscribe-overlay-content">
                 
-                <h1 class="subscribe-overlay-title">Subscribe to TECHNOTE</h1>
+                <h1 class="subscribe-overlay-title">Subscribe to RAULEUN TECHNOTE</h1>
                 <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
                 <!--
 <form method="post" action="/subscribe/" class="">
