@@ -22,7 +22,11 @@
     <!-- highlight.js -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <style>.hljs { background: none; }</style>
-    
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
     
     <!--[if IE]>
@@ -37,16 +41,16 @@
     <![endif]-->
     
     <!-- This tag outputs SEO meta+structured data and other important settings -->
-    <meta name="description" content="" />
+    <meta name="description" content="machine learning research notes" />
     <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
     <link rel="canonical" href="http://localhost:4000/about/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
-    <meta property="og:site_name" content="RAULEUN TECHNOTE" />
+    <meta property="og:site_name" content="RE Tech Archive" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Hyunsung Eun" />
-    <meta property="og:description" content="![Hyunsung](../assets/images/hyunsung.jpg) ## Career &nbsp; - B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08) - M.S in [Laboratory of Imaging Science and Technoloy](http://list.snu.ac.kr/), Dpt of Electrical and Computer Engineering, Seoul National University (2020.02) - Machine Learning Researcher, TMAX AI (2020.01~Now) &nbsp; &nbsp; ## Research" />
+    <meta property="og:description" content="![Hyunsung](../assets/images/hyunsung.jpg) ## Career - B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08) - M.S in [Laboratory of Imaging Science and Technoloy](http://list.snu.ac.kr/), Dpt of Electrical and Computer Engineering, Seoul National University (2020.02) - Machine Learning Researcher, TMAX AI (2020.01~Now) &nbsp; ## Research - Developed" />
     <meta property="og:url" content="http://localhost:4000/about/" />
     <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
@@ -55,11 +59,11 @@
     <meta property="article:modified_time" content="" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Hyunsung Eun" />
-    <meta name="twitter:description" content="![Hyunsung](../assets/images/hyunsung.jpg) ## Career &nbsp; - B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08) - M.S in [Laboratory of Imaging Science and Technoloy](http://list.snu.ac.kr/), Dpt of Electrical and Computer Engineering, Seoul National University (2020.02) - Machine Learning Researcher, TMAX AI (2020.01~Now) &nbsp; &nbsp; ## Research" />
+    <meta name="twitter:description" content="![Hyunsung](../assets/images/hyunsung.jpg) ## Career - B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08) - M.S in [Laboratory of Imaging Science and Technoloy](http://list.snu.ac.kr/), Dpt of Electrical and Computer Engineering, Seoul National University (2020.02) - Machine Learning Researcher, TMAX AI (2020.01~Now) &nbsp; ## Research - Developed" />
     <meta name="twitter:url" content="http://localhost:4000/" />
     <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="RAULEUN TECHNOTE" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:site" content="@" />
     <meta name="twitter:creator" content="@" />
     <meta property="og:image:width" content="1400" />
@@ -71,7 +75,7 @@
     "@type": "Website",
     "publisher": {
         "@type": "Organization",
-        "name": "RAULEUN TECHNOTE",
+        "name": "RE Tech Archive",
         "logo": "http://localhost:4000/"
     },
     "url": "http://localhost:4000/about/",
@@ -85,7 +89,7 @@
         "@type": "WebPage",
         "@id": "http://localhost:4000/about/"
     },
-    "description": "![Hyunsung](../assets/images/hyunsung.jpg) ## Career &nbsp; - B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08) - M.S in [Laboratory of Imaging Science and Technoloy](http://list.snu.ac.kr/), Dpt of Electrical and Computer Engineering, Seoul National University (2020.02) - Machine Learning Researcher, TMAX AI (2020.01~Now) &nbsp; &nbsp; ## Research"
+    "description": "![Hyunsung](../assets/images/hyunsung.jpg) ## Career - B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08) - M.S in [Laboratory of Imaging Science and Technoloy](http://list.snu.ac.kr/), Dpt of Electrical and Computer Engineering, Seoul National University (2020.02) - Machine Learning Researcher, TMAX AI (2020.01~Now) &nbsp; ## Research - Developed"
 }
     </script>
 
@@ -117,15 +121,24 @@ into the {body} of the default.hbs template -->
     <div class="site-nav-left">
         
             
-                <a class="site-nav-logo" href="http://localhost:4000/">RAULEUN TECHNOTE</a>
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
             
         
         
             <ul class="nav" role="menu">
     <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
     <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
-    <li class="nav-python" role="menuitem"><a href="/tag/python/">Python</a></li>
-    <li class="nav-machine-learning" role="menuitem"><a href="/tag/machine-learning/">Machine Learning</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
 </ul>
 
         
@@ -162,48 +175,39 @@ into the {body} of the default.hbs template -->
                 <p><img src="../assets/images/hyunsung.jpg" alt="Hyunsung" /></p>
 
 <h2 id="career">Career</h2>
-<p> </p>
 <ul>
   <li>B.S in Dpt. of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST) (2017.08)</li>
   <li>M.S in <a href="http://list.snu.ac.kr/">Laboratory of Imaging Science and Technoloy</a>, Dpt of Electrical and Computer Engineering, Seoul National University (2020.02)</li>
   <li>Machine Learning Researcher, TMAX AI (2020.01~Now)</li>
 </ul>
 
-<p> 
- </p>
+<p> </p>
 
 <h2 id="research">Research</h2>
-<p> </p>
 <ul>
   <li>Developed a novel method to separate the effects of magnetic susceptibility and chemical shift or exchange in magnetic resonance imaging (MRI)-based frequency shift</li>
   <li>Developed automatic cerebrospinal fluid (CSF) zero-referencing method for improving contrast to noise ratio (CNR) of susceptibility map-weighted imaging (SMWI)</li>
   <li>Improved a reconstruction of quantitative susceptibility mapping (QSM) via physics model-based multi-block deep neural network</li>
 </ul>
 
-<p> 
- </p>
+<p> </p>
 
 <h2 id="publications">Publications</h2>
-<p> </p>
 <ul>
   <li><a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/mrm.28408">Eun, Hyunsung, et al. “A geometric approach to separate the effects of magnetic susceptibility and chemical shift/exchange in a phantom with isotropic magnetic susceptibility.” Magnetic Resonance in Medicine (2020).</a></li>
 </ul>
 
-<p> 
- </p>
+<p> </p>
 
 <h2 id="certificate--award">Certificate &amp; Award</h2>
-<p> </p>
 <ul>
   <li>IDEA sequence programming certificate, Siemens Healthineers (2019.03)</li>
   <li>Best Poster Presentation Award, International Congress of Magnetic Resonance Imaging (ICMRI) 2019</li>
 </ul>
 
-<p> 
- </p>
+<p> </p>
 
 <h2 id="experience">Experience</h2>
-<p> </p>
 <ul>
   <li>Organinzing Committee of ICISTS-KAIST 2015, Finance Division</li>
   <li>Research Assistant at I-ON communications (2016.12-2017.02)</li>
@@ -240,7 +244,7 @@ $(function() {
         <!-- The footer at the very bottom of the screen -->
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="http://localhost:4000/">RAULEUN TECHNOTE</a> &copy; 2020</section>
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
                 <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
                     <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
                     <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
@@ -261,7 +265,7 @@ $(function() {
             <a class="subscribe-overlay-close" href="#"></a>
             <div class="subscribe-overlay-content">
                 
-                <h1 class="subscribe-overlay-title">Subscribe to RAULEUN TECHNOTE</h1>
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
                 <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
                 <!--
 <form method="post" action="/subscribe/" class="">
@@ -315,7 +319,7 @@ $(function() {
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-69281367-1', 'auto');
+  ga('create', 'false', 'auto');
   ga('send', 'pageview');
 
  </script>

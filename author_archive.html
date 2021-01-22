@@ -22,7 +22,11 @@
     <!-- highlight.js -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <style>.hljs { background: none; }</style>
-    
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
     
     <!--[if IE]>
@@ -37,26 +41,26 @@
     <![endif]-->
     
     <!-- This tag outputs SEO meta+structured data and other important settings -->
-    <meta name="description" content="" />
+    <meta name="description" content="machine learning research notes" />
     <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
     <link rel="canonical" href="http://localhost:4000/author_archive" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
-    <meta property="og:site_name" content="RAULEUN TECHNOTE" />
+    <meta property="og:site_name" content="RE Tech Archive" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="All Tags" />
-    <meta property="og:description" content="" />
+    <meta property="og:description" content="machine learning research notes" />
     <meta property="og:url" content="http://localhost:4000/author_archive" />
     <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="All Tags" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:description" content="machine learning research notes" />
     <meta name="twitter:url" content="http://localhost:4000/" />
     <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="RAULEUN TECHNOTE" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:site" content="@" />
     <meta name="twitter:creator" content="@" />
     <meta property="og:image:width" content="2000" />
@@ -68,7 +72,7 @@
     "@type": "Website",
     "publisher": {
         "@type": "Organization",
-        "name": "RAULEUN TECHNOTE",
+        "name": "RE Tech Archive",
         "logo": "http://localhost:4000/"
     },
     "url": "http://localhost:4000/author_archive",
@@ -82,7 +86,7 @@
         "@type": "WebPage",
         "@id": "http://localhost:4000/author_archive"
     },
-    "description": ""
+    "description": "machine learning research notes"
 }
     </script>
 
@@ -114,15 +118,24 @@ into the {body} of the default.hbs template -->
     <div class="site-nav-left">
         
             
-                <a class="site-nav-logo" href="http://localhost:4000/">RAULEUN TECHNOTE</a>
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
             
         
         
             <ul class="nav" role="menu">
     <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
     <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
-    <li class="nav-python" role="menuitem"><a href="/tag/python/">Python</a></li>
-    <li class="nav-machine-learning" role="menuitem"><a href="/tag/machine-learning/">Machine Learning</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
 </ul>
 
         
@@ -163,21 +176,55 @@ into the {body} of the default.hbs template -->
 <ul class="entry-meta inline-list">
   
     
-  	<li><a href="#Machine-Learning" class="tag"><span class="term alltags">Machine-Learning</span> <span class="count alltags">2</span></a></li>
+  	<li><a href="#3D" class="tag"><span class="term alltags">3D</span> <span class="count alltags">2</span></a></li>
+  
+    
+  	<li><a href="#NLP" class="tag"><span class="term alltags">NLP</span> <span class="count alltags">2</span></a></li>
+  
+    
+  	<li><a href="#Object-Detection" class="tag"><span class="term alltags">Object-Detection</span> <span class="count alltags">2</span></a></li>
   
 </ul>
 
 
   
 	<article>
-	<h2 id="Machine-Learning" class="tag-heading">MACHINE-LEARNING</h2>
+	<h2 id="3D" class="tag-heading">3D</h2>
 		<ul>
     
-      <!-- <li class="entry-title"><a href="http://localhost:4000/DETR" target="_blank" title="End-to-End Object Detection with Transformers (DETR)">End-to-End Object Detection with Transformers (DETR)</a></li> -->
-      <li class="entry-title"><a href="/DETR" target="_blank" title="End-to-End Object Detection with Transformers (DETR)">End-to-End Object Detection with Transformers (DETR)</a></li>
+      <!-- <li class="entry-title"><a href="http://localhost:4000/PointNet++" target="_blank" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</a></li> -->
+      <li class="entry-title"><a href="/PointNet++" target="_blank" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</a></li>
+    
+      <!-- <li class="entry-title"><a href="http://localhost:4000/Edge-Conditioned-Convolution" target="_blank" title="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</a></li> -->
+      <li class="entry-title"><a href="/Edge-Conditioned-Convolution" target="_blank" title="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</a></li>
+    
+		</ul>
+	</article><!-- /.hentry -->
+
+  
+	<article>
+	<h2 id="NLP" class="tag-heading">NLP</h2>
+		<ul>
+    
+      <!-- <li class="entry-title"><a href="http://localhost:4000/BERT" target="_blank" title="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</a></li> -->
+      <li class="entry-title"><a href="/BERT" target="_blank" title="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</a></li>
     
       <!-- <li class="entry-title"><a href="http://localhost:4000/attention-is-all-you-need" target="_blank" title="Attention is All You Need">Attention is All You Need</a></li> -->
       <li class="entry-title"><a href="/attention-is-all-you-need" target="_blank" title="Attention is All You Need">Attention is All You Need</a></li>
+    
+		</ul>
+	</article><!-- /.hentry -->
+
+  
+	<article>
+	<h2 id="Object-Detection" class="tag-heading">OBJECT-DETECTION</h2>
+		<ul>
+    
+      <!-- <li class="entry-title"><a href="http://localhost:4000/EfficientDet" target="_blank" title="EfficientDet - Scalable and Efficient Object Detection">EfficientDet - Scalable and Efficient Object Detection</a></li> -->
+      <li class="entry-title"><a href="/EfficientDet" target="_blank" title="EfficientDet - Scalable and Efficient Object Detection">EfficientDet - Scalable and Efficient Object Detection</a></li>
+    
+      <!-- <li class="entry-title"><a href="http://localhost:4000/DETR" target="_blank" title="End-to-End Object Detection with Transformers (DETR)">End-to-End Object Detection with Transformers (DETR)</a></li> -->
+      <li class="entry-title"><a href="/DETR" target="_blank" title="End-to-End Object Detection with Transformers (DETR)">End-to-End Object Detection with Transformers (DETR)</a></li>
     
 		</ul>
 	</article><!-- /.hentry -->
@@ -209,7 +256,7 @@ $(function() {
         <!-- The footer at the very bottom of the screen -->
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="http://localhost:4000/">RAULEUN TECHNOTE</a> &copy; 2020</section>
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
                 <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
                     <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
                     <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
@@ -230,7 +277,7 @@ $(function() {
             <a class="subscribe-overlay-close" href="#"></a>
             <div class="subscribe-overlay-content">
                 
-                <h1 class="subscribe-overlay-title">Subscribe to RAULEUN TECHNOTE</h1>
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
                 <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
                 <!--
 <form method="post" action="/subscribe/" class="">
@@ -284,7 +331,7 @@ $(function() {
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-69281367-1', 'auto');
+  ga('create', 'false', 'auto');
   ga('send', 'pageview');
 
  </script>

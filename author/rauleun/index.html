@@ -11,7 +11,7 @@
 
 
 
-    <title>Hyunsung Eun - RAULEUN TECHNOTE</title>
+    <title>Hyunsung Eun - RE Tech Archive</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -22,7 +22,11 @@
     <!-- highlight.js -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <style>.hljs { background: none; }</style>
-    
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
     
     <!--[if IE]>
@@ -37,26 +41,26 @@
     <![endif]-->
     
     <!-- This tag outputs SEO meta+structured data and other important settings -->
-    <meta name="description" content="" />
+    <meta name="description" content="machine learning research notes" />
     <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
     <link rel="canonical" href="http://localhost:4000/author/rauleun/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
-    <meta property="og:site_name" content="RAULEUN TECHNOTE" />
+    <meta property="og:site_name" content="RE Tech Archive" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Hyunsung Eun - RAULEUN TECHNOTE" />
-    <meta property="og:description" content="" />
+    <meta property="og:title" content="Hyunsung Eun - RE Tech Archive" />
+    <meta property="og:description" content="machine learning research notes" />
     <meta property="og:url" content="http://localhost:4000/author/rauleun/" />
     <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Hyunsung Eun - RAULEUN TECHNOTE" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:title" content="Hyunsung Eun - RE Tech Archive" />
+    <meta name="twitter:description" content="machine learning research notes" />
     <meta name="twitter:url" content="http://localhost:4000/" />
     <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
     <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="RAULEUN TECHNOTE" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:site" content="@" />
     <meta name="twitter:creator" content="@" />
     <meta property="og:image:width" content="2000" />
@@ -68,7 +72,7 @@
     "@type": "Website",
     "publisher": {
         "@type": "Organization",
-        "name": "RAULEUN TECHNOTE",
+        "name": "RE Tech Archive",
         "logo": "http://localhost:4000/"
     },
     "url": "http://localhost:4000/author/rauleun/",
@@ -82,7 +86,7 @@
         "@type": "WebPage",
         "@id": "http://localhost:4000/author/rauleun/"
     },
-    "description": ""
+    "description": "machine learning research notes"
 }
     </script>
 
@@ -116,15 +120,24 @@
     <div class="site-nav-left">
         
             
-                <a class="site-nav-logo" href="http://localhost:4000/">RAULEUN TECHNOTE</a>
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
             
         
         
             <ul class="nav" role="menu">
     <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
     <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
-    <li class="nav-python" role="menuitem"><a href="/tag/python/">Python</a></li>
-    <li class="nav-machine-learning" role="menuitem"><a href="/tag/machine-learning/">Machine Learning</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
 </ul>
 
         
@@ -151,7 +164,7 @@
                         <div class="author-location">Seoul, South Korea <span class="bull">&bull;</span></div>
                     
                     <div class="author-stats">
-                        2 posts <span class="bull">&bull;</span>
+                        6 posts <span class="bull">&bull;</span>
                     </div>
                     
                         <a class="social-link social-link-wb" href="https://rauleun.github.io" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.5 11.957c0 6.375-5.163 11.544-11.532 11.544C5.599 23.5.5 18.125.5 11.75.5 5.542 5.37.758 11.505.511l.5-.011C18.374.5 23.5 5.582 23.5 11.957zM11.505.511c-6 6.5-6 14.98 0 22.98m1-22.98c6 6.5 6 14.977 0 22.977M2 17.479h20.063m-19.657-12h19.062m-20.968 6h22.938" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/></svg>
@@ -181,12 +194,183 @@
     <article class="post-card author-template no-image">
         
         <div class="post-card-content">
+            <a class="post-card-content-link" href="/PointNet++">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p>원문 : Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.
+
+</p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      6 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+    <article class="post-card author-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/Edge-Conditioned-Convolution">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p>원문 : Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
+
+
+</p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      4 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+    <article class="post-card author-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/BERT">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Nlp</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p>원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).
+
+
+</p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      7 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+    <article class="post-card author-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/EfficientDet">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Object-detection</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">EfficientDet - Scalable and Efficient Object Detection</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p>원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
+
+
+</p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      5 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+    <article class="post-card author-template no-image">
+        
+        <div class="post-card-content">
             <a class="post-card-content-link" href="/DETR">
                 <header class="post-card-header">
                     
                         
                             
-                                <span class="post-card-tags">Machine-learning</span>
+                                <span class="post-card-tags">Object-detection</span>
                             
                         
                     
@@ -220,49 +404,6 @@
         </div>
     </article>
 
-    <article class="post-card author-template no-image">
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/attention-is-all-you-need">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Machine-learning</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Attention is All You Need</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p>원문 : Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.
-
-
-</p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <span class="post-card-author">
-                            <a href="/author/rauleun/">Hyunsung Eun</a>
-                        </span>
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      6 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
 
         </div>
 
@@ -272,11 +413,22 @@
 
         <!-- Previous/next page links - displayed on every page -->
         
+            
+                <nav class="pagination" role="pagination">
+    
+    <span class="page-number"> Page 1 of 2 </span>
+    
+        <a class="older-posts" href="/author/rauleun/page2/" title="Next Page">Older Posts &raquo;</a>
+    
+</nav>
+
+            
+        
 
         <!-- The footer at the very bottom of the screen -->
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="http://localhost:4000/">RAULEUN TECHNOTE</a> &copy; 2020</section>
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
                 <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
                     <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
                     <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
@@ -297,7 +449,7 @@
             <a class="subscribe-overlay-close" href="#"></a>
             <div class="subscribe-overlay-content">
                 
-                <h1 class="subscribe-overlay-title">Subscribe to RAULEUN TECHNOTE</h1>
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
                 <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
                 <!--
 <form method="post" action="/subscribe/" class="">
@@ -335,7 +487,7 @@
     <!-- Paginator increased to "infinit" in _config.yml -->
     <!-- if paginator.posts  -->
     <!-- <script>
-        var maxPages = parseInt('1');
+        var maxPages = parseInt('2');
     </script>
     <script src="/assets/js/infinitescroll.js"></script> -->
     <!-- /endif -->
@@ -351,7 +503,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-69281367-1', 'auto');
+  ga('create', 'false', 'auto');
   ga('send', 'pageview');
 
  </script>

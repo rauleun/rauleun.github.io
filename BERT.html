@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="machine learning research notes" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/BERT" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RE Tech Archive" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
+    <meta property="og:description" content="원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018). 오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 Bert: Pre-training of deep bidirectional transformers for language understanding 논문에 대한 리뷰입니다. 이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training" />
+    <meta property="og:url" content="http://localhost:4000/BERT" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2020-11-03T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2020-11-03T09:00:00+09:00" />
+    <meta property="article:tag" content="Nlp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
+    <meta name="twitter:description" content="원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018). 오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 Bert: Pre-training of deep bidirectional transformers for language understanding 논문에 대한 리뷰입니다. 이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Nlp" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RE Tech Archive",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/BERT",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/BERT"
+    },
+    "description": "원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018). 오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 Bert: Pre-training of deep bidirectional transformers for language understanding 논문에 대한 리뷰입니다. 이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-nlp  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 3 November 2020"> 3 November 2020</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/nlp/'>NLP</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://arxiv.org/abs/1810.04805">Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).
+</a></p>
+
+<p><img src="assets/images/bert/bert.png" alt="" /></p>
+
+<p>오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 <strong><em>Bert: Pre-training of deep bidirectional transformers for language understanding</em></strong> 논문에 대한 리뷰입니다.</p>
+
+<p>이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training 하였습니다. Unsupervised learning 방식으로 학습을 진행하기 위해 Masked Language Model, Nest Sequence Prediction의 두 가지 학습 방식을 이용하였으며, 11개의 자연어 학습 능력 평가 지표에서 SOTA를 달성했다고 합니다.</p>
+
+<p>그럼 시작하겠습니다!</p>
+<h2 id="feature-based-and-fine-tuning">Feature-based and Fine-tuning</h2>
+<p>언어 모델을 pre-training 방식으로 학습하여 여러 가지 task에 적용하는 것은 효율성과 성능의 측면에서 우수했기 때문에 자연어 분야의 학습 전략으로 널리 활용되어 왔습니다. 모델을 pre-training 한 뒤에, task에 알맞게 이용하는 방식에는 크게 두 가지가 있습니다.</p>
+
+<p>우선 Feature-based 방식은 pre-training 과정에서 각 단어에 대한 representation이 완벽하게 학습되었다고 가정하기 때문에, task-specific한 재학습 과정에서 pre-trained network의 parameter들을 바꾸지 않습니다. 대신에 pre-trainied network를 통해 얻은 Embedding vector를 task에 맞는 network에 통과시켜서 그 network의 parameter를 학습시키는 방향으로 task를 수행합니다.
+반면에 Fine-tuning 방식은 downstream task를 학습할 때 pre-trained network의 parameter를 전부 조정해줍니다. Feature-based 방식에 비해 Network capacity가 커지기 때문에 일반적으로 높은 정확도를 보이지만, 계산량도 마찬가지로 늘어난다는 단점이 있습니다.</p>
+
+<p>BERT는 Fine-tuning 방식을 기반으로 한 모델입니다. BERT를 각 downstream task 별로 어떻게 fine-tuning 했는지는 아래에서 자세히 다루겠습니다.</p>
+<h2 id="bert-model-architecture">BERT Model Architecture</h2>
+<p>BERT는 Vaswani의 논문에서 발표된 Transformer의 Encoder 구조를 그대로 차용하였습니다. 뒤에서 자세히 설명드리겠지만 encoder의 self-attention 메커니즘은 병렬적으로 output을 생성하기 때문에, 두 방향(bidirectional)에 대한 추론을 통해 학습할 수 있습니다. 이는 BERT가 기존의 단방향 모델(OpenAI GPT) 또는 제약이 있는 양방향 모델(Bi-LSTM을 활용한 ELMo 등)보다 좋은 성과를 내는 데에 큰 기여를 하게 됩니다.</p>
+
+<p>논문에서는 두 개의 모델을 공개하였는데, transformer layer 개수(12/24), hidden size(768/1024), self-attention head의 개수(12/16)에 따라 BERT base 모델과 BERT large 모델로 구분하였습니다. 각각의 parameter 개수는 110M/340M으로 BERT large가 약 세 배 정도의 capacity를 가지고 있습니다.</p>
+
+<p>BERT는 단일 문장에 대한 downstream task 뿐만 아니라 두 개 이상의 문장에 대해서도 잘 작동할 수 있도록 input의 형태를 변형하였습니다. BERT의 input인 sequence는 한 개 또는 두 개 이상의 문장으로 구성되었습니다. 각 sequence은 항상 [CLS] token으로 시작되는데, 이 [CLS] token에 대한 output은 classification이 필요한 task의 경우 그 probability value로 이용하였습니다. 만약 한 sequence가 두 개 이상의 문장으로 구성된 형태라면 첫 번째 문장과 두 번째 문장 사이에 [SEP] token을 넣어서 구분해주었습니다. 또한, 두 문장을 구분하기 위한 추가적인 장치로 첫 번째 문장과 두 번째 문장에 서로 다른 sentence embedding을 더해주었습니다.</p>
+
+<p>문장 구성에 대한 이해를 위해 downstream task 몇 가지를 예를 들어 설명하겠습니다. 만약 한 문장 안에 하나의 빈칸을 뚫어 그 단어를 예측하는 형태의 task는, input으로 하나의 문장이 들어가고 output으로는 한개의 단어가 나오면 충분할 것입니다. 하지만 어떤 문단과 그에 대한 질문의 답을 찾는 복잡한 언어 추론 형태의 task에서는, 질문이 input의 첫 번째 문장으로 들어가고 문단이 input의 두 번째 문장으로 들어가며 두 문장에 대한 명확한 구분이 필요할 것입니다. 또한 output으로는 질문에 대한 답에 해당되는 문단의 위치를 start/end token으로 얻을 수 있습니다.</p>
+
+<p><img src="assets/images/bert/input-representation.png" alt="" /></p>
+
+<p>결과적으로 BERT의 input representation은 token embedding, positional embedding, segment embedding의 합으로 구성됩니다. 우선 token embedding은 original input이 WordPiece Tokenization을 통해서 변환된 결과입니다. 또한 Transformer 논문에서 input에 순서 정보를 반영하기 위해서 활용한 positional embedding을 BERT에서도 마찬가지로 더해주었습니다. 마지막으로 두 개 이상의 문장이 input으로 들어올 수 있기 때문에 이를 구분하기 위한 segment embedding을 더해주었습니다.</p>
+<h2 id="pre-training-strategy">Pre-training Strategy</h2>
+<p>BERT의 pre-training에는 중요한 두 가지의 unsupervised task가 활용되었습니다.</p>
+
+<ul>
+  <li>Masked Language Model</li>
+</ul>
+
+<p>자연어를 잘 이해하고 있는 모델을 얻기 위해서는, 양방향 학습을 하는것이 아주 중요하다고 알려져 있습니다. 하지만 이전까지 대부분의 모델들은 LTR(Left to Right) 또는 RTL(Right to Left)이라고 불리는 단방향 학습이나 Bi-LSTM의 output을 이어붙이는 불완전한 양방향 학습을 통해 얻어지곤 했었습니다. BERT는 Transformer 구조와 Masked LM을 활용하여 multi-layer의 완벽한 양방향 학습을 구현하였습니다.</p>
+
+<p>Masked Language Model은 문장의 일부분을 masking token으로 치환해서 input으로 넣어주고, 해당 mask token을 원래 단어로 올바르게 복원하도록 학습하는 전략입니다. BERT에서는 문장의 모든 토큰 중 15%를 임의로 선택해 치환하였습니다.</p>
+
+<p>하지만 이 과정에서 발생할 수 있는 문제가 있습니다. 학습 과정에서는 문장의 일부가 Mask 토큰으로 바뀌어 있는 input을 거의 대부분 보게 되지만, 실제 downstream task에 적용할 때는 Mask 토큰이 없는 문장을 주로 보게 됩니다. 따라서 training과 test 환경의 mismatch가 발생하여 성능이 저하됩니다.</p>
+
+<p>이를 해결하기 위해서 논문에서는 15%의 확률로 선택된 토큰들에 대해서, (1) 80%는 [Mask] 토큰으로 변경하고, (2) 10%는 다른 임의의 토큰으로 변경하고, (3) 10%는 원래 토큰으로 그대로 두는 전략을 이용하였습니다. 이렇게 전혀 다른 토큰을 추가함으로써 모델의 학습이 방해될 수 있다는 지적에 대해, 저자는 전체 토큰의 1.5%의 만에 해당되기 때문에 큰 영향이 없을 것이라고 답했으며 실제 실험을 통해 증명하였습니다.</p>
+
+<p><img src="assets/images/bert/ablation-mask.png" alt="" /></p>
+
+<p>MLM에 대한 예시를 몇개 보여드리면, 기존의 “My dog is hairy”라는 문장에 대해 4번째 토큰이 선택되었다면, 해당 문장은
+(1) 80%의 확률로 “My dog is [Mask]”
+(2) 10%의 확률로 “My dog is apple”
+(3) 10%의 확률로 “My dog is hairy”
+로 변환될 수 있습니다.</p>
+
+<p>BERT와 비교되는 유명한 pre-trained language representation 모델들은 단방향 학습이나 불완전한 양방향 학습을 통해 생성되었습니다. 아래는 BERT와 OpenAI GPT, ELMo의 모델 구조를 비교한 그림입니다.</p>
+
+<p><img src="assets/images/bert/elmo-gpt.png" alt="" /></p>
+
+<p>위 그림에서 보이듯 완벽한 Bidirectional 구조를 가진 BERT와는 달리, OpenAI GPT는 Transformer decoder 구조를 차용한듯한 왼쪽에서 오른쪽을 향하는 단방향의 구조를 가지고 있습니다. 또한 ELMo 같은 경우에는, 왼쪽에서 오른쪽을 향하는 LSTM과 오른쪽에서 왼쪽을 향하는 LSTM의 output을 concatenate하여 양방향의 특성을 모두 가지는 representation을 생성하기 위한 구조를 보여주었습니다. 다만 두 LSTM의 결과를 이어붙인 것에 지나지 않기 때문에 완전한 양방향 학습이라고 보기는 어려우며, 계산량도 매우 많고 느리다는 단점이 있습니다. 따라서 Layer를 이어붙여서 깊게 쌓을 수 없고, 높은 성능을 보여주기 어렵게 됩니다.</p>
+
+<ul>
+  <li>Next Sentence Prediction</li>
+</ul>
+
+<p>Question and Answering(QA) 또는 Natural Language Inference(NLI) 등 몇 개의 downstream task는 두 문장 사이의 관계를 이해해야만 해결할 수 있습니다. 언어 모델이 문장 사이의 관계를 학습할 수 있게 하기 위해서 BERT는 NSP라는 학습 전략을 활용하였습니다. NSP는 corpus에서 A와 B라는 두 개의 문장을 고르되, 50%는 A와 B가 내용적으로 연결되게 선택하고 나머지 50%는 A와 B가 내용적으로 전혀 관련이 없게 선택합니다. 각각은 IsNext와 NotNext라는 binary output으로 labeling한 뒤 이를 예측하게끔 언어 모델을 학습시킵니다.</p>
+
+<p>BERT의 NSP 정확도는 최종적으로 97~98%이었으며, 꽤나 높은 문장 간의 이해도를 보이게 됩니다. 이처럼 쉽고 간단한 NSP 학습 전략은 QA와 NLI 등의 downstream task 성능도 크게 향상시켜주었습니다.</p>
+
+<ul>
+  <li>Pre-training data</li>
+</ul>
+
+<p>BERT는 pre-training corpus로 800M 개의 단어로 구성된 BooksCorpus와 2,500M개의 단어로 구성된 English Wikipedia dataset을 활용했습니다. (list, table, header 등은 학습에서 제외하였습니다.)</p>
+<h2 id="fine-tuning-bert">Fine-tuning BERT</h2>
+<p>Pre-training된 BERT 모델은 fine-tuning을 통해 downstream task에 적용하였습니다. Fine-tuning은 BERT 모델에 task-specific한 input-output 데이터를 넣고 end-to-end로 모든 parameter를 학습하였습니다. Pre-training 과정에 비해 훨씬 더 가볍게 진행되었으며, Cloud TPU 1개로 1시간 정도 학습하였습니다.</p>
+
+<p>논문에서는 BERT의 성능을 검증하기 위해 11개의 downstream task에 대해 fine-tuning을 진행했습니다.</p>
+
+<ul>
+  <li>GLUE
+<img src="assets/images/bert/result-glue.png" alt="" /></li>
+</ul>
+
+<p>8개의 task로 구성된 The General Language Understanding Evaluation(GLUE) task에 대해서 SOTA의 성능을 보여주었다. 모든 GLUE task에 대해 32의 batch size로 3 epoch만큼 fine-tuning 해주었으며, [CLS] 토큰의 output을 마지막 classification layer의 input으로 활용하여 K개의 class에 대해 분류했습니다.</p>
+
+<ul>
+  <li>SQuAD
+<img src="assets/images/bert/result-squad.png" alt="" /></li>
+</ul>
+
+<p>SQuAD는 The Stanford Question Answering Dataset의 약자로 100k개 이상의 질문-정답 쌍으로 구성되어 있습니다. 질문과 정답을 포함한 Wikipedia 문단을 input으로 넣으면, 문단 내의 정답 text 위치를 찾아내어야 합니다. BERT는 위에서 설명한 NSP 전략을 활용해 문장 사이의 관계를 이해하도록 학습되었기 때문에, SQuAD에 대해서도 SOTA의 성능을 보여줄 수 있었습니다.</p>
+
+<p>SQuAD 2.0은 정답이 없을 확률에 대해서도 label이 되었는데, 이 또한 마찬가지로 BERT는 SOTA의 성능을 보여주었습니다.</p>
+
+<ul>
+  <li>SWAG
+<img src="assets/images/bert/result-swag.png" alt="" /></li>
+</ul>
+
+<p>SWAG는 The Situations With Adversarial Generations의 약자로 113k개의 문장 쌍으로 구성되어 있습니다. 한 문장이 주어질 때, 뒤에 나오기에 적절한 문장을 4개의 보기 중에 선택하는 형태로 구성되었습니다. [CLS] 토큰을 활용하여 4개의 선택지에 대한 score를 얻어서 평가하였습니다. BERT는 SWAG 데이터셋에 대해서도 마찬가지로 SOTA의 성능을 보여주었습니다.</p>
+
+<p><img src="assets/images/bert/fine-tuning.png" alt="" /></p>
+<h2 id="ablation-studies">Ablation Studies</h2>
+
+<p>BERT의 성능은 다양한 downstream task들에서 SOTA의 수준으로 확인되었습니다. 그렇다면 앞에서 제안한 BERT의 어떤 특징들이 우수한 성능을 발휘할 수 있게 해준걸까요? 논문에서는 Ablation study를 통해 다양한 장치들의 역할을 분석하였습니다.</p>
+
+<ul>
+  <li>Pre-training Strategies</li>
+</ul>
+
+<p>BERT는 MLM과 NSP라는 두 개의 Task로 Pre-training 되었습니다. 논문에서는 각각의 task가 얼마나 중요한지를 보여주기 위해 NSP를 없애고 학습시켜보기도 하고, NSP를 없애고 단방향으로의(LTR) 학습을 진행해보기도 하였습니다.</p>
+
+<p><img src="assets/images/bert/ablation-pretraining.png" alt="" /></p>
+
+<p>NSP를 없애자 GLUE와 SQuAD의 성능이 동시에 크게 저하되었습니다. 문장 간의 이해도를 높이는 데 NSP가 중요한 역할을 하고 있으며, 일반적인 Language understanding에도 영향을 미치는 것으로 보입니다.</p>
+
+<p>또한 MLM을 통한 bidirectional 학습에서 LTR의 단방향 학습으로 변경했을 때에는 SQuAD의 성능이 급격히 저하되었습니다. SQuAD는 단방향 토큰 추론에 대한 task가 아니기 때문에 방향성이 제한됨에 따라 성능이 저하되는 것으로 추측할 수 있을 것 같습니다. 저자는 이를 보완하기 위해서 Bi-LSTM 구조를 모델 위에 얹어서 학습했는데, SQuAD의 성능은 향상시켜주었지만 일반적인 GLUE 결과를 저하시켰습니다.</p>
+
+<ul>
+  <li>Model Size</li>
+</ul>
+
+<p>BERT 모델의 크기와 fine-tuning task의 정확도 간의 관계를 확인하기 위한 ablation study도 진행되었습니다. 다양한 layer 개수, hidden unit의 크기, attention head의 개수의 BERT 모델들이 같은 조건 하에서 학습되었습니다. 결과는 널리 알려진 바와 같이 모델의 크기가 커질수록 모델 capacity가 커지며 성능이 향상되었습니다. 또한 큰 capacity의 모델을 pre-training 한 경우에는 아주 작은 scale의 task에 대해서도 좋은 성능을 보여주었습니다. 이는 task의 scale이 아주 작은 경우에 BERT의 효용성이 높다는 의미인데, task-specific한 모델을 설계해서 scratch부터 학습하는 것보다 충분한 pre-training을 통해 얻은 general representation을 initial parameter로 fine-tuning을 하는 것이 더 좋은 성능을 보여주기 때문입니다.</p>
+
+<ul>
+  <li>Feature-based BERT</li>
+</ul>
+
+<p>기존의 BERT는 downstream task에 대해 fine-tuning 방식으로 학습하였습니다. 하지만 fine-tuning 방식은 모델의 구조를 크게 바꾸지 않기 때문에 모든 경우의 downstream task를 represent하기 어렵고, 모든 parameter를 update하므로 계산량도 많다는 단점이 있습니다. 때문에 ELMo와 같은 feature-based approach로 BERT를 활용했을 때 결과가 어떨지에 대해 ablation study가 진행되었습니다.</p>
+
+<p><img src="assets/images/bert/ablation-feature.png" alt="" /></p>
+
+<p>각 단어의 Entity를 찾는 NER task에 대해 다양한 방식의 feature-based 학습을 진행했는데, SOTA와 비슷한 성능을 보여주었습니다. 이로써 BERT는 fine-tuning과 feature-based approach에 모두 효과적이라는 것이 확인되었습니다.</p>
+<h2 id="summary">Summary</h2>
+<p>BERT는 다양한 NLP task에 대해 SOTA를 달성하면서, 발표 직후부터 지금까지 NLP 분야에 많은 영향력을 끼치고 있는 모델입니다. Bidirectional training을 위해 기존에 활용되지 않던 Masked Model Language를 도입했고, Next Sentence Prediction task를 통해 문장 사이의 관계도 효과적으로 학습하였습니다. 최근까지도 BERT를 기반으로 하거나 BERT를 뛰어넘기 위해 도전하는 논문들이 계속해서 출간되고 있습니다.</p>
+
+<p>BERT를 읽다 보니 NLP 관련 연구들에 관심이 더 생기는 것 같습니다. 시간이 되면 NLP 관련 논문들을 더 리뷰해보겠습니다. 읽어주셔서 감사합니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://arxiv.org/abs/1810.04805ㅠ">https://arxiv.org/abs/1810.04805</a></li>
+  <li><a href="https://github.com/google-research/bert">https://github.com/google-research/bert</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RE Tech Archive</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/BERT';
+                            this.page.identifier = '/BERT';
+                            this.page.title = 'BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://jekyller.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/nlp/">Nlp</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/attention-is-all-you-need">Attention is All You Need</a></li>
+                                        
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/nlp/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/Edge-Conditioned-Convolution">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/EfficientDet">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Object-detection</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">EfficientDet - Scalable and Efficient Object Detection</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>RE Tech Archive</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=BERT+-+Pretraining+of+Deep+Bidirectional+Transformers+for+Language+Understanding+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/BERT"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/BERT"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

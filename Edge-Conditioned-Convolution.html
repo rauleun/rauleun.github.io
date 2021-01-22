@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="machine learning research notes" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/Edge-Conditioned-Convolution" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RE Tech Archive" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰" />
+    <meta property="og:description" content="원문 : Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017. 오늘 소개드릴 논문은 ENPC에서 2017년 CVPR에 발표한 Dynamic edge-conditioned filters in convolutional neural networks on graphs 논문에 대한 리뷰입니다. 이 논문은 Point" />
+    <meta property="og:url" content="http://localhost:4000/Edge-Conditioned-Convolution" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2021-01-20T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-01-20T09:00:00+09:00" />
+    <meta property="article:tag" content="3d" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰" />
+    <meta name="twitter:description" content="원문 : Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017. 오늘 소개드릴 논문은 ENPC에서 2017년 CVPR에 발표한 Dynamic edge-conditioned filters in convolutional neural networks on graphs 논문에 대한 리뷰입니다. 이 논문은 Point" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="3d" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RE Tech Archive",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/Edge-Conditioned-Convolution",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/Edge-Conditioned-Convolution"
+    },
+    "description": "원문 : Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017. 오늘 소개드릴 논문은 ENPC에서 2017년 CVPR에 발표한 Dynamic edge-conditioned filters in convolutional neural networks on graphs 논문에 대한 리뷰입니다. 이 논문은 Point"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-3d  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="20 January 2021">20 January 2021</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/3d/'>3D</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://arxiv.org/abs/1704.02901">Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
+</a></p>
+
+<p>오늘 소개드릴 논문은 ENPC에서 2017년 CVPR에 발표한 <strong><em>Dynamic edge-conditioned filters in convolutional neural networks on graphs</em></strong> 논문에 대한 리뷰입니다.</p>
+
+<p>이 논문은 Point cloud 등의 graph 구조로 표현 가능한 데이터에서 convolution 형태의 연산을 통해 feature vector를 추출하는 하나의 방법에 대해 제시하고 있습니다.</p>
+
+<p>그럼 시작하겠습니다!</p>
+<h2 id="graph-convolution">Graph Convolution</h2>
+<p>Convolution(합성곱) 연산은 2D image에 대한 내재된 feature 벡터를 잘 추출해줌으로써 classification, segmentation 등의 여러 task들에 대한 성능을 폭발적으로 끌어올렸습니다. 학계에서는 2D image 등의 Uclidian 공간에 대한 데이터 뿐만 아니라 graph 등 non-Uclidian 공간 상의 데이터도 convolution 연산을 통해 처리할 수 있지 않을까에 대해 많이 고민했습니다.</p>
+
+<p>이러한 고민의 결과로 인접한 node 간의 특징 벡터를 모아주는 graph convolution 연산을 발견하였고, 이는 graph 형태로 표현 가능한 3D modeling, biological molecule, social network 등의 데이터에 활용되었습니다. 하지만 기존의 방법대로는 한 점과 인접한 점들의 feature 벡터를 균일하게(homogeneous) 더해줄 수 밖에 없었고, 이는 점들 간의 연관성의 정도를 전혀 고려하지 않은 연산이었습니다. (일반적인 discrete convolution으로 생각해보면, uniform function만을 filter로 사용하는 형태였습니다.)</p>
+
+<p>이를 보완하기 위해 논문에서는 점과 점을 연결한 edge에 점들 간의 관계를 나타내는 label을 부여해서 weight parameter처럼 활용하였습니다. 이렇게 edge label을 이용하여 graph convolution을 하게 되면, 단순히 점들을 homogeneous하게 더하는 것이 아니라 점들 간의 연관성을 고려하여 더해주기 때문에 주변 점들과의 관계가 반영된 feature 벡터를 추출할 수 있다고 합니다. 또한 이 feature vector를 이용해서 graph 또는 vertex 단위로 classification을 했을 때 점들의 관계 및 분포에 대한 정보가 녹아있어 정확도가 향상되었다고 합니다. 본문에서는 이렇게 edge label을 이용한 convolution 연산을 edge-conditioned convolution(ECC)라고 부릅니다.</p>
+
+<h2 id="point-cloud">Point cloud</h2>
+<p>Point cloud는 3D 물체를 표현하기 위한 형식 중의 하나입니다. 원래 point cloud는 일정한 형식이 없는 집합 형태의 데이터이기 때문에 neural network의 input으로 활용하기 어려웠습니다. 하지만 특정 점에 대해 정의된 거리(r) 내에 있는 점들 중 K-nearest neighbors 알고리즘을 적용해서 인접한 점들을 찾은 뒤, 서로 연결해서 graph 형태로 변환하게 되면 graph convolution을 적용할 수 있습니다. 따라서 논문에서는 여러 종류의 graph 데이터들 중 주로 point cloud를 graph로 변환한 데이터를 활용했습니다. Point cloud는 물체나 풍경을 3D로 표현했다는 특성상 graph 또는 vertex 단위로 label이 존재하기 때문에 graph convolution의 성능을 측정하기에 적절하기도 합니다. 또한 최근에는 RGB-D 카메라나 LiDaR의 출력 형식으로 사용되기 때문에 범용적이기도 합니다.</p>
+
+<h2 id="edge-conditioned-convolution-ecc">Edge-conditioned Convolution (ECC)</h2>
+<p><img src="assets/images/edge-convolution/1-edge-convolution.png" alt="" />
+Edge-conditioned convolution 연산 과정은 그리 어렵지 않습니다. Point cloud 데이터를 graph 형태로 변환하여 <em>n</em>개의 node와 <em>m</em>개의 edge를 얻었다고 가정하겠습니다. 이 때 node의 feature vector가 <em>l</em>차원, edge의 feature vector가 <em>s</em>차원이라고 하면 우리는 edge의 feature vector로부터 node feature vector의 transformation matrix(<em>l</em>x<em>l</em>차원)를 얻는 미분 가능한 함수를 정의하고자 합니다. 논문에서는 가장 간단한 multi-layer perceptron을 활용하였는데, input이 <em>s</em>차원/ output이 <em>l</em>x<em>l</em>차원인 linear layer입니다. 이렇게 각 node마다 <em>l</em>x<em>l</em> 차원의 “edge-specific weights”를 얻을 수 있고, 이는 edge feature vector에서 추출한 행렬이기 때문에 점들 사이의 관계를 담고 있습니다. 이렇게 얻은 weight을 이웃한 각 node feature vector에 곱해주고 normalize하면 edge-conditioned convolution을 거친 해당 점의 feature vector를 얻을 수 있습니다.
+<img src="assets/images/edge-convolution/2-one-hot-edge.png" alt="" />
+각 edge feature vector를 순서에 맞는 one-hot vector로 설정하면 edge-conditioned convolution 연산은 uniform function에 대한 convolution과 같아집니다. 위의 그림에서 ECC는 filter size가 3인 1차원의 discrete convolution과 정확히 같아지는 것을 확인할 수 있습니다.
+ECC의 특징 중의 하나가 multi-hop convolution이 불가능하다는 점입니다. 다른 graph convolution 연산의 경우에는 인접 행렬을 여러번 곱해서 multi-hop의 범위를 가지는 node에 대해서도 feature aggregation을 할 수가 있지만, ECC는 인접 행렬을 이용하지 않기 때문에 multi-hop 연산이 불가능합니다. 하지만 저자는 일반적인 2D convolution에서도 크기가 큰 filter를 이용하는 것보다 3x3 크기의 filter를 여러개 이어붙이는 것이 더 좋은 feature를 추출하기 때문에 ECC layer도 여러번 반복하면 multi-hop convolution보다 좋은 성능을 낼 것이라고 이야기합니다.
+ECC layer의 끝에는 다른 convolution layer와 마찬가지로 batch normalization layer를 붙여주어 학습을 효율적으로 진행할 수 있게 하였습니다.</p>
+
+<h2 id="deep-network-with-ecc">Deep network with ECC</h2>
+<p><img src="assets/images/edge-convolution/3-network-architecture.png" alt="" />
+ECC 연산을 통해 2D image data에 대한 neural network와 비슷한 구조를 graph 구조에 대해서도 구현할 수 있습니다. 위 그림은 ECC를 이용한 convolution layer와 graph-pooling 및 coarsening 과정을 이용한 pooling layer를 이어붙여 deep neural network를 구현한 그림입니다.</p>
+<ul>
+  <li>Graph pooling &amp; coarsening
+ECC는 nearest neighborhood를 통해 정의된 그래프의 구조를 그대로 유지한 결과를 출력합니다. 하지만 classification task의 출력 형식인 C(number of class)차원의 출력 벡터를 얻기 위해서는 graph의 크기를 줄여서 node feature을 합쳐주어야 합니다. Graph의 크기를 줄이는 과정을 graph coarsening, node feature를 합치는 과정을 graph pooling이라고 부릅니다. Coarsening을 반복하게 되면 결국에는 서로 연결되지 않은 몇 개의 node들만 남게 됩니다. 이 때 각 node들은 self-loop을 가지고 있기 때문에 여전히 graph의 형태를 띈다고 할 수 있으며 global max pooling 등의 과정을 통해 마지막 남은 feature vector를 합쳐줄 수 있습니다.</li>
+</ul>
+
+<p>Graph coarsening에는 다양한 알고리즘들이 활용될 수 있는데, 논문에서는 특정한 resolution을 가지는 3차원의 grid를 생성해서 해당 grid 안의 점들을 하나로 모아주는 VoxelGrid 알고리즘을 이용했습니다. 합쳐진 점들에 대해서는 다시 nearest neighbor을 통해 graph로 변환해줍니다.</p>
+
+<ul>
+  <li>
+    <p>Edge label
+Edge label은 해당 edge와 연결된 두 vertex 좌표값의 차이로 설정했습니다. Cartesian 및 Spherical coordinate으로 변환하여 총 6차원의 edge feature vector를 활용하였습니다.</p>
+  </li>
+  <li>
+    <p>Data Augmentation
+학습할 때에는 dataset의 규모가 크지 않기 때문에 여러 방법으로 augmentation을 하여 overfitting을 방지하였습니다. 논문에서는 point cloud를 임의로 회전시키거나, 크기를 변화시키거나, 특정 축으로 대칭시키거나, 몇개의 점을 지우는 등의 방법을 통해 데이터 다양성을 확보했다고 주장합니다.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<p>ECC는 다양한 형태의 point cloud 및 graph classification 실험을 통해 성능을 보여주었습니다. 오늘은 대표적으로 ModelNet 데이터셋과 MNIST 데이터셋을 활용한 실험을 소개하겠습니다.</p>
+
+<ul>
+  <li>
+    <p>ModelNet
+<img src="assets/images/edge-convolution/4-modelnet-result.png" alt="" />
+ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 카테고리 개수에 따라 ModelNet10과 ModelNet40으로 구분되며 각각 4000개, 10000개 정도의 학습 데이터가 존재합니다. 논문에서는 Mesh 형태의 데이터의 표면에서 uniform하게 1000개씩의 point를 sampling하여 point cloud 형태로 변환해주었습니다. 신경망 구조는 <strong><em>ECC(16)-ECC(32)-MP(2.5/32,7.5/32)-ECC(32)-ECC(32)-MP(7.5/32,22.5/32)-ECC(64)-GMP-FC(64)-Dropout(0.2)-FC(10 or 40)</em></strong> 의 형태를 이용하였고 100 epoch의 학습을 진행하였습니다. Classification에 대한 전반적인 accuracy는 SOTA만큼은 아니지만 경쟁력 있는 수준을 보여주었습니다.</p>
+  </li>
+  <li>
+    <p>MNIST
+논문에서는 숫자에 대한 28x28 크기의 이미지 데이터셋인 MNIST 데이터셋을 이용한 성능도 측정하였습니다. 우선 ECC를 적용할 수 있게 2D image를 <em>(x, y, 0)</em>의 좌표를 가지는 point cloud 형태로 변환하고 nearest neighbor 알고리즘을 통해 다시 graph 형태로 변환하였습니다. 여기서는 <strong><em>C(16)-MP(2,3.4)-C(32)-MP(4,6.8)-C(64)-MP(8,30)-C(128)-D(0.5)-FC(10)</em></strong> 형태의 네트워크 구조를 활용하여 20 epoch만큼 학습을 진행하였습니다.
+<img src="assets/images/edge-convolution/5-mnist-result.png" alt="" />
+학습 결과는 위와 같습니다. 기존의 baseline 모델들과 비교해도 괜찮은 결과를 도출하였습니다. 또한 2D image에서 어두운 부분을 제외하고 graph 형태로 변환하여 학습을 시켜도 비슷한 결과를 도출하였습니다. 이는 graph의 형태가 바뀌어도 neural network가 학습 및 추론을 안정적으로 할 수 있다는 것을 의미합니다.</p>
+  </li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<p>논문에서는 edge label을 처음으로 사용한 Edge-conditioned Convolution 연산을 제시하였고, 이를 활용하여 graph 형태의 데이터를 위한 feed-forward network를 구성하였습니다. 추후에 진행되는 attention 기반의 graph convolution 등의 연구의 기반이 되는 중요한 연구라고 생각합니다. 읽어주셔서 감사합니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://openaccess.thecvf.com/content_cvpr_2017/html/Simonovsky_Dynamic_Edge-Conditioned_Filters_CVPR_2017_paper.html">https://openaccess.thecvf.com/content_cvpr_2017/html/Simonovsky_Dynamic_Edge-Conditioned_Filters_CVPR_2017_paper.html</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RE Tech Archive</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/Edge-Conditioned-Convolution';
+                            this.page.identifier = '/Edge-Conditioned-Convolution';
+                            this.page.title = 'Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://jekyller.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/3d/">3d</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/PointNet++">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/3d/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/PointNet++">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/BERT">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Nlp</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>RE Tech Archive</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Dynamic+Edge-Conditioned+Filters+in+Convolutional+Neural+Networks+on+Graphs+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/Edge-Conditioned-Convolution"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/Edge-Conditioned-Convolution"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

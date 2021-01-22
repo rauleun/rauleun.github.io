@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="machine learning research notes" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/PointNet++" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RE Tech Archive" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" />
+    <meta property="og:description" content="원문 : Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017. 오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 Pointnet++: Deep hierarchical feature learning on point sets in a metric space 논문에 대한 리뷰입니다. 이 논문은" />
+    <meta property="og:url" content="http://localhost:4000/PointNet++" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2021-01-21T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-01-21T09:00:00+09:00" />
+    <meta property="article:tag" content="3d" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" />
+    <meta name="twitter:description" content="원문 : Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017. 오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 Pointnet++: Deep hierarchical feature learning on point sets in a metric space 논문에 대한 리뷰입니다. 이 논문은" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="3d" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RE Tech Archive",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/PointNet++",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/PointNet++"
+    },
+    "description": "원문 : Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017. 오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 Pointnet++: Deep hierarchical feature learning on point sets in a metric space 논문에 대한 리뷰입니다. 이 논문은"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-3d  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="21 January 2021">21 January 2021</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/3d/'>3D</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf">Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.</a></p>
+
+<p>오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 <strong><em>Pointnet++: Deep hierarchical feature learning on point sets in a metric space</em></strong> 논문에 대한 리뷰입니다.</p>
+
+<p>이 논문은 Point cloud 형식의 데이터를 Deep learning 분야에 적용시킨 선구적인 논문인 PointNet의 후속편으로, local한 특징을 잡아내지 못하는 기존의 PointNet을 보완하여 classification 및 segmentation 성능을 크게 끌어올렸습니다.</p>
+
+<p>그럼 시작하겠습니다!</p>
+<h2 id="pointnet">PointNet</h2>
+<p>PointNet++에 대하여 설명드리기 전에, 전편인 PointNet에 관해서 간단히 짚고 넘어가겠습니다. (자세한 설명은 PointNet 논문 리뷰를 참고해주세요.) Point cloud는 3차원 공간 내의 물체를 표현하기 위한 데이터의 한 형식으로 각 점들에 대한 좌표값으로 구성되어 있습니다. Point cloud는 sparse한 점들의 집합이기 때문에 계산량 및 메모리 차원에서 효율적이지만, 순서가 없는 집합 형태의 데이터이기 때문에 neural network가 이를 처리하려면 permutation-invariant한 특성을 가진 layer를 포함하고 있어야 했습니다. PointNet에서는 symmetric function 중의 하나인 max-pooling 함수를 활용하여 point cloud 데이터에 대한 global한 feature vector를 추출하였습니다. 하지만 max-pooling 함수의 특성상 최대값을 제외한 local한 정보들을 소실될 수밖에 없고 이는 정교한 경계선 설정이 중요한 segmentation task 등에서 성능 저하의 요인이 되었습니다. PointNet++에서는 몇 가지 구조를 제안하여 local한 feature vector를 추출하였습니다.</p>
+
+<p>Local한 특징을 추출하는 것은 중요합니다. CNN에서도 다양한 receptive field를 가지는 convolution kernel을 활용함으로써 local한 특징을 추출하였고, 이는 2D image들에 대한 폭발적인 성능 향상을 이뤄냈습니다. PointNet++는 계층적 구조의 neural network를 활용하여 다양한 scale의 local feature를 추출하였고, 이를 통합하여 SOTA의 classification 및 segmentation 성능을 기록할 수 있었습니다. 그럼 PointNet++에 대해 좀 더 자세히 알아보겠습니다.</p>
+
+<h2 id="pointnet-1">PointNet++</h2>
+<p><img src="assets/images/210121-pointnet++/1-pointnet++.png" alt="" />
+PointNet++는 <strong>Set abstraction layer</strong>과 <strong>Density adaptive layer</strong>로 구성되어 있습니다.</p>
+
+<h2 id="set-abstraction">Set Abstraction</h2>
+<p>PointNet++에서는 set abstraction이라고 부르는 과정을 통해 point cloud의 local feature를 추출하였습니다. Set abstraction을 거치면, point 들의 집합은 이전보다 적은 수의 점들로 구성된 point cloud로 추상화되며, semantic한 정보를 담게 됩니다.</p>
+
+<p>Set abstraction은 세 단계로 구분할 수 있습니다. 우선 sampling 단계에서는 point cloud의 local한 부분집합의 중심에 해당하는 중요한 몇 개의 점들을 선택합니다. 이후 grouping 단계에서는 sampling 단계에서 찾은 중요한 몇 개의 점들과 이웃한 점들을 찾고 하나의 집합으로 구성합니다. 마지막으로 pointnet 단계에서는 local한 점들의 집합에 대한 패턴을 encoding하여 feature vector를 추출합니다.</p>
+
+<p>예를 들어 Point cloud가 <em>N</em> 개의 점들로 구성되어 있고 각 점은 <em>d</em> 차원의 좌표를 가지며 <em>C</em> 차원의 feature vector를 가진다고 가정하겠습니다. Set abstraction 과정을 거치면 <em>N</em> x <em>(d+C)</em> 크기의 input 행렬이 <em>N’</em> x <em>(d+C’)</em> 크기의 행렬로 변환되어 출력됩니다. 이 때 <em>N’</em> 는 subsampling된 점들의 개수이고, <em>C’</em> 는 중심점 행렬의 feature vector의 차원입니다.</p>
+
+<p>Sampling 단계에서는 <em>N</em> 개의 점들 중 <em>N’</em> 개의 점을 중심점으로 선택합니다. 이 <em>N’</em> 개의 점들은 전체 점들 중 나머지 점들과의 거리가 가장 먼 점들로 구성됩니다. 이때 이 거리라는 개념은 Uclidian distance 일 수도 있고 그 외 다른 거리 관련 metric일 수도 있습니다. 논문에서는 이 거리가 가장 먼 점들의 집합을 Farthest point sampling (FPS) 알고리즘을 반복적으로 적용해 얻었다고 설명하였습니다. 또한, 이렇게 서로 최대한 떨어져 있는 점들을 선택하게 되면 random sampling을 통해서 점들을 선택하는 것보다 더 일반적이고 전체적인 범위의 point들을 얻을 수 있습니다.</p>
+
+<p>Grouping 단계에서는 sampling 단계에서 추출한 <em>N’</em> 개 중심점들의 주변 점들을 선택하여 local한 영역으로 묶어줍니다. 각 중심점과 묶이는 주변 점들의 개수는 영역마다 다를 수 있는데, 후에 설명드릴 pointnet 단계에서 점들의 개수와 상관 없이 같은 크기의 feature vector로 변환해주기 때문입니다. 또한 이웃한 점들을 선택하는 방식도 두 가지로 나뉠 수 있습니다. 우선, ball query 방식은 반지름 <em>r</em> 을 정해 이 반지름 내에 있는 점들을 모두 이웃한 점으로 선택하는 방식입니다. 또한, kNN 방식은 정해진 <em>K</em> 라는 개수의 가장 가까운 점들을 이웃한 점으로 선택하는 방식입니다. 논문에서는 ball query 방식을 선택했는데, kNN과 비교했을 때 정해진 크기의 지역을 확실하게 표현할 수 있기 때문입니다. 이는 일정하게 sampling되지 않은 point cloud 데이터에서 영역 별로 범위가 달라지는 문제를 방지할 수 있게 됩니다.</p>
+
+<p>마지막으로 pointnet 단계에서는 각 local한 영역에 대해 특징 정보를 encoding한 하나의 feature vector를 추출할 수 있습니다. 각 중심점(총 <em>N’</em> 개)별로 생성된 <em>K</em> 개의 이웃한 점들에 대한 <em>(d+C)</em> 크기의 feature vector를 행렬로 표현하면 <em>N’</em> x <em>K</em> x <em>(d+C’)</em> 크기의 행렬이 되는데, 이 행렬이 pointnet 단계를 거치면 <em>N’</em>x<em>(d+C’)</em> 크기의 feature vector로 변환됩니다. 이 때, 점들의 좌표값은 중심점과의 상대적인 거리의 차이에 대한 값이 들어가게 되는데, 이를 통해 점들 사이의 위치적 관계에 대한 정보를 잡아낼 수 있기 때문입니다.</p>
+
+<h2 id="density-adaptive-feature-learning">Density Adaptive Feature Learning</h2>
+<p><img src="assets/images/210121-pointnet++/2-nonuniform-pointcloud.png" alt="" />
+Point cloud 데이터는 위의 그림처럼 non-uniform한 밀도 분포를 가지는 것이 대부분입니다. 이렇게 일정하지 않은 점들의 분포는 point cloud의 특징에 대한 학습을 어렵게 만드는데, density가 높은 point cloud에 대해 학습한 네트워크는 sparse한 점들의 point cloud를 만났을 때 정보가 부족하다고 느끼고 특징을 제대로 표현하지 못하기 때문입니다. (그 반대의 경우도 마찬가지입니다.) 논문에서는 이를 해결하기 위해 point cloud의 sampling density를 변화시키며 학습하였습니다. 또한, 다양한 scale의 point cloud에서 feature vector를 추출하는 multi-scale feature extraction 구조를 활용하였는데, 저자는 이를 <em>density adaptive layer</em> 이라고 표현했습니다. 다양한 크기의 density를 가지는 point cloud를 학습하는 두 가지 방법에 대해 소개하겠습니다.
+<img src="assets/images/210121-pointnet++/3-grouping.png" alt="" /></p>
+<ul>
+  <li>Multi-scale grouping (MSG)</li>
+</ul>
+
+<p>우선 grouping 단계를 다양한 scale로 여러 번 적용하여 하나의 중심점에 대해 여러 scale의 point group을 얻는 방법이 있습니다. 각 point group에서 각각 추출한 feature vector를 이어붙이면(concatenate), multi-scale feature vector를 얻을 수 있게 됩니다. 이 때, 각 point group은 임의의 dropout ratio를 선택하여 그 비율에 맞게 random하게 down-sampling(dropout) 하여 각 point group마다 서로 다른 scale로 균일하지 않은 density를 가지게끔 변환해주었습니다. 이러한 과정을 거치면 다양한 sparsity와 서로 다른 uniformity를 가지는 점들을 얻을 수 있습니다. 하지만 MSG는 각 중심점들과 그 이웃한 점들이 모두 pointnet을 거쳐야 하므로 게산량 차원에서 아주 비효율적이고 time-consuming하다는 단점이 있습니다. 논문에서는 이를 보완하기 위해 multi-resolution grouping을 제안하였습니다.</p>
+
+<ul>
+  <li>Multi-resolution grouping (MRG)</li>
+</ul>
+
+<p>MRG는 MSG의 단점을 보완한 grouping 방식입니다. MRG는 서로 다른 scale로 얻은 두 feature vector를 이어붙여서(concatenate) multi-scale feature vector를 얻습니다. 이 때, 첫 번째 vector는 local group에 해당하는 점들 전체에 대해 pointnet 단계를 거쳐서 얻고, 두 번째 vector는 local group에 대해 그보다 한 단계 아래의 sub-region에서 얻은 feature를 종합하여 얻습니다. 저자는, 만약 input으로 들어오는 point cloud의 density가 낮다면, 첫 번째 vector에 의해 전반적인 특징에 대한 정보를 추출할 수 있고, density가 높다면, sub-region에 대한 feature가 높은 resolution 더 디테일한 특징 정보를 제공할 수 있다고 이야기합니다. 따라서 두 vector를 모두 이용하게 되면 여러 density의 point cloud에 대해서 모두 대응할 수 있으며, 계산량 측면에서도 효율적이라고 말합니다.</p>
+
+<h2 id="point-feature-propagation">Point Feature Propagation</h2>
+<p>Set abstracion layer를 거치게 되면, sampling 단계에 의해 point cloud의 크기가 줄어들게 됩니다. 이렇게 얻은 feature vector를 segmentation task에 활용하려면 다시 원래의 크기로 복원해주어야 합니다. 복원해주지 않고 set abstraction을 하기 위해 모든 점들을 중심점으로 지정해서 feature aggregation을 해주는 방법도 있지만, 이는 computation cost가 너무 많이 들기 때문에 논문에서는 point cloud를 down-sampling하고 다시 interpolation 기반의 방법을 통해 up-sampling하는 방식을 제안하고 있습니다.</p>
+
+<p>구체적으로, 이전 점들에 대한 feature vector로부터 (<em>1/거리값)</em> 으로 weighting을 가해서 interpolation하는 방법을 이용하였습니다. 또한 down-sampling 되기 전의 feature vector를 skip-connection을 통해 concatenate하여 부족할 수도 있는 정보량을 보충해주었습니다. Interpolation 과정은 원래 point의 개수로 맞춰질 때까지 반복해주었고, 결과로 얻은 feature vector를 통해서 segmentation task를 수행해주었습니다.</p>
+
+<h2 id="experiments">Experiments</h2>
+
+<p>PointNet++는 MNIST(2D Object), ModelNet40(3D Object), ScanNet(3D Scene) 등의 다양한 데이터셋에 대한 evaluation 과정을 통해 classifiaction 및 segmentation task에서 성능을 증명하였습니다.</p>
+
+<ul>
+  <li>
+    <p>MNIST
+<img src="assets/images/210121-pointnet++/4-mnist-result.png" alt="" />
+MNIST 데이터셋은 손글씨 숫자에 대한 60,000개 이상의 image입니다. PointNet++는 2D image의 좌표를 2D point cloud 형태로 변환하여 input으로 사용했는데, 기존 PointNet과 비교했을 때 error rate이 30% 이상 감소하는 등의 성능 향상을 보여주었습니다. 또한 기존 CNN 기반의 모델들과 비교했을 때도 더 좋은 성능을 보이기도 했습니다.</p>
+  </li>
+  <li>
+    <p>ModelNet40
+<img src="assets/images/210121-pointnet++/5-modelnet-result.png" alt="" />
+ModelNet40 데이터셋은 40개의 클래스에 대한 CAD 모델입니다. CAD 모델은 3D Mesh 형태를 띄고 있기 때문에, 논문에서는 mesh의 표면을 sampling하여 3D point cloud 형태로 변환한 후에 PointNet++의 input으로 사용하였습니다. 또한 모델 구조는 3단계의 계층 단계에 3개의 Fully connected layer를 이어붙여서 구성했으며, 모든 point들의 좌표는 반지름 1의 구 안에 들어오게끔 하여 normalization을 해주었습니다. PointNet++는 3D classification task에서도 기존의 SOTA 모델로 알려진 MVCNN의 성능을 크게 뛰어넘었습니다.
+<img src="assets/images/210121-pointnet++/6-grouping-result.png" alt="" />
+또한 ModelNet 데이터셋을 활용하여 Density adaptive layer의 성능을 측정하는 ablation study를 진행했습니다. 위의 그림을 보면, 1024개의 점에 대한 point cloud로부터 random하게 점을 지워서 512, 256, 128개로 down-sampling하였습니다. 점의 개수가 다른 point cloud를 PointNet 및 PointNet++의 input으로 넣어주었을 때, 앞서 설명드린 density aadaptive layer (MSG 또는 MRG)를 적용시켜 multi-scale로 학습한 모델들은 점의 개수가 달라져도 robust한 결과를 보여주었습니다.</p>
+  </li>
+  <li>
+    <p>ScanNet</p>
+  </li>
+</ul>
+
+<p>ScanNet 데이터셋은 실내 환경에 대한 1500개 이상의 3D point cloud 데이터로 구성되어 있습니다. 각각의 점들에는 해당 점이 어떤 물체에 속해 있는지에 대한 segmentation label이 달려 있습니다. PointNet++는 ScanNet에 대한 segmentation task에서도 아주 뛰어난 결과를 보여주었습니다. 계층적 구조를 통한 local한 feature 학습이 다양한 scale의 scene을 이해하는데 중요하다고 해석할 수 있을 것 같습니다. 
+<img src="assets/images/210121-pointnet++/8-scannet-result.png" alt="" />
+ScanNet에서도 sampling density가 달라졌을 때 robust한 결과를 도출할 수 있는지 실험하였습니다. ScanNet 데이터를 non-uniform한 sampling density로 줄여서 학습한 뒤에 결과를 확인해보았습니다. 앞선 ModelNet40을 이용한 실험 결과와 마찬가지로, MRG 네트워크가 Single-scale grouping을 통해 학습한 네트워크보다 다양한 density의 데이터들에 대해 훨씬 더 좋은 결과를 보여주었습니다. 
+<img src="assets/images/210121-pointnet++/7-grouping-result.png" alt="" /></p>
+
+<h2 id="summary">Summary</h2>
+
+<p>PointNet과 더불어 PointNet++는 이전에 classification이나 detection 분야에서 활용되었던 multi-scale feature learning 기법을 point cloud 데이터에 적용시켜 급격한 성능 향상을 만들었습니다. 또한 Graph의 크기를 줄이는 graph coarsening이나 다시 graph의 크기를 키우는 point feature propagation 등 다양한 개념이 제시된 논문이라 의미가 크다고 생각합니다. 다음 번에는 이를 기반으로 attention 메커니즘을 적용시킨 논문을 한번 리뷰해보겠습니다. 읽어주셔서 감사합니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="http://stanford.edu/~rqi/pointnet2/">http://stanford.edu/~rqi/pointnet2/</a></li>
+  <li><a href="https://github.com/charlesq34/pointnet2">https://github.com/charlesq34/pointnet2</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RE Tech Archive</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/PointNet++';
+                            this.page.identifier = '/PointNet++';
+                            this.page.title = 'PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://jekyller.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/3d/">3d</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/Edge-Conditioned-Convolution">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/3d/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/Edge-Conditioned-Convolution">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>RE Tech Archive</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=PointNet%2B%2B+-+Deep+Hierarchical+Feature+Learning+on+Point+Sets+in+a+Metric+Space+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/PointNet++"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/PointNet++"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

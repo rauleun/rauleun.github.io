@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>EfficientDet - Scalable and Efficient Object Detection</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="machine learning research notes" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/EfficientDet" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RE Tech Archive" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="EfficientDet - Scalable and Efficient Object Detection" />
+    <meta property="og:description" content="원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리" />
+    <meta property="og:url" content="http://localhost:4000/EfficientDet" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2020-09-26T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2020-09-26T09:00:00+09:00" />
+    <meta property="article:tag" content="Object-detection" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EfficientDet - Scalable and Efficient Object Detection" />
+    <meta name="twitter:description" content="원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Object-detection" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RE Tech Archive",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/EfficientDet",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/EfficientDet"
+    },
+    "description": "원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="EfficientDet - Scalable and Efficient Object Detection" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-object-detection  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="26 September 2020">26 September 2020</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/object-detection/'>OBJECT-DETECTION</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">EfficientDet - Scalable and Efficient Object Detection</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf">Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
+</a></p>
+
+<p><img src="assets/images/efficientdet/main-result.png" alt="" /></p>
+
+<p>오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 <strong><em>Efficientdet: Scalable and efficient object detection</em></strong> 논문에 대한 리뷰입니다.</p>
+
+<p>이 논문은 주어진 제약 조건(메모리 및 레이턴시) 아래에서 가장 효율적인 모델 구조를 찾아주는 <a href="https://arxiv.org/pdf/1905.11946.pdf">EfficientNet</a>을 object detection 분야에 접목시킨 연구를 다루고 있으며, 기존의 여러 모델과 비교하였을 떄 성능 및 효율성 측면에서 아주 뛰어난 결과를 보여주었습니다.</p>
+
+<p>EfficientNet 구조를 backbone으로 하며, 그 논문에서 제안한 compound scaling을 활용해 여러 capacity의 모델을 제안했기 때문에 EfficientNet 논문을 읽고서 보시는 것을 추천드립니다. 그럼 시작하겠습니다!</p>
+<h2 id="efficientdet-architecture">EfficientDet Architecture</h2>
+<p>전통적으로 object detection을 수행하기 위한 모델 구조는 region-of-interest(ROI)를 제안하는 부분의 유무에 따라 one-stage와 two-stage로 구분합니다. 일반적으로 one-stage가 학습 및 추론 속도가 빠르고 간단한 구조를 가진다는 장점이 있다면, two-stage는 복잡한 구조를 가지지만 높은 정확성 및 AP 값을 가진다는 장점이 있습니다. 본문에서 소개한 EfficientDet은 ROI proposal 단계가 없으면서도 모델의 구조 최적화를 통해 높은 성능을 보여줍니다.</p>
+
+<p><img src="assets/images/efficientdet/efficientdet-architecture.png" alt="" /></p>
+
+<p>EfficientDet은 크게 CNN backbone, BiFPN, Class/Bbox prediction의 세 부분으로 구성되어 있습니다. 하나씩 살펴보겠습니다.</p>
+
+<ul>
+  <li>CNN backbone (EfficientNet)</li>
+</ul>
+
+<p>CNN backbone으로는 SOTA의 이미지 분류 성능을 보여준 EfficientNet이 사용되었습니다. EfficientNet은 convolution 연산 기반 모델의 성능을 높이기 위해 모델의 width(channel 개수), depth(layer 개수), resolution(input 크기)를 동시에 늘리는 compound scaling을 적용하였습니다. 또한 세 가지 hyperparameter를 일정 비율로 키워 memory, latency 등의 자원 제약에 따라 모델의 capacity를 증가하였습니다. 결과적으로 EfficientNet은 같은 자원을 활용한 ResNet이나 Inception, DenseNet보다 훨씬 높은 성능을 보여주었습니다. EfficientDet은 이러한 EfficientNet을 backbone으로 하여 객체의 특징을 잘 나타내주는 여러 scale의 feature map을 추출하였습니다.</p>
+
+<ul>
+  <li>Weighted Bidirectional FPN</li>
+</ul>
+
+<p>전통적인 CNN 기반의 one-stage 모델들은 하나의 feature map에서 object detection을 수행했기 때문에 다양한 크기의 객체를 검출하지 못하는 문제가 있었습니다. Feature Pyramid Network(FPN) 구조는 이를 해결하기 위해 등장하였습니다. FPN은 여러 layer에서 다양한 scale의 feature map을 추출하고, 각각으로부터 object detection을 수행하기 때문에 다양한 크기의 객체 검출이 가능했습니다. 또한 여러 resolution의 feature map을 더해주는 multi-scale feature fusion을 통해 성능을 높여주었습니다.</p>
+
+<p><img src="assets/images/efficientdet/fpn-architectures.png" alt="" /></p>
+
+<p>Multi-scale feature fusion 구조는 FPN에서 처음 제안된 이후에 더 높은 성능을 실현하기 위해 다양하게 변화하였습니다. FPN이 top-down 방식으로 서로 다른 두 scale의 feature map을 더해주었다면, PANet에서는 기존 FPN 구조에 bottom-up path aggregation 구조를 추가하여 information flow를 다양화해주었습니다. 또한 NAS-FPN에서는 강화학습을 이용한 수 천 시간의 학습을 통해 성능과 효율성이 동시에 뛰어난 cross-scale connection 구조를 제안하였습니다. 
+<img src="assets/images/efficientdet/bifpn-architecture.png" alt="" /><br />
+EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 구조들 중 높은 성능을 내는 PANet을 몇 가지 부분에서 수정하였습니다. 우선 feature-fusion 없이 하나의 input만을 받는 top-down의 맨 위, 맨 아래 node를 제거하였습니다. 또한 같은 level에 있는 input feature를 output에 더해주는 skip-connection을 추가하여, 적은 수의 계산량으로 feature fusion을 수행할 수 있도록 설계하였습니다. 마지막으로 구성한 bi-directional(top-down &amp; bottom-up) 구조를 하나의 블럭으로 두고 여러 번 반복해 high-level feature fusion을 가능하게 만들었습니다. BiFPN 블럭의 반복 횟수는 compound scaling을 통해 최적화하였습니다.</p>
+
+<p>EfficientDet은 feature map를 더하는 과정도 개선하였습니다. 기존의 multi-scale feature fusion 과정에서는 서로 다른 여러 scale의 feature map을 단순하게 같은 비율로 더해주었습니다. 하지만 EfficientDet에서는 서로 다른 resolution을 가진 input으로부터 얻어진 feature map들이기 때문에 더해지는 과정에서 output에 기여하는 정도가 다를 수 있다고 판단하여, 이를 반영하여 weight를 곱해서 더해주는 방법을 제안하였습니다. 각 feature map의 weight는 다른 변수와 마찬가지로 학습을 통해서 최적화하였고, 계산의 효율성을 위해 feature 단위의 스칼라 값으로 정의하였습니다. 또한 feature fusion을 하는 과정에서 weight의 총합을 1로 normalize 해주었는데, latency cost를 줄이기 위해 softmax layer 대신 단순히 weight들을 더한 값에서 각 weight의 비율을 계산하는 fast-normalization fusion 방식을 활용하였습니다.</p>
+
+<p>마지막으로 parameter 개수를 줄이기 위해 feature fusion 과정에서 발생하는 convolution 연산들을 모두 depthwise-convolution으로 대신하였고, batch normalization과 activation layer를 convolution 뒤에 추가하였습니다.</p>
+
+<ul>
+  <li>Class/Bbox prediction layer</li>
+</ul>
+
+<p>각각 여러 겹의 Convolution layer을 이용해 class 정보와 bounding box 좌표를 예측하였습니다. 이 때 convolution layer의 개수는 compound scaling을 통해 최적화하였습니다.</p>
+<h2 id="compound-scaling">Compound Scaling</h2>
+<p>이 논문에서 여러 번 반복해서 강조하는 EfficientDet의 설계 목표는 자원의 제약(resource constraint)이 주어질 때 가장 효율적인 모델 구조를 찾는 것입니다. EfficientDet에서는 다양한 resource constraint 상황을 대비하기 위해, baseline 구조를 잡고, 구조를 구성하는 각 요소의 크기를 동시에 늘리는 compound scaling을 이용하여 모델의 크기를 키워나갔습니다. EfficientNet에서는 이러한 compound scaling 과정을 grid search를 통해서 수행하여 최적의 compound coefficient를 찾았지만, EfficientDet은 훨씬 더 큰 차원의 모델이기에 grid search 대신에 heuristic 기반의 scaling approach를 활용하였습니다. 결과적으로 얻은 8개의 EfficientDet 모델에 대한 scaling configuration은 아래와 같습니다.</p>
+
+<p><img src="assets/images/efficientdet/scale-parameters.png" alt="" /></p>
+<h2 id="training">Training</h2>
+<ul>
+  <li>Dataset</li>
+</ul>
+
+<p>EfficientDet은 COCO2017의 object detection 데이터셋을 활용하여 각각 약 118,000장과 5,000장의 이미지를 이용해 학습 및 검증되었습니다.</p>
+
+<ul>
+  <li>Loss function</li>
+</ul>
+
+<p>대부분의 object detection 모델과 마찬가지로, EfficientDet도 여러가지 loss function을 활용하였습니다. Class predictor에 대한 classification loss와 bbox predictor에 대한 L1 및 IOU loss의 합을 loss function으로 정의하였습니다.</p>
+
+<ul>
+  <li>그 외 details</li>
+</ul>
+
+<p>Stochastic gradient descent(SGD) optimizer를 이용하였습니다. 또한 activation function으로는 ReLU를 대체하기 위해 Google에서 고안한 swish activation을 이용하였습니다. Sigmoid 함수에 일차함수를 곱한 형태입니다.</p>
+
+<p>각 모델은 32개의 TPU v3 코어를 활용하여 코어 당 4개의 이미지를 학습했고, 결과적으로 128의 batch size를 가집니다.</p>
+
+<ul>
+  <li>Segmentation</li>
+</ul>
+
+<p>EfficientDet에 약간의 구조를 추가하여 semantic segmentation을 학습해보았는데, ResNet 또는 Xception 기반의 DeepLabV3보다 성능이 뛰어났다고 합니다. 모델 구조는 D4 EfficientDet에 backbone의 level-2 feature를 받아 pixelwise classification하는 layer를 추가하였습니다.</p>
+<h2 id="result">Result</h2>
+<p><img src="assets/images/efficientdet/result-params.png" alt="" /></p>
+
+<p>위의 표는 다른 object detection 모델들과 비교한 EfficientDet의 성능을 나타내는데, 압도적인 결과를 보여주고 있습니다. EfficientDet은 다른 모델들과 비슷한 Parameter 개수나 CPU/GPU latency의 조건에서 뛰어난 AP성능을 보여주었습니다. 실험을 할 때, 다른 네트워크에 대해서는 공정한 비교를 위해 convolution 연산을 모두 depthwise로 바꿔주었다고 합니다. 모델의 크기를 늘리는 데에는 한계가 있기 떄문에, 주어진 모델 capacity에서 뛰어난 효율성을 보여주어야 한다는 EfficientDet의 철학이 제대로 반영된 결과라고 할 수 있을 것 같습니다. 유사한 크기의 다른 네트워크에 대한 스펙을 아래 표로 정리하였습니다.</p>
+
+<p><img src="assets/images/efficientdet/result-ap.png" alt="" /></p>
+
+<p>논문에서는 여러가지 ablation study를 진행하였는데, 우선 EfficientDet 내의 EfficientNet과 BiFPN을 각각 ResNet과 FPN으로 바꾼 모델과 성능을 비교해보았습니다. 각각을 다른 구조로 치환한 두 실험에서 모두 AP가 3~4정도 낮아진 걸로 보아 두 구조 모두 성능에 중요한 역할을 하는 것을 확인할 수 있었습니다.</p>
+
+<p><img src="assets/images/efficientdet/ablation-backbone-fpn.png" alt="" /></p>
+
+<p>또한 BiFPN 구조 우수성을 보여주기 위해, EfficientDet을 다른 여러 multi-scale feature fusion 방식으로 바꾸어 결과를 비교하였습니다. 마찬가지로 공정한 비교를 위해 FPN 블럭을 반복하여 parameter 개수를 비슷하게 맞춰주었습니다. 결과에서 BiFPN은 기존의 방법 중 가장 뛰어난 성능을 내던 PANet의 AP를 따라잡거나 뛰어 넘는 모습을 보여주었으며, 훨씬 작은 수의 메모리와 FLOPs를 이용하며 효율성 측면에서 압도적인 모습을 보여주었습니다.</p>
+
+<p><img src="assets/images/efficientdet/ablation-fpn.png" alt="" /></p>
+
+<p>학습이 진행됨에 따라 multi-scale feature fusion에 사용하는 weight 값의 변화 과정을 softmax와 fast normalization fusion 각각을 사용했을 때에 대해 그려보았습니다. 두 실험에서 모두 모델이 데이터에 따라 어떤 resolution의 input을 강조해야하는지를 잘 학습하고 있는 것 같았고, 결과적으로 유사한 weight 값으로 수렴하였음을 확인할 수 있었습니다.</p>
+
+<p><img src="assets/images/efficientdet/ablation-weight1.png" alt="" /><br />
+<img src="assets/images/efficientdet/ablation-weight2.png" alt="" /></p>
+
+<p>EfficientDet 구조에서 각 구성 요소의 hyperparameter를 동시에 높여서 학습시키는 compound scaling 도 각각의 hyperparameter를 하나씩 키워서 학습시킬 때보다 훨씬 더 높은 AP 결과를 보여주었습니다.</p>
+
+<p><img src="assets/images/efficientdet/result-compound-scaling.png" alt="" /></p>
+<h2 id="summary">Summary</h2>
+<p>EfficientDet은 발표일 기준 COCO object detection task에 대해 SOTA의 성능 및 효율성을 보여준 획기적인 논문입니다. 실제로 공식 github 코드를 받아 자율주행 및 문자인식 데이터셋으로 fine-tuning하여 사용해보았는데, 다른 모델들과 비교하여 꽤나 뛰어난 성능을 보여주었습니다. 또한 각자의 자원 제약 조건(GPU 메모리 크기, 최대 추론 시간)에 맞는 최적의 모델을 선택할 수 있기 때문에 제가 사용하고 있는 GPU 메모리에 맞는 모델을 능동적으로 결정할 수 있어 효용성이 크다고 느꼈습니다.
+다만 Compound scaling을 적용함에 있어서 일정한 비율로 scale-up을 해줄 때 좀 더 최적화된 heuristic 또는 규칙이 있을 수도 있겠다는 생각이 듭니다. 어떤 모델이 EfficientDet의 성능 또는 효율성을 뛰어넘을 수 있을지 기대하며 이번 리뷰는 마치겠습니다. 읽어주셔서 감사합니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://arxiv.org/pdf/1905.11946.pdf">https://arxiv.org/pdf/1905.11946.pdf</a></li>
+  <li><a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf">https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf</a></li>
+  <li><a href="https://github.com/google/automl/tree/master/efficientdet">https://github.com/google/automl/tree/master/efficientdet</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RE Tech Archive</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/EfficientDet';
+                            this.page.identifier = '/EfficientDet';
+                            this.page.title = 'EfficientDet - Scalable and Efficient Object Detection';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://jekyller.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/object-detection/">Object-detection</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/DETR">End-to-End Object Detection with Transformers (DETR)</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/object-detection/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/BERT">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Nlp</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/DETR">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Object-detection</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">End-to-End Object Detection with Transformers (DETR)</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>RE Tech Archive</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">EfficientDet - Scalable and Efficient Object Detection</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=EfficientDet+-+Scalable+and+Efficient+Object+Detection&amp;url=https://rauleun.github.io/EfficientDet"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/EfficientDet"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
