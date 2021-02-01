@@ -1,4 +1,206 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-22T21:48:21+09:00</updated><id>http://localhost:4000/</id><title type="html">RE Tech Archive</title><subtitle>machine learning research notes</subtitle><entry><title type="html">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</title><link href="http://localhost:4000/PointNet++" rel="alternate" type="text/html" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" /><published>2021-01-21T09:00:00+09:00</published><updated>2021-01-21T09:00:00+09:00</updated><id>http://localhost:4000/PointNet++</id><content type="html" xml:base="http://localhost:4000/PointNet++">&lt;p&gt;원문 : &lt;a href=&quot;https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf&quot;&gt;Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-01T21:34:52+09:00</updated><id>http://localhost:4000/</id><title type="html">RE Tech Archive</title><subtitle>machine learning research notes</subtitle><entry><title type="html">Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</title><link href="http://localhost:4000/Superpoint-Graphs" rel="alternate" type="text/html" title="Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰" /><published>2021-01-29T09:00:00+09:00</published><updated>2021-01-29T09:00:00+09:00</updated><id>http://localhost:4000/Superpoint-Graphs</id><content type="html" xml:base="http://localhost:4000/Superpoint-Graphs">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_cvpr_2018/html/Landrieu_Large-Scale_Point_Cloud_CVPR_2018_paper.html&quot;&gt;Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘 소개드릴 논문은 2018년 CVPR에서 소개된 &lt;strong&gt;&lt;em&gt;Large-scale point cloud semantic segmentation with superpoint graphs&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/1-spg.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기존에 진행된 많은 AI 기반의 point cloud 연구는 좋은 성능을 보여주었지만, input size의 한계 때문에 적은 수의 점들로 구성된 point cloud에 대해서만 적용할 수 있었습니다. Neural network는 몇 백만개 이상의 점들로 구성된 LiDAR scan을 직접 다루기 어려웠고, down-sampling 하는 등의 후처리를 거쳐서 network의 input으로 이용했습니다. 하지만 이는 point cloud의 장점인 물체에 대한 정교한 표현력을 떨어트릴 수밖에 없었습니다. 오늘 소개드릴 연구는 기존의 연구와는 달리 몇 백만개 단위의 점들로 구성된 point cloud를 대상으로 semantic segmentation을 수행하였습니다. 논문에서는 유사한 구조의 점들을 superpoint라는 하나의 점으로 모아서 새로운 그래프(superpoint graph)를 구성했습니다. Superpoint graph(SPG)는 많은 점들로 구성되어 물체 간의 의미론적 관계에 대한 풍부한 정보를 담고 있기 때문에 semantic segmentation 성능을 크게 끌어올릴 수 있었습니다.&lt;/p&gt;
+
+&lt;p&gt;수학적인 내용이 많아 어려웠지만, 최대한 잘 정리해보겠습니다 :)&lt;/p&gt;
+
+&lt;h2 id=&quot;superpoint-graph-spg&quot;&gt;Superpoint Graph (SPG)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/2-spg-process.png&quot; alt=&quot;&quot; /&gt;
+SPG는 point cloud로부터 크게 세 단계를 거쳐서 생성됩니다. 우선, 전체 point cloud에서 기하학적으로 비슷한 구조를 가진 점들을 묶어서 작은 여러 개의 point cloud로 분리합니다. 이후, 분리된 각각의 point cloud를 하나의 점으로 변환하는데, 이를 논문에서는 superpoint라고 정의합니다. 이 때 분리된 point cloud 내에 속한 점들의 feature vector를 통합해서 각 superpoint의 embedding vector를 추출합니다. 마지막으로 superpoint 간의 연결 관계를 파악해서 edge를 연결하고, 이를 graph convolution network에 넣어서 segmentation task를 수행합니다. 그럼 각각의 부분에 대해서 자세히 설명하겠습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Geometric Partitioning&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Superpoint graph를 구성하기 위해서는 우선 많은 수의 점들로 구성된 point cloud를 작은 점들의 단위로 분리해주어야 합니다. 이 때 단순하고 비슷한 기하학적 모양을 가진 점들을 묶어줌으로써, 점들이 전반적으로 균일한 의미론적 특징을 가지고 실제로도 같은 class에 해당하게끔 설정해주었습니다. 또한 많은 수의 점들이 partitioning 과정을 거쳐야 하기 때문에 계산량 측면에서 효율적인 방법을 이용해주어야 합니다. 논문에서는 global energy model을 통해서 점들을 분리해주었습니다.&lt;/p&gt;
+
+&lt;p&gt;Global enerygy model은 각 점마다 주변 점들의 모양에 대한 특징을 담은 geometric vector를 계산하고, geometric vector가 비슷한 점들 끼리 연결해주는 partitioning 방법입니다. 논문에서는 각 점과 주변 점들에 대한 선형성(linearity), 평면성(planarity), 분산성(scattering), 수직성(verticality)와 높이를 geometric vector로 이용했습니다. 이후 점들의 geometric vector들에 대한 최적화 문제를 푸는 방식으로 connected components를 찾아주었습니다. Point cloud의 크기가 커질 경우에 geometric vector가 nonconvex 하거나 noncontinuous 할 수 있기 때문에, 이러한 경우 graph cut 알고리즘의 하나인 persuit cut을 이용해서 graph를 여러 개로 나눠 크기를 줄여주었습니다. (Graph cut 알고리즘은 분리된 점들 간의 edge distance가 가장 멀게끔 graph를 두 개로 나누는 방법입니다.)&lt;/p&gt;
+
+&lt;p&gt;이렇게 partitioning을 통해서 connected components &lt;em&gt;S = {S1, S2, …, Sk}&lt;/em&gt; 를 얻을 수 있는데, 각 component들은 기하학적으로 간단한 구조를 가지며 component 내의 점들은 같은 구조를 가지게 됩니다. 앞으로는 이를 superpoint라고 부르고, 이를 통해 graph를 형성해서 segmentation을 수행할 것입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Superpoint Graph Construction&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이제 각 superpoint를 node로 하는 하나의 graph를 형성할 것입니다. 일단 superpoint를 형성하기 전, 전체 input point cloud에 대해 인접한 점들을 연결하는 Voronoi adjacency graph를 형성합니다. Superpoint 간의 연결관계는 superpoint 내에 속한 점들이 Voronoi adjacency graph 상에서 연결되었는지에 따라 결정합니다. 예를 들면, &lt;em&gt;S&lt;/em&gt; 와 &lt;em&gt;T&lt;/em&gt; 라는 superpoint가 있고 내부에 각각 &lt;em&gt;s1&lt;/em&gt; 과 &lt;em&gt;t1&lt;/em&gt; 이라는 점이 소속되어 있다고 하면, &lt;em&gt;s1&lt;/em&gt; 과 &lt;em&gt;t1&lt;/em&gt; 이 연결되었다면 &lt;em&gt;S&lt;/em&gt; 와 &lt;em&gt;T&lt;/em&gt; 도 인접한 것으로 간주합니다. 반대로 만약 &lt;em&gt;S&lt;/em&gt; 와 &lt;em&gt;T&lt;/em&gt; 내의 모든 점들 간에 연결 관계가 없다면, &lt;em&gt;S&lt;/em&gt; 와 &lt;em&gt;T&lt;/em&gt; 는 인접하지 않은 것으로 간주합니다. Superpoint 간의 연결된 edge는 Superedge 라고 부릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/3-feature.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 superedge feature를 정의해야 합니다. Superedge feature은 superpoint 내 점들 간의 모양이나 크기에 따라 정의합니다. 논문에서는 위의 7개 특징에 대한 13차원의 superedge feature를 통해 superpoint의 특징 및 주변 superpoint 간의 연결 관계를 표현했습니다. 이 때 &lt;em&gt;length, surface, volume&lt;/em&gt; 등의 feature은 x,y,z 좌표값의 covariance matrix에 대한 eigenvalue를 통해 principle component에 대한 크기를 계산하고, 이 eigenvalue의 곱으로(각각 &lt;em&gt;e1&lt;/em&gt; , &lt;em&gt;e1 x e2&lt;/em&gt; , &lt;em&gt;e1 x e2 x e3&lt;/em&gt;) 표현했습니다. 또한 centroid offset 이나 length ratio 등은 graph의 방향에 따라 값이 달라지기 때문에, superpoint graph는 directed graph의 형태를 띄게 됩니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Superpoint Embedding&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Superpoint 내의 점들은 같은 기하학적 특성을 공유하므로, 각 superpoint 별로 embedding vector를 추출할 수 있습니다. 논문에서는 PointNet을 통해서 superpoint의 contextual information을 추출합니다. 이 때 같은 superpoint 내의 점들은 기하학적으로 간단하고 서로 유사하기 때문에, GPU efficiency를 위해 몇 개의 점들만 골라서 embedding을 해도 reliably represent 할 수 있습니다. 따라서 저자는 128개의 점들을 sampling해서 이에 대해서만 embedding vector를 추출했고, 만약 한 superpoint에 128개 이하의 점이 있다면 그대로 사용했습니다. (PointNet은 max-pooling을 통해서 embedding vector를 추출했기 때문에 점의 개수가 바뀌어도 같은 크기의 embedding vector를 얻을 수 있었습니다.) 다만 점의 개수가 40개 이하인 경우에는 embedding을 0으로 두었는데, superpoint의 대표성이 떨어져서 성능 저하를 유발했기 때문입니다. 이렇게 superpoint 내에서 sub-sampling을 하게 되면 메모리 측면에서 효율적일 뿐만아니라 augmentation을 해주는 효과도 있었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Contextual Segmentation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Superpoint, superedge를 통해 superpoint graph를 정의했다면, 이제 이를 graph convolution을 통해 segmentation 해야 합니다. 이는 Gated Graph Neural Networks와 Edge-Conditioned Convolution을 이용해서 진행되었습니다. 간단히 설명드리자면 Gated Recurrent Unit(GRU)를 통해 각 superpoint에 대한 embedding을 update했는데, 이 때 이용되는 incoming message vector를 주변 superpoint와의 graph convolution을 통해서 얻었습니다. Graph convolution은 앞서 말한 edge-conditioned convolution 기반의 방법으로 진행되었는데, multi-layer perceptron을 통해 구현된 filter generating network가 edge feature vector로부터 attention weight을 계산하면, 이 weight를 기반으로 주변 점들의 feature vector를 dynamic하게 더해주었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Training&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Geometric partitioning 단계는 unsupervised하게 학습되었고, superpoint embedding과 contextual segmentation 과정은 supervised하게 동시에 학습되었습니다. Superpoint 내의 점들은 같은 label을 가진 점들로 가정하였기 때문에, 점들의 label들 중 대다수에 해당하는 것으로 지정했습니다. Superpoint graph의 크기가 커서 GPU limit을 뛰어넘는 경우에는, SPG로부터 몇개의 superpoint(512개)만을 sub-sampling해서 크기가 작은 SPG를 형성하고 기존 SPG와 같은 연결 관계(superedge)를 형성한 후에 작은 SPG에 대해서 학습을 진행했습니다. 이렇게 하면 메모리 이슈도 해결할 수 있고, 동시에 data augmentation의 효과도 가져갈 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/5-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다른 논문들에서와 마찬가지로 가장 일반적인 3D semantic point cloud segmentation 평가 지표인 Semantic3D와 S3DIS dataset을 이용한 성능 평가가 진행되었습니다. 성능은 IOU와 overall accuracy로 측정하였습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Semantic3D&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/4-semantic3d-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Semantic3D는 30억개 이상의 점들로 구성된 가장 큰 LiDAR dataset입니다. SPG는 기존의 SOTA 모델보다 12mIOU points나 높은 SOTA의 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;S3DIS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/6-s3dis-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;S3DIS는 실내 환경에 대한 3D RGB point cloud dataset입니다. Area 5를 제외한 나머지 영역에 대해 학습을 진행했고, area 5를 이용해서 평가하였습니다. 전반적인 성능에 대해 SOTA를 기록했지만, white board와 같은 경우 partitioning 과정에서 wall과 제대로 구별이 되지 않으며 평균보다 낮은 IOU를 기록하기도 했습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/7-voxelization.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 많은 점들에 대한 inference 시간을 줄이기 위해, voxelization 형태의 전처리를 진행하고 결과를 보여주었습니다. 위의 표에서 알 수 있듯이 적절한 크기의 voxel 단위로 점들의 개수를 줄여준 경우에, inference 속도도 빨라지고 정확도도 증가하는 것을 볼 수 있었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;ablations&quot;&gt;Ablations&lt;/h2&gt;
+&lt;p&gt;SPG 모델에 활용된 여러가지 모듈들의 성능을 검증하기 위해 ablation study가 진행되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210129-superpoint-graphs/8-ablation.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;우선 superpoint graph에 대해 graph convolution을 통해서 contextual information을 추출하는 것이 성능 향상에 얼마나 많은 영향을 주었는지를 확인했습니다. 기존 모델을 Perfect model이라고 할 때, superpoint graph를 GRU가 아닌 일반적인 PointNet을 활용해 처리하는 모델을 Unary model로 하여 두 성능을 비교했습니다. 결과는 22mIOU points에 가까운 성능 하락이 발생하여 graph convolution 기반의 모델을 통해 contextual information을 파악하는 것이 얼마나 중요한지를 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;그 외에 GRU + ECC를 이용하는 대신 CRF-RNN을 이용해보는 등 CRF를 후처리로 하는 모델들과의 비교, GRU 기반의 구조를 수정한 모델에 대한 성능 비교 등을 진행했습니다. 결과는 SPG Perfect 모델의 압승이었습니다. 중요하진 않은 것 같아서 넘어가겠습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Superpoint Graph는 많은 점들을 partitioning 과정을 통해 효율적으로 graph convolution 연산에 적용하는 방법을 제시했습니다. 기존과 달리 많은 수의 점들로 구성된 dataset으로 학습을 진행할 수 있었고, 디테일하고 많은 정보량 덕분인지 월등히 좋은 성능을 보여주었습니다. 또한 graph congolution 연산에 적용해 contextual information도 알맞게 추출하여 성능 향상에 기여하였습니다. 많은 점들에 대한 학습을 가능하게 한 실험적인 좋은 논문이라고 생각됩니다 :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1711.09869&quot;&gt;https://arxiv.org/abs/1711.09869&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://proceedings.mlr.press/v51/landrieu16.html&quot;&gt;http://proceedings.mlr.press/v51/landrieu16.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Hyunsung Eun</name></author><category term="3D" /><category term="3D" /><summary type="html">원문 : Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.</summary></entry><entry><title type="html">Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</title><link href="http://localhost:4000/GACnet" rel="alternate" type="text/html" title="Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰" /><published>2021-01-27T09:00:00+09:00</published><updated>2021-01-27T09:00:00+09:00</updated><id>http://localhost:4000/GACnet</id><content type="html" xml:base="http://localhost:4000/GACnet">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Graph_Attention_Convolution_for_Point_Cloud_Semantic_Segmentation_CVPR_2019_paper.pdf&quot;&gt;Wang, Lei, et al. “Graph attention convolution for point cloud semantic segmentation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘 소개드릴 논문은 Stanford에서 2019년 CVPR에서 발표한 &lt;strong&gt;&lt;em&gt;Graph attention convolution for point cloud semantic segmentation&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 graph attention convolution 연산을 제안하였는데, 이는 graph convolution kernel에 이웃한 점들과의 연관성에 따라 attention을 가하여 연관성이 높은 점들에 focus된 feature vector를 추출해줄 수 있도록 설계했습니다. 이를 통해 feature contamination을 방지하고 구조적 feature을 잘 추출하여 높은 segmentation 성능을 달성했습니다.
+&lt;img src=&quot;assets/images/210127-GACnet/1-example.png&quot; alt=&quot;&quot; /&gt;
+3D Point cloud의 semantic segmentation 분야는 PointNet 논문을 기점으로 활발하게 연구되고 있습니다. 최근에는 point cloud를 graph 형태로 표현하여 CNN 기반의 네트워크를 통해 segmentation 하려는 시도들이 많이 있습니다. 하지만 일반적인 graph convolution 연산에 이용하는 convolution kernel은 일정한 값으로 고정되어 있고, 이는 보통 주변 점들의 feature vector를 homogeneous하게 더하여 새로운 feature로 변환해줍니다. 예를 들어, 위의 그림에서 1번 점에 대한 graph convolution output은 1~5번 점들의 feature를 정해진 비율로 더해서 얻게 되고, 이는 1번 점의 클래스와 주변 점들의 클래스(table 또는 chair)를 고려하지 않고 얻은 것이기 때문에 좋은 output feature vector가 아닙니다. 이는 이웃한 점들과의 구조적인 연결 관계를 파악하게 어렵게 만들기 때문에 결과적으로 명확하지 않은 경계선을 만들거나 부분적으로 잘못된 segmentation 영역을 생성하는 등의 문제를 야기합니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 standard convolution kernel의 단점을 해결하기 위해 제안된 것이 graph attention convolution입니다. Graph attention convolution은 convolution 연산이 가해지는 점과 그 주변 점들의 공간적/특징적 정보들을 이용하여 attention weight을 계산하는데, 이는 연관성이 떨어지는 점들이 output feature vector에 관여하는 것을 막아줍니다. 이를 통해 point cloud에 적용하는 convolution kernel의 실질적인 receptive field는 해당하는 점과 주변 점들의 특징에 의해 동적으로 변화하게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;논문에서는 앞서 제안한 graph attention convolution과 graph coarsening 및 graph interpolation 기법을 통해서 graph pyramid network 구조를 구현하였습니다. 그렇다면 graph attention convolution(GAC)부터 GACnet까지 차근차근 살펴보겠습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;graph-attention-convolution&quot;&gt;Graph Attention Convolution&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/210127-GACnet/2-gac.png&quot; alt=&quot;&quot; /&gt;
+Point cloud는 각 점들을 vertex로 하고 인접한 점들을 연결한 선은 edge로 하는 graph 형태의 구조로 변환할 수 있습니다. 이 때 각 점은 &lt;em&gt;f&lt;/em&gt; 차원의 feature vector를 가질 수 있습니다. Graph attention convolution 연산은 우선 기존 &lt;em&gt;f&lt;/em&gt; 차원의 input feature vector를 &lt;em&gt;k&lt;/em&gt; 차원의 output feature vector로 변환하는 것으로 시작합니다. 이 변환은 미분 가능한 형태의 어떠한 함수로도 진행할 수 있는데, 논문에서는 multi-layer perceptron을 이용했습니다.&lt;/p&gt;
+
+&lt;p&gt;이제 각 output feature vector에 attention weight을 elementwise하게 곱해서 convolution 연산을 수행할 것입니다. Attention weight은 output feature vector과 같은 &lt;em&gt;k&lt;/em&gt; 차원의 벡터여야 합니다. GAC에서는 점들 간의 좌표 차이와 feature vector 차이를 이용해서 attention weight을 추출하였습니다. 따라서 attention weight을 계산하는 함수는 &lt;em&gt;xyz&lt;/em&gt; 좌표의 3차원에 input feature vector의 &lt;em&gt;k&lt;/em&gt; 차원을 더한 &lt;em&gt;(3+k)&lt;/em&gt; 차원의 input을 받아서 output feature vector의 &lt;em&gt;k&lt;/em&gt; 차원의 output을 도출합니다. Sharing attention mechanism이라고 부르는 위 변환도 마찬가지로 미분가능한 어떠한 함수로도 진행할 수 있으며 논문에서는 multi-layer perceptron을 이용했습니다.&lt;/p&gt;
+
+&lt;p&gt;Attention weight은 output feature 값의 안정성을 위해 exponential normalization 과정을 거치게 됩니다. 이제 위에서 얻은 &lt;em&gt;k&lt;/em&gt; 차원의 output feature vector에 attention weight을 element-wise 곱한 후 학습가능한 bias 값을 더하여서 GAC의 최종 output vector를 얻습니다.&lt;/p&gt;
+
+&lt;p&gt;GAC 연산은 일반적인 graph attention mechanism과 다르게 attention weight을 얻을 때 점들의 위치 정보와 특징 정보의 차이를 동시에 이용한다는 특징이 있습니다. 이를 통해 점들 사이의 위치적 관계를 고려한 attention 값을 얻을 수 있고, 비슷한 특징을 가진 점들에 더 큰 attention을 가할 수도 있습니다. 또한 feature의 channel별로 attention을 가했기 때문에, 이상적으로 channel-wise independent한 feature vector의 특징을 더 잘 살릴 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;gacnet&quot;&gt;GACnet&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/210127-GACnet/3-gacnet.png&quot; alt=&quot;&quot; /&gt;
+Feature pyramid network(FPN) 기반의 구조는 image segmentation 또는 object detection 분야에서 흔하게 이용되는 유용한 구조입니다. 논문에서는 이 구조를 차용한 graph pyramid network 형태의 구조를 위의 그림과 같이 구현하였습니다. FPN에서 feature extraction를 위해 활용되었던 convolution layer는 graph attention convolution layer가 수행합니다. 앞서 설명드린 것처럼 GAC layer는 점들의 위치 및 특징 정보를 활용하여 graph의 local feature vector를 잘 추출해낼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 얻은 local feature vector는 graph coarsening 및 pooling 과정을 통해 하나의 feature vector로 통합되었습니다. Graph coarsening은 PointNet++에서 소개된 방법을 그대로 이용했는데, furthest point sampling algorithm을 적용하여 여러 개의 중심점들을 선정하고, 각 중심점 주위의 점들을 grouping해서 중심점 단위의 group으로 모아주었습니다. 이후 각 중심점 group마다 max 또는 mean pooling을 적용하여 하나의 feature vector를 도출하였습니다.&lt;/p&gt;
+
+&lt;p&gt;Graph pooling을 거치면 graph의 resolution이 작아지게 되는데, segmentation 등의 task에서는 원래 점들과 같은 개수의 feature map을 output으로 얻어야 하기 때문에 작아진 graph를 interpolation을 통해 up-sampling해주는 과정이 필수적입니다. 이를 feature interpolation layer이라고 부르는데, 마찬가지로 PointNet++에서 제안된 spatial distance 기반의 interpolation 방법을 적용하였습니다. (PointNet++ 리뷰를 참고하시면 도움이 됩니다!) GAC 및 graph pooling layer를 통해 학습된 feature vector는 feature interpolation layer를 통해 서서히 finest scale로 복원됩니다. 논문에서는 더 풍부한 semantic feature를 추출하기 위해 interpolation의 각 단계에서 skip-connection을 통해 down-sampling 되기 전의 feature vector와 합쳐주었습니다. 또한 feature refinement를 위해 최종적으로 학습된 feature vector를 GAC layer에 통과해주었습니다.&lt;/p&gt;
+
+&lt;p&gt;Initial feature vector는 점의 높이, RGB, geo-feature로 구성했습니다. Geo-feature란 finest scale graph에서 이웃한 점들에 대한 covariance matrix의 eigenvalue 값으로 정의하였습니다. 각 구성 특징들의 역할은 후에 ablation study에서 다시 설명드리겠습니다. 초기 그래프는 각 점에 대해 특정 반지름 내에 존재하는 점들 중 random하게 &lt;em&gt;K&lt;/em&gt; 개의 점을 sampling하여 연결하여 생성하였습니다. 이 때 kNN이 아니라 random sampling을 통해서 edge를 구성한 이유는 point cloud의 density가 달라지더라도 이와 무관하게 일정한 범위의 점들에 대해 sampling 할 수 있기 때문입니다. 이렇게 되면 이웃한 두 점이 항상 쌍방으로 연결되지는 않게 되고, graph는 방향성이 있는 edge를 가진 directed graph의 형태가 됩니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;gac-and-conditional-random-fieldcrf&quot;&gt;GAC and Conditional Random Field(CRF)&lt;/h2&gt;
+&lt;p&gt;Image segmentation 분야의 유명한 네트워크 모델인 DeepLab에서는 명확한 경계선 구분을 위해 conditional random field(CRF) algoritm을 이용한 후처리 방법을 제안하였습니다. 이는 IOU 및 결과물에 대한 artifact reduction에 많은 공헌을 했고 이후에 이를 기준삼아 많은 segmentation 연구에서 CNN의 output에 CRF를 적용했습니다. CRF는 좌표 및 RGB 값이 비슷한 점들을 같은 label로 일치시켜 segmentation 경계선을 깔끔하고 detail하게 만들어주었습니다.&lt;/p&gt;
+
+&lt;p&gt;앞서 설명드린 GAC도 CRF와 마찬가지로 위치 및 특징 정보를 활용하여 feature vector를 추출해주는 역할을 합니다. 특히 input feature vector 간의 차이를 이용하여 attention weight을 계산하기 때문에 비슷한 input feature를 가지는 점들에 대해 일관적인 output feature를 도출합니다. 이는 CRF와 정확히 같은 특징을 공유하기 때문에 GACnet에서는 더 이상 CRF 과정을 거치지 않아도 됩니다. 실제로 CRF model을 RNN 형식으로 구현하여 후처리하는 방법은 CNN과 독립적으로 진행되기 때문에 end-to-end로 결과를 얻을 수 없게 되는 등의 번거로움이 발생합니다. 또한 input feature의 유사도를 기반으로 layer를 거칠 때마다 더 semantic한 feature vector를 추출할 수 있기 때문에 segmentation 성능도 훨씬 더 잘나오게 되는 것 같습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+&lt;p&gt;논문에서는 GAC 및 GACnet을 검증하기 위해 S3DIS와 Semantic3D라는 두 가지 3D semantic segmentation benchmark를 이용했습니다. GACnet의 성능은 IOU 및 overall accuracy를 이용하여 평가했습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;S3DIS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210127-GACnet/7-gacnet-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;S3DIS는 6개의 실내 공간에 대한 3D RGB point cloud dataset입니다. 각 점은 13개 카테고리로 labeling 되어 있습니다. 논문에서는 6개의 공간 중 5번 공간을 testing set으로, 나머지 공간을 training set으로 하여 네트워크를 학습 및 평가하였습니다. 이렇게 이전에 전혀 보지 못한 공간에 대해 test하게 되면 task가 어려워지기 때문에 초기에는 성능이 잘 안나올 수 있지만, 네트워크 모델이 잘 일반화 되었는지를 평가하기에 좋습니다. 각 공간을 방 별로 먼저 분리하고, 각 방을 &lt;em&gt;1.2m x 1.2m&lt;/em&gt; 의 블럭으로 분리하여, 각 블럭 별로 random sampling된 4096 개의 점을 하나의 dataset으로 이용하였습니다. 방은 분리하는 과정에서 가장자리 &lt;em&gt;0.1m&lt;/em&gt; 씩은 물체의 일부밖에 보이지 않을 수 있기 때문에 buffer area로 설정하여 학습 및 loss 계산에 포함하지 않았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210127-GACnet/4-s3dis-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;결과는 위와 같습니다. GACnet은 대부분의 클래스에서 SOTA의 성능을 보여주었습니다. 특히나 GACnet은 S3DIS dataset에서 검출하기 어려운 벽 위의 창문이나 보드와 같은 클래스들도 잘 검출하였는데, 이는 GAC가 공간 정보 뿐만 아니라 RGB 값을 포함한 특징 정보도 활용하기 때문에 공간적 구조가 명확하지 않더라도 구별을 잘 해낸 것으로 생각합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Semantic3D&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Semantic3D는 LiDAR에서 얻은 약 40억개 이상의 점들로 구성된 3D point cloud dataset입니다. 점들에 대한 feature는 RGB와 intensity 값으로 구성되어 있고, 각 점은 8개의 카테고리 중 하나로 labeling 되어있습니다. 또한 Semantic3D는 외부 풍경에 대한 dataset이기 때문에 일반적으로 물체의 크기가 큽니다. 따라서 논문에서는 공간을 &lt;em&gt;4m x 4m&lt;/em&gt;의 블럭으로 구분하였고, 블럭 별로 4096 개의 점을 sampling하여 하나의 dataset으로 이용하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210127-GACnet/5-semantic-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;GACnet은 Semantic3D dataset에서도 SOTA의 성능을 보여주었습니다. 특히 Semantic3D에서는 차나 건물 등의 물체들이 가려져 있는 경우가 많은데, GACnet은 구조적인 feature learning 덕분인지 가려져 있는 물체에 대해서도 좋은 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;ablation-study&quot;&gt;Ablation Study&lt;/h2&gt;
+&lt;p&gt;GAC 및 GACnet을 자세히 분석/검증하기 위해 논문에서는 몇 가지 항목에 대한 ablation study를 진행했습니다.
+&lt;img src=&quot;assets/images/210127-GACnet/6-ablation.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;GAC 연산의 효율성&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;우선 GAC 연산의 효율성을 검증하기 위해 저자는 GACnet의 GAC 부분을 PointNet에서 활용한 max pooling layer로 치환해서 성능을 측정하고 비교했습니다. Max-pooling 함수는 특징을 통합하여 분류하는 object classification 성능은 좋았지만, 정교한 경계선 설정이 중요한 segmentation task에서는 local한 정보들을 많이 소실하여 비교적 성능이 좋지 못했습니다. 반면에 GAC는 두 task 모두 뛰어난 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위치 및 특징 정보들의 성능 향상 기여&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;GAC에서 attention weight은 위치 좌표 값의 차이와 feature vector 간의 차이를 input으로 계산하였습니다. 저자는 각각을 하나씩 제거하여 얻은 attention weight을 이용하여 성능을 측정해보았는데, 두 경우 모두 성능 하락이 발생했습니다. 특히 점의 높이, RGB, geo-feature 등으로 구성된 feature vector를 제거하였을 때, 명확한 경계선 설정에 어려움을 겪었다고 이야기합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CRF-RNN 과의 비교&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;GAC 모듈을 CRF-RNN으로 치환했을 때의 성능도 비교하였습니다. 두 경우 모두 유사한 성능을 보여주었는데, CRF와 GAC가 특징 벡터의 유사도를 이용하여 label을 도출하는 근본적으로 같은 성질을 공유하기 때문으로 보입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;초기 feature vector 구성에 따른 효과&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;GAC의 input으로 활용하는 초기 feature vector는 점의 높이, RGB, geo-feature로 구성하였습니다. 각각 성능에 어떤 영향을 주는지를 분석하기 위해, 특정 component를 제외하고 성능을 측정하였습니다. 결과는 전반적인 성능 하락이 발생하여 각 component가 성능에 주요한 역할을 하는 것을 할 수 있었습니다. 
+&lt;img src=&quot;assets/images/210127-GACnet/8-geo-feature.png&quot; alt=&quot;&quot; /&gt;
+이 중 흥미로운 결과가 있었는데, geo-feature가 training accuracy에는 별다른 영향을 주지 않았는데 test accuracy에는 비교적 큰 성능 향상에 기여했습니다. 이는 covariance matrix의 eigenvalue로부터 추출한 geo-feature 값이 전반적인 low-level feature에 대한 정보를 포함하고 있고, 결과적으로 네트워크의 일반화에 기여한 것으로 보입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터 소실 및 잡음에 대한 강도 실험
+&lt;img src=&quot;assets/images/210127-GACnet/9-robustness-test.png&quot; alt=&quot;&quot; /&gt;
+마지막으로 데이터의 일부가 소실되거나 Gaussian noise가 추가되었을 때 classification 성능이 어떻게 변화하는지를 실험하였습니다. GAC 모듈을 max-pooling 함수로 치환하여 비교하였는데, 두 경우 모두 GACnet이 훨씬 더 robust한 결과를 보여주었습니다. 아마 max-pooling 함수를 이용하게 되면, noise 값이 크게 튀는 경우에 이를 대표적인 feature 값으로 인식되어 classification 정확도를 낮추지 않았을까 생각됩니다. 반면에 GAC는 상대적 위치정보 뿐만아니라 여러 성분들(RGB 등)로 구성된 특징 정보를 활용하기 때문에 (정보량이 많기 때문에), 방해 요소들이 있어도 robust한 결과를 보여주는 것 같습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Graph attention convolution은 주변 점들에 따라 attention weight을 다르게 가하는 방식을 통해 dynamic한 receptive field를 가지는 convolution kernel를 생성할 수 있었고, 이를 통해 feature vector를 추출했습니다. Edge convolution 등의 방법과 유사하면서도, 점들의 특징 벡터의 차이를 이용하여 비슷한 label을 가진 점들을 확실하게 일치시켜 주는 (CRF가 기존에 해주던 방식의) 연산 방식이 SOTA의 성능을 만들 수 있지 않았나 생각이 듭니다. 긴 글 읽어주셔서 감사합니다 :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Graph_Attention_Convolution_for_Point_Cloud_Semantic_Segmentation_CVPR_2019_paper.pdf&quot;&gt;https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Graph_Attention_Convolution_for_Point_Cloud_Semantic_Segmentation_CVPR_2019_paper.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/yanx27/GACNet&quot;&gt;https://github.com/yanx27/GACNet&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Hyunsung Eun</name></author><category term="3D" /><category term="3D" /><summary type="html">원문 : Wang, Lei, et al. “Graph attention convolution for point cloud semantic segmentation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.</summary></entry><entry><title type="html">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</title><link href="http://localhost:4000/PointNet++" rel="alternate" type="text/html" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" /><published>2021-01-21T09:00:00+09:00</published><updated>2021-01-21T09:00:00+09:00</updated><id>http://localhost:4000/PointNet++</id><content type="html" xml:base="http://localhost:4000/PointNet++">&lt;p&gt;원문 : &lt;a href=&quot;https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf&quot;&gt;Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 &lt;strong&gt;&lt;em&gt;Pointnet++: Deep hierarchical feature learning on point sets in a metric space&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
 
@@ -104,7 +306,7 @@ ScanNet에서도 sampling density가 달라졌을 때 robust한 결과를 도출
 
 &lt;h2 id=&quot;edge-conditioned-convolution-ecc&quot;&gt;Edge-conditioned Convolution (ECC)&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&quot;assets/images/edge-convolution/1-edge-convolution.png&quot; alt=&quot;&quot; /&gt;
-Edge-conditioned convolution 연산 과정은 그리 어렵지 않습니다. Point cloud 데이터를 graph 형태로 변환하여 &lt;em&gt;n&lt;/em&gt;개의 node와 &lt;em&gt;m&lt;/em&gt;개의 edge를 얻었다고 가정하겠습니다. 이 때 node의 feature vector가 &lt;em&gt;l&lt;/em&gt;차원, edge의 feature vector가 &lt;em&gt;s&lt;/em&gt;차원이라고 하면 우리는 edge의 feature vector로부터 node feature vector의 transformation matrix(&lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt;차원)를 얻는 미분 가능한 함수를 정의하고자 합니다. 논문에서는 가장 간단한 multi-layer perceptron을 활용하였는데, input이 &lt;em&gt;s&lt;/em&gt;차원/ output이 &lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt;차원인 linear layer입니다. 이렇게 각 node마다 &lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원의 “edge-specific weights”를 얻을 수 있고, 이는 edge feature vector에서 추출한 행렬이기 때문에 점들 사이의 관계를 담고 있습니다. 이렇게 얻은 weight을 이웃한 각 node feature vector에 곱해주고 normalize하면 edge-conditioned convolution을 거친 해당 점의 feature vector를 얻을 수 있습니다.
+Edge-conditioned convolution 연산 과정은 그리 어렵지 않습니다. Point cloud 데이터를 graph 형태로 변환하여 &lt;em&gt;n&lt;/em&gt;개의 node와 &lt;em&gt;m&lt;/em&gt;개의 edge를 얻었다고 가정하겠습니다. 이 때 node의 feature vector가 &lt;em&gt;l&lt;/em&gt; 차원, edge의 feature vector가 &lt;em&gt;s&lt;/em&gt; 차원이라고 하면 우리는 edge의 feature vector로부터 node feature vector의 transformation matrix (&lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원)를 얻는 미분 가능한 함수를 정의하고자 합니다. 논문에서는 가장 간단한 multi-layer perceptron을 활용하였는데, input이 &lt;em&gt;s&lt;/em&gt;차원 &amp;amp; output이 &lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원인 linear layer입니다. 이렇게 각 node마다 &lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원의 “edge-specific weights”를 얻을 수 있고, 이는 edge feature vector에서 추출한 행렬이기 때문에 점들 사이의 관계를 담고 있습니다. 이렇게 얻은 weight을 이웃한 각 node feature vector에 곱해주고 normalize하면 edge-conditioned convolution을 거친 해당 점의 feature vector를 얻을 수 있습니다.
 &lt;img src=&quot;assets/images/edge-convolution/2-one-hot-edge.png&quot; alt=&quot;&quot; /&gt;
 각 edge feature vector를 순서에 맞는 one-hot vector로 설정하면 edge-conditioned convolution 연산은 uniform function에 대한 convolution과 같아집니다. 위의 그림에서 ECC는 filter size가 3인 1차원의 discrete convolution과 정확히 같아지는 것을 확인할 수 있습니다.
 ECC의 특징 중의 하나가 multi-hop convolution이 불가능하다는 점입니다. 다른 graph convolution 연산의 경우에는 인접 행렬을 여러번 곱해서 multi-hop의 범위를 가지는 node에 대해서도 feature aggregation을 할 수가 있지만, ECC는 인접 행렬을 이용하지 않기 때문에 multi-hop 연산이 불가능합니다. 하지만 저자는 일반적인 2D convolution에서도 크기가 큰 filter를 이용하는 것보다 3x3 크기의 filter를 여러개 이어붙이는 것이 더 좋은 feature를 추출하기 때문에 ECC layer도 여러번 반복하면 multi-hop convolution보다 좋은 성능을 낼 것이라고 이야기합니다.

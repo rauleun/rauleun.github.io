@@ -207,7 +207,7 @@ into the {body} of the default.hbs template -->
 
 <h2 id="edge-conditioned-convolution-ecc">Edge-conditioned Convolution (ECC)</h2>
 <p><img src="assets/images/edge-convolution/1-edge-convolution.png" alt="" />
-Edge-conditioned convolution 연산 과정은 그리 어렵지 않습니다. Point cloud 데이터를 graph 형태로 변환하여 <em>n</em>개의 node와 <em>m</em>개의 edge를 얻었다고 가정하겠습니다. 이 때 node의 feature vector가 <em>l</em>차원, edge의 feature vector가 <em>s</em>차원이라고 하면 우리는 edge의 feature vector로부터 node feature vector의 transformation matrix(<em>l</em>x<em>l</em>차원)를 얻는 미분 가능한 함수를 정의하고자 합니다. 논문에서는 가장 간단한 multi-layer perceptron을 활용하였는데, input이 <em>s</em>차원/ output이 <em>l</em>x<em>l</em>차원인 linear layer입니다. 이렇게 각 node마다 <em>l</em>x<em>l</em> 차원의 “edge-specific weights”를 얻을 수 있고, 이는 edge feature vector에서 추출한 행렬이기 때문에 점들 사이의 관계를 담고 있습니다. 이렇게 얻은 weight을 이웃한 각 node feature vector에 곱해주고 normalize하면 edge-conditioned convolution을 거친 해당 점의 feature vector를 얻을 수 있습니다.
+Edge-conditioned convolution 연산 과정은 그리 어렵지 않습니다. Point cloud 데이터를 graph 형태로 변환하여 <em>n</em>개의 node와 <em>m</em>개의 edge를 얻었다고 가정하겠습니다. 이 때 node의 feature vector가 <em>l</em> 차원, edge의 feature vector가 <em>s</em> 차원이라고 하면 우리는 edge의 feature vector로부터 node feature vector의 transformation matrix (<em>l</em>x<em>l</em> 차원)를 얻는 미분 가능한 함수를 정의하고자 합니다. 논문에서는 가장 간단한 multi-layer perceptron을 활용하였는데, input이 <em>s</em>차원 &amp; output이 <em>l</em>x<em>l</em> 차원인 linear layer입니다. 이렇게 각 node마다 <em>l</em>x<em>l</em> 차원의 “edge-specific weights”를 얻을 수 있고, 이는 edge feature vector에서 추출한 행렬이기 때문에 점들 사이의 관계를 담고 있습니다. 이렇게 얻은 weight을 이웃한 각 node feature vector에 곱해주고 normalize하면 edge-conditioned convolution을 거친 해당 점의 feature vector를 얻을 수 있습니다.
 <img src="assets/images/edge-convolution/2-one-hot-edge.png" alt="" />
 각 edge feature vector를 순서에 맞는 one-hot vector로 설정하면 edge-conditioned convolution 연산은 uniform function에 대한 convolution과 같아집니다. 위의 그림에서 ECC는 filter size가 3인 1차원의 discrete convolution과 정확히 같아지는 것을 확인할 수 있습니다.
 ECC의 특징 중의 하나가 multi-hop convolution이 불가능하다는 점입니다. 다른 graph convolution 연산의 경우에는 인접 행렬을 여러번 곱해서 multi-hop의 범위를 가지는 node에 대해서도 feature aggregation을 할 수가 있지만, ECC는 인접 행렬을 이용하지 않기 때문에 multi-hop 연산이 불가능합니다. 하지만 저자는 일반적인 2D convolution에서도 크기가 큰 filter를 이용하는 것보다 3x3 크기의 filter를 여러개 이어붙이는 것이 더 좋은 feature를 추출하기 때문에 ECC layer도 여러번 반복하면 multi-hop convolution보다 좋은 성능을 낼 것이라고 이야기합니다.
@@ -365,6 +365,24 @@ ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 
                                     
                                         
                                         
+                                            <li><a href="/Superpoint-Graphs">Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/GACnet">Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
                                             <li><a href="/PointNet++">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</a></li>
                                         
                                     
@@ -387,7 +405,7 @@ ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 
                         <footer class="read-next-card-footer">
                             <a href="/tag/3d/">
                                 
-                                    See all 1 posts  →
+                                    See all 3 posts  →
                                 
                             </a>
                         </footer>

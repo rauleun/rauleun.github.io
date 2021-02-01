@@ -8,6 +8,36 @@
     
       
       <item>
+        <title>Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_cvpr_2018/html/Landrieu_Large-Scale_Point_Cloud_CVPR_2018_paper.html&quot;&gt;Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 29 Jan 2021 09:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Superpoint-Graphs</link>
+        <guid isPermaLink="true">http://localhost:4000/Superpoint-Graphs</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Graph_Attention_Convolution_for_Point_Cloud_Semantic_Segmentation_CVPR_2019_paper.pdf&quot;&gt;Wang, Lei, et al. “Graph attention convolution for point cloud semantic segmentation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 27 Jan 2021 09:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/GACnet</link>
+        <guid isPermaLink="true">http://localhost:4000/GACnet</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf&quot;&gt;Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
