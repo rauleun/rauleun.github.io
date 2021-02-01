@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="machine learning research notes" />
+    <link rel="shortcut icon" href="http://localhost:4000/" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/Superpoint-Graphs" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RE Tech Archive" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰" />
+    <meta property="og:description" content="원문 : Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018. 오늘 소개드릴 논문은 2018년 CVPR에서 소개된 Large-scale point cloud semantic segmentation with superpoint graphs 논문에 대한 리뷰입니다. 기존에 진행된 많은 AI 기반의 point" />
+    <meta property="og:url" content="http://localhost:4000/Superpoint-Graphs" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2021-01-29T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-01-29T09:00:00+09:00" />
+    <meta property="article:tag" content="3d" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰" />
+    <meta name="twitter:description" content="원문 : Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018. 오늘 소개드릴 논문은 2018년 CVPR에서 소개된 Large-scale point cloud semantic segmentation with superpoint graphs 논문에 대한 리뷰입니다. 기존에 진행된 많은 AI 기반의 point" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="3d" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RE Tech Archive",
+        "logo": "http://localhost:4000/"
+    },
+    "url": "http://localhost:4000/Superpoint-Graphs",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/Superpoint-Graphs"
+    },
+    "description": "원문 : Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018. 오늘 소개드릴 논문은 2018년 CVPR에서 소개된 Large-scale point cloud semantic segmentation with superpoint graphs 논문에 대한 리뷰입니다. 기존에 진행된 많은 AI 기반의 point"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/">RE Tech Archive</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/Object-Detection/">Object Detection</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/NLP/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3D/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-3d  no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="29 January 2021">29 January 2021</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/3d/'>3D</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</h1>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://openaccess.thecvf.com/content_cvpr_2018/html/Landrieu_Large-Scale_Point_Cloud_CVPR_2018_paper.html">Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.</a></p>
+
+<p>오늘 소개드릴 논문은 2018년 CVPR에서 소개된 <strong><em>Large-scale point cloud semantic segmentation with superpoint graphs</em></strong> 논문에 대한 리뷰입니다.</p>
+
+<p><img src="assets/images/210129-superpoint-graphs/1-spg.png" alt="" /></p>
+
+<p>기존에 진행된 많은 AI 기반의 point cloud 연구는 좋은 성능을 보여주었지만, input size의 한계 때문에 적은 수의 점들로 구성된 point cloud에 대해서만 적용할 수 있었습니다. Neural network는 몇 백만개 이상의 점들로 구성된 LiDAR scan을 직접 다루기 어려웠고, down-sampling 하는 등의 후처리를 거쳐서 network의 input으로 이용했습니다. 하지만 이는 point cloud의 장점인 물체에 대한 정교한 표현력을 떨어트릴 수밖에 없었습니다. 오늘 소개드릴 연구는 기존의 연구와는 달리 몇 백만개 단위의 점들로 구성된 point cloud를 대상으로 semantic segmentation을 수행하였습니다. 논문에서는 유사한 구조의 점들을 superpoint라는 하나의 점으로 모아서 새로운 그래프(superpoint graph)를 구성했습니다. Superpoint graph(SPG)는 많은 점들로 구성되어 물체 간의 의미론적 관계에 대한 풍부한 정보를 담고 있기 때문에 semantic segmentation 성능을 크게 끌어올릴 수 있었습니다.</p>
+
+<p>수학적인 내용이 많아 어려웠지만, 최대한 잘 정리해보겠습니다 :)</p>
+
+<h2 id="superpoint-graph-spg">Superpoint Graph (SPG)</h2>
+<p><img src="assets/images/210129-superpoint-graphs/2-spg-process.png" alt="" />
+SPG는 point cloud로부터 크게 세 단계를 거쳐서 생성됩니다. 우선, 전체 point cloud에서 기하학적으로 비슷한 구조를 가진 점들을 묶어서 작은 여러 개의 point cloud로 분리합니다. 이후, 분리된 각각의 point cloud를 하나의 점으로 변환하는데, 이를 논문에서는 superpoint라고 정의합니다. 이 때 분리된 point cloud 내에 속한 점들의 feature vector를 통합해서 각 superpoint의 embedding vector를 추출합니다. 마지막으로 superpoint 간의 연결 관계를 파악해서 edge를 연결하고, 이를 graph convolution network에 넣어서 segmentation task를 수행합니다. 그럼 각각의 부분에 대해서 자세히 설명하겠습니다.</p>
+
+<ul>
+  <li>Geometric Partitioning</li>
+</ul>
+
+<p>Superpoint graph를 구성하기 위해서는 우선 많은 수의 점들로 구성된 point cloud를 작은 점들의 단위로 분리해주어야 합니다. 이 때 단순하고 비슷한 기하학적 모양을 가진 점들을 묶어줌으로써, 점들이 전반적으로 균일한 의미론적 특징을 가지고 실제로도 같은 class에 해당하게끔 설정해주었습니다. 또한 많은 수의 점들이 partitioning 과정을 거쳐야 하기 때문에 계산량 측면에서 효율적인 방법을 이용해주어야 합니다. 논문에서는 global energy model을 통해서 점들을 분리해주었습니다.</p>
+
+<p>Global enerygy model은 각 점마다 주변 점들의 모양에 대한 특징을 담은 geometric vector를 계산하고, geometric vector가 비슷한 점들 끼리 연결해주는 partitioning 방법입니다. 논문에서는 각 점과 주변 점들에 대한 선형성(linearity), 평면성(planarity), 분산성(scattering), 수직성(verticality)와 높이를 geometric vector로 이용했습니다. 이후 점들의 geometric vector들에 대한 최적화 문제를 푸는 방식으로 connected components를 찾아주었습니다. Point cloud의 크기가 커질 경우에 geometric vector가 nonconvex 하거나 noncontinuous 할 수 있기 때문에, 이러한 경우 graph cut 알고리즘의 하나인 persuit cut을 이용해서 graph를 여러 개로 나눠 크기를 줄여주었습니다. (Graph cut 알고리즘은 분리된 점들 간의 edge distance가 가장 멀게끔 graph를 두 개로 나누는 방법입니다.)</p>
+
+<p>이렇게 partitioning을 통해서 connected components <em>S = {S1, S2, …, Sk}</em> 를 얻을 수 있는데, 각 component들은 기하학적으로 간단한 구조를 가지며 component 내의 점들은 같은 구조를 가지게 됩니다. 앞으로는 이를 superpoint라고 부르고, 이를 통해 graph를 형성해서 segmentation을 수행할 것입니다.</p>
+
+<ul>
+  <li>Superpoint Graph Construction</li>
+</ul>
+
+<p>이제 각 superpoint를 node로 하는 하나의 graph를 형성할 것입니다. 일단 superpoint를 형성하기 전, 전체 input point cloud에 대해 인접한 점들을 연결하는 Voronoi adjacency graph를 형성합니다. Superpoint 간의 연결관계는 superpoint 내에 속한 점들이 Voronoi adjacency graph 상에서 연결되었는지에 따라 결정합니다. 예를 들면, <em>S</em> 와 <em>T</em> 라는 superpoint가 있고 내부에 각각 <em>s1</em> 과 <em>t1</em> 이라는 점이 소속되어 있다고 하면, <em>s1</em> 과 <em>t1</em> 이 연결되었다면 <em>S</em> 와 <em>T</em> 도 인접한 것으로 간주합니다. 반대로 만약 <em>S</em> 와 <em>T</em> 내의 모든 점들 간에 연결 관계가 없다면, <em>S</em> 와 <em>T</em> 는 인접하지 않은 것으로 간주합니다. Superpoint 간의 연결된 edge는 Superedge 라고 부릅니다.</p>
+
+<p><img src="assets/images/210129-superpoint-graphs/3-feature.png" alt="" /></p>
+
+<p>이제 superedge feature를 정의해야 합니다. Superedge feature은 superpoint 내 점들 간의 모양이나 크기에 따라 정의합니다. 논문에서는 위의 7개 특징에 대한 13차원의 superedge feature를 통해 superpoint의 특징 및 주변 superpoint 간의 연결 관계를 표현했습니다. 이 때 <em>length, surface, volume</em> 등의 feature은 x,y,z 좌표값의 covariance matrix에 대한 eigenvalue를 통해 principle component에 대한 크기를 계산하고, 이 eigenvalue의 곱으로(각각 <em>e1</em> , <em>e1 x e2</em> , <em>e1 x e2 x e3</em>) 표현했습니다. 또한 centroid offset 이나 length ratio 등은 graph의 방향에 따라 값이 달라지기 때문에, superpoint graph는 directed graph의 형태를 띄게 됩니다.</p>
+
+<ul>
+  <li>Superpoint Embedding</li>
+</ul>
+
+<p>Superpoint 내의 점들은 같은 기하학적 특성을 공유하므로, 각 superpoint 별로 embedding vector를 추출할 수 있습니다. 논문에서는 PointNet을 통해서 superpoint의 contextual information을 추출합니다. 이 때 같은 superpoint 내의 점들은 기하학적으로 간단하고 서로 유사하기 때문에, GPU efficiency를 위해 몇 개의 점들만 골라서 embedding을 해도 reliably represent 할 수 있습니다. 따라서 저자는 128개의 점들을 sampling해서 이에 대해서만 embedding vector를 추출했고, 만약 한 superpoint에 128개 이하의 점이 있다면 그대로 사용했습니다. (PointNet은 max-pooling을 통해서 embedding vector를 추출했기 때문에 점의 개수가 바뀌어도 같은 크기의 embedding vector를 얻을 수 있었습니다.) 다만 점의 개수가 40개 이하인 경우에는 embedding을 0으로 두었는데, superpoint의 대표성이 떨어져서 성능 저하를 유발했기 때문입니다. 이렇게 superpoint 내에서 sub-sampling을 하게 되면 메모리 측면에서 효율적일 뿐만아니라 augmentation을 해주는 효과도 있었습니다.</p>
+
+<ul>
+  <li>Contextual Segmentation</li>
+</ul>
+
+<p>Superpoint, superedge를 통해 superpoint graph를 정의했다면, 이제 이를 graph convolution을 통해 segmentation 해야 합니다. 이는 Gated Graph Neural Networks와 Edge-Conditioned Convolution을 이용해서 진행되었습니다. 간단히 설명드리자면 Gated Recurrent Unit(GRU)를 통해 각 superpoint에 대한 embedding을 update했는데, 이 때 이용되는 incoming message vector를 주변 superpoint와의 graph convolution을 통해서 얻었습니다. Graph convolution은 앞서 말한 edge-conditioned convolution 기반의 방법으로 진행되었는데, multi-layer perceptron을 통해 구현된 filter generating network가 edge feature vector로부터 attention weight을 계산하면, 이 weight를 기반으로 주변 점들의 feature vector를 dynamic하게 더해주었습니다.</p>
+
+<ul>
+  <li>Training</li>
+</ul>
+
+<p>Geometric partitioning 단계는 unsupervised하게 학습되었고, superpoint embedding과 contextual segmentation 과정은 supervised하게 동시에 학습되었습니다. Superpoint 내의 점들은 같은 label을 가진 점들로 가정하였기 때문에, 점들의 label들 중 대다수에 해당하는 것으로 지정했습니다. Superpoint graph의 크기가 커서 GPU limit을 뛰어넘는 경우에는, SPG로부터 몇개의 superpoint(512개)만을 sub-sampling해서 크기가 작은 SPG를 형성하고 기존 SPG와 같은 연결 관계(superedge)를 형성한 후에 작은 SPG에 대해서 학습을 진행했습니다. 이렇게 하면 메모리 이슈도 해결할 수 있고, 동시에 data augmentation의 효과도 가져갈 수 있습니다.</p>
+
+<h2 id="experiments">Experiments</h2>
+<p><img src="assets/images/210129-superpoint-graphs/5-result.png" alt="" /></p>
+
+<p>다른 논문들에서와 마찬가지로 가장 일반적인 3D semantic point cloud segmentation 평가 지표인 Semantic3D와 S3DIS dataset을 이용한 성능 평가가 진행되었습니다. 성능은 IOU와 overall accuracy로 측정하였습니다.</p>
+
+<ul>
+  <li>Semantic3D</li>
+</ul>
+
+<p><img src="assets/images/210129-superpoint-graphs/4-semantic3d-result.png" alt="" /></p>
+
+<p>Semantic3D는 30억개 이상의 점들로 구성된 가장 큰 LiDAR dataset입니다. SPG는 기존의 SOTA 모델보다 12mIOU points나 높은 SOTA의 성능을 보여주었습니다.</p>
+
+<ul>
+  <li>S3DIS</li>
+</ul>
+
+<p><img src="assets/images/210129-superpoint-graphs/6-s3dis-result.png" alt="" /></p>
+
+<p>S3DIS는 실내 환경에 대한 3D RGB point cloud dataset입니다. Area 5를 제외한 나머지 영역에 대해 학습을 진행했고, area 5를 이용해서 평가하였습니다. 전반적인 성능에 대해 SOTA를 기록했지만, white board와 같은 경우 partitioning 과정에서 wall과 제대로 구별이 되지 않으며 평균보다 낮은 IOU를 기록하기도 했습니다.</p>
+
+<p><img src="assets/images/210129-superpoint-graphs/7-voxelization.png" alt="" /></p>
+
+<p>또한 많은 점들에 대한 inference 시간을 줄이기 위해, voxelization 형태의 전처리를 진행하고 결과를 보여주었습니다. 위의 표에서 알 수 있듯이 적절한 크기의 voxel 단위로 점들의 개수를 줄여준 경우에, inference 속도도 빨라지고 정확도도 증가하는 것을 볼 수 있었습니다.</p>
+
+<h2 id="ablations">Ablations</h2>
+<p>SPG 모델에 활용된 여러가지 모듈들의 성능을 검증하기 위해 ablation study가 진행되었습니다.</p>
+
+<p><img src="assets/images/210129-superpoint-graphs/8-ablation.png" alt="" /></p>
+
+<p>우선 superpoint graph에 대해 graph convolution을 통해서 contextual information을 추출하는 것이 성능 향상에 얼마나 많은 영향을 주었는지를 확인했습니다. 기존 모델을 Perfect model이라고 할 때, superpoint graph를 GRU가 아닌 일반적인 PointNet을 활용해 처리하는 모델을 Unary model로 하여 두 성능을 비교했습니다. 결과는 22mIOU points에 가까운 성능 하락이 발생하여 graph convolution 기반의 모델을 통해 contextual information을 파악하는 것이 얼마나 중요한지를 보여주었습니다.</p>
+
+<p>그 외에 GRU + ECC를 이용하는 대신 CRF-RNN을 이용해보는 등 CRF를 후처리로 하는 모델들과의 비교, GRU 기반의 구조를 수정한 모델에 대한 성능 비교 등을 진행했습니다. 결과는 SPG Perfect 모델의 압승이었습니다. 중요하진 않은 것 같아서 넘어가겠습니다.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>Superpoint Graph는 많은 점들을 partitioning 과정을 통해 효율적으로 graph convolution 연산에 적용하는 방법을 제시했습니다. 기존과 달리 많은 수의 점들로 구성된 dataset으로 학습을 진행할 수 있었고, 디테일하고 많은 정보량 덕분인지 월등히 좋은 성능을 보여주었습니다. 또한 graph congolution 연산에 적용해 contextual information도 알맞게 추출하여 성능 향상에 기여하였습니다. 많은 점들에 대한 학습을 가능하게 한 실험적인 좋은 논문이라고 생각됩니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://arxiv.org/abs/1711.09869">https://arxiv.org/abs/1711.09869</a></li>
+  <li><a href="http://proceedings.mlr.press/v51/landrieu16.html">http://proceedings.mlr.press/v51/landrieu16.html</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RE Tech Archive</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/Superpoint-Graphs';
+                            this.page.identifier = '/Superpoint-Graphs';
+                            this.page.title = 'Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://jekyller.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/3d/">3d</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/GACnet">Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/PointNet++">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/Edge-Conditioned-Convolution">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/3d/">
+                                
+                                    See all 3 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template no-image">
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/GACnet">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>RE Tech Archive</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Large-scale+Point+Cloud+Semantic+Segmentation+with+Superpoint+Graphs+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/Superpoint-Graphs"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/Superpoint-Graphs"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">RE Tech Archive</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
