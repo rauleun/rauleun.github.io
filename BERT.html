@@ -52,7 +52,7 @@
     <meta property="og:title" content="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
     <meta property="og:description" content="원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018). 오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 Bert: Pre-training of deep bidirectional transformers for language understanding 논문에 대한 리뷰입니다. 이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training" />
     <meta property="og:url" content="http://localhost:4000/BERT" />
-    <meta property="og:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/201102-BERT/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
     <meta property="article:published_time" content="2020-11-03T09:00:00+09:00" />
@@ -62,7 +62,7 @@
     <meta name="twitter:title" content="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
     <meta name="twitter:description" content="원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018). 오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 Bert: Pre-training of deep bidirectional transformers for language understanding 논문에 대한 리뷰입니다. 이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training" />
     <meta name="twitter:url" content="http://localhost:4000/" />
-    <meta name="twitter:image" content="http://localhost:4000/assets/images/blog-cover2.jpg" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/201102-BERT/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:label2" content="Filed under" />
@@ -84,7 +84,7 @@
     "url": "http://localhost:4000/BERT",
     "image": {
         "@type": "ImageObject",
-        "url": "http://localhost:4000/assets/images/blog-cover2.jpg",
+        "url": "http://localhost:4000/assets/images/201102-BERT/cover.png",
         "width": 2000,
         "height": 666
     },
@@ -166,7 +166,7 @@ into the {body} of the default.hbs template -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <article class="post-full  tag-nlp  no-image">
+        <article class="post-full  tag-nlp  ">
 
             <header class="post-full-header">
                 <section class="post-full-meta">
@@ -182,15 +182,18 @@ into the {body} of the default.hbs template -->
                 </section>
                 <h1 class="post-full-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h1>
             </header>
-
+            <!--
             
-
+            <figure class="post-full-image" style="background-image: url(/assets/images/201102-BERT/cover.png)">
+            </figure>
+            
+            -->
             <section class="post-full-content">
                 <div class="kg-card-markdown">
                     <p>원문 : <a href="https://arxiv.org/abs/1810.04805">Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).
 </a></p>
 
-<p><img src="assets/images/bert/bert.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/bert.png" alt="" /></p>
 
 <p>오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 <strong><em>Bert: Pre-training of deep bidirectional transformers for language understanding</em></strong> 논문에 대한 리뷰입니다.</p>
 
@@ -213,7 +216,7 @@ into the {body} of the default.hbs template -->
 
 <p>문장 구성에 대한 이해를 위해 downstream task 몇 가지를 예를 들어 설명하겠습니다. 만약 한 문장 안에 하나의 빈칸을 뚫어 그 단어를 예측하는 형태의 task는, input으로 하나의 문장이 들어가고 output으로는 한개의 단어가 나오면 충분할 것입니다. 하지만 어떤 문단과 그에 대한 질문의 답을 찾는 복잡한 언어 추론 형태의 task에서는, 질문이 input의 첫 번째 문장으로 들어가고 문단이 input의 두 번째 문장으로 들어가며 두 문장에 대한 명확한 구분이 필요할 것입니다. 또한 output으로는 질문에 대한 답에 해당되는 문단의 위치를 start/end token으로 얻을 수 있습니다.</p>
 
-<p><img src="assets/images/bert/input-representation.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/input-representation.png" alt="" /></p>
 
 <p>결과적으로 BERT의 input representation은 token embedding, positional embedding, segment embedding의 합으로 구성됩니다. 우선 token embedding은 original input이 WordPiece Tokenization을 통해서 변환된 결과입니다. 또한 Transformer 논문에서 input에 순서 정보를 반영하기 위해서 활용한 positional embedding을 BERT에서도 마찬가지로 더해주었습니다. 마지막으로 두 개 이상의 문장이 input으로 들어올 수 있기 때문에 이를 구분하기 위한 segment embedding을 더해주었습니다.</p>
 <h2 id="pre-training-strategy">Pre-training Strategy</h2>
@@ -231,7 +234,7 @@ into the {body} of the default.hbs template -->
 
 <p>이를 해결하기 위해서 논문에서는 15%의 확률로 선택된 토큰들에 대해서, (1) 80%는 [Mask] 토큰으로 변경하고, (2) 10%는 다른 임의의 토큰으로 변경하고, (3) 10%는 원래 토큰으로 그대로 두는 전략을 이용하였습니다. 이렇게 전혀 다른 토큰을 추가함으로써 모델의 학습이 방해될 수 있다는 지적에 대해, 저자는 전체 토큰의 1.5%의 만에 해당되기 때문에 큰 영향이 없을 것이라고 답했으며 실제 실험을 통해 증명하였습니다.</p>
 
-<p><img src="assets/images/bert/ablation-mask.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/ablation-mask.png" alt="" /></p>
 
 <p>MLM에 대한 예시를 몇개 보여드리면, 기존의 “My dog is hairy”라는 문장에 대해 4번째 토큰이 선택되었다면, 해당 문장은
 (1) 80%의 확률로 “My dog is [Mask]”
@@ -241,7 +244,7 @@ into the {body} of the default.hbs template -->
 
 <p>BERT와 비교되는 유명한 pre-trained language representation 모델들은 단방향 학습이나 불완전한 양방향 학습을 통해 생성되었습니다. 아래는 BERT와 OpenAI GPT, ELMo의 모델 구조를 비교한 그림입니다.</p>
 
-<p><img src="assets/images/bert/elmo-gpt.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/elmo-gpt.png" alt="" /></p>
 
 <p>위 그림에서 보이듯 완벽한 Bidirectional 구조를 가진 BERT와는 달리, OpenAI GPT는 Transformer decoder 구조를 차용한듯한 왼쪽에서 오른쪽을 향하는 단방향의 구조를 가지고 있습니다. 또한 ELMo 같은 경우에는, 왼쪽에서 오른쪽을 향하는 LSTM과 오른쪽에서 왼쪽을 향하는 LSTM의 output을 concatenate하여 양방향의 특성을 모두 가지는 representation을 생성하기 위한 구조를 보여주었습니다. 다만 두 LSTM의 결과를 이어붙인 것에 지나지 않기 때문에 완전한 양방향 학습이라고 보기는 어려우며, 계산량도 매우 많고 느리다는 단점이 있습니다. 따라서 Layer를 이어붙여서 깊게 쌓을 수 없고, 높은 성능을 보여주기 어렵게 됩니다.</p>
 
@@ -265,14 +268,14 @@ into the {body} of the default.hbs template -->
 
 <ul>
   <li>GLUE
-<img src="assets/images/bert/result-glue.png" alt="" /></li>
+<img src="assets/images/201102-BERT/result-glue.png" alt="" /></li>
 </ul>
 
 <p>8개의 task로 구성된 The General Language Understanding Evaluation(GLUE) task에 대해서 SOTA의 성능을 보여주었다. 모든 GLUE task에 대해 32의 batch size로 3 epoch만큼 fine-tuning 해주었으며, [CLS] 토큰의 output을 마지막 classification layer의 input으로 활용하여 K개의 class에 대해 분류했습니다.</p>
 
 <ul>
   <li>SQuAD
-<img src="assets/images/bert/result-squad.png" alt="" /></li>
+<img src="assets/images/201102-BERT/result-squad.png" alt="" /></li>
 </ul>
 
 <p>SQuAD는 The Stanford Question Answering Dataset의 약자로 100k개 이상의 질문-정답 쌍으로 구성되어 있습니다. 질문과 정답을 포함한 Wikipedia 문단을 input으로 넣으면, 문단 내의 정답 text 위치를 찾아내어야 합니다. BERT는 위에서 설명한 NSP 전략을 활용해 문장 사이의 관계를 이해하도록 학습되었기 때문에, SQuAD에 대해서도 SOTA의 성능을 보여줄 수 있었습니다.</p>
@@ -281,12 +284,12 @@ into the {body} of the default.hbs template -->
 
 <ul>
   <li>SWAG
-<img src="assets/images/bert/result-swag.png" alt="" /></li>
+<img src="assets/images/201102-BERT/result-swag.png" alt="" /></li>
 </ul>
 
 <p>SWAG는 The Situations With Adversarial Generations의 약자로 113k개의 문장 쌍으로 구성되어 있습니다. 한 문장이 주어질 때, 뒤에 나오기에 적절한 문장을 4개의 보기 중에 선택하는 형태로 구성되었습니다. [CLS] 토큰을 활용하여 4개의 선택지에 대한 score를 얻어서 평가하였습니다. BERT는 SWAG 데이터셋에 대해서도 마찬가지로 SOTA의 성능을 보여주었습니다.</p>
 
-<p><img src="assets/images/bert/fine-tuning.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/fine-tuning.png" alt="" /></p>
 <h2 id="ablation-studies">Ablation Studies</h2>
 
 <p>BERT의 성능은 다양한 downstream task들에서 SOTA의 수준으로 확인되었습니다. 그렇다면 앞에서 제안한 BERT의 어떤 특징들이 우수한 성능을 발휘할 수 있게 해준걸까요? 논문에서는 Ablation study를 통해 다양한 장치들의 역할을 분석하였습니다.</p>
@@ -297,7 +300,7 @@ into the {body} of the default.hbs template -->
 
 <p>BERT는 MLM과 NSP라는 두 개의 Task로 Pre-training 되었습니다. 논문에서는 각각의 task가 얼마나 중요한지를 보여주기 위해 NSP를 없애고 학습시켜보기도 하고, NSP를 없애고 단방향으로의(LTR) 학습을 진행해보기도 하였습니다.</p>
 
-<p><img src="assets/images/bert/ablation-pretraining.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/ablation-pretraining.png" alt="" /></p>
 
 <p>NSP를 없애자 GLUE와 SQuAD의 성능이 동시에 크게 저하되었습니다. 문장 간의 이해도를 높이는 데 NSP가 중요한 역할을 하고 있으며, 일반적인 Language understanding에도 영향을 미치는 것으로 보입니다.</p>
 
@@ -315,7 +318,7 @@ into the {body} of the default.hbs template -->
 
 <p>기존의 BERT는 downstream task에 대해 fine-tuning 방식으로 학습하였습니다. 하지만 fine-tuning 방식은 모델의 구조를 크게 바꾸지 않기 때문에 모든 경우의 downstream task를 represent하기 어렵고, 모든 parameter를 update하므로 계산량도 많다는 단점이 있습니다. 때문에 ELMo와 같은 feature-based approach로 BERT를 활용했을 때 결과가 어떨지에 대해 ablation study가 진행되었습니다.</p>
 
-<p><img src="assets/images/bert/ablation-feature.png" alt="" /></p>
+<p><img src="assets/images/201102-BERT/ablation-feature.png" alt="" /></p>
 
 <p>각 단어의 Entity를 찾는 NER task에 대해 다양한 방식의 feature-based 학습을 진행했는데, SOTA와 비슷한 성능을 보여주었습니다. 이로써 BERT는 fine-tuning과 feature-based approach에 모두 효과적이라는 것이 확인되었습니다.</p>
 <h2 id="summary">Summary</h2>
@@ -473,7 +476,11 @@ into the {body} of the default.hbs template -->
             
                 
 
-    <article class="post-card post-template no-image">
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/Edge-Conditioned-Convolution">
+                <div class="post-card-image" style="background-image: url(/assets/images/210120-ECC/cover.png)"></div>
+            </a>
         
         <div class="post-card-content">
             <a class="post-card-content-link" href="/Edge-Conditioned-Convolution">
@@ -519,7 +526,11 @@ into the {body} of the default.hbs template -->
             
                 
 
-    <article class="post-card post-template no-image">
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/EfficientDet">
+                <div class="post-card-image" style="background-image: url(/assets/images/200926-EffiDet/cover.png)"></div>
+            </a>
         
         <div class="post-card-content">
             <a class="post-card-content-link" href="/EfficientDet">

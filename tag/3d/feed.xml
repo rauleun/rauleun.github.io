@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="http://localhost:4000/tag/3d/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T14:18:00+09:00</updated>
+  <updated>2021-02-09T15:01:45+09:00</updated>
   <id>http://localhost:4000/tag/3d/feed.xml</id>
 
   
@@ -581,15 +581,15 @@ ScanNet에서도 sampling density가 달라졌을 때 robust한 결과를 도출
 &lt;p&gt;Point cloud는 3D 물체를 표현하기 위한 형식 중의 하나입니다. 원래 point cloud는 일정한 형식이 없는 집합 형태의 데이터이기 때문에 neural network의 input으로 활용하기 어려웠습니다. 하지만 특정 점에 대해 정의된 거리(r) 내에 있는 점들 중 K-nearest neighbors 알고리즘을 적용해서 인접한 점들을 찾은 뒤, 서로 연결해서 graph 형태로 변환하게 되면 graph convolution을 적용할 수 있습니다. 따라서 논문에서는 여러 종류의 graph 데이터들 중 주로 point cloud를 graph로 변환한 데이터를 활용했습니다. Point cloud는 물체나 풍경을 3D로 표현했다는 특성상 graph 또는 vertex 단위로 label이 존재하기 때문에 graph convolution의 성능을 측정하기에 적절하기도 합니다. 또한 최근에는 RGB-D 카메라나 LiDaR의 출력 형식으로 사용되기 때문에 범용적이기도 합니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;edge-conditioned-convolution-ecc&quot;&gt;Edge-conditioned Convolution (ECC)&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;assets/images/edge-convolution/1-edge-convolution.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/210120-ECC/1-edge-convolution.png&quot; alt=&quot;&quot; /&gt;
 Edge-conditioned convolution 연산 과정은 그리 어렵지 않습니다. Point cloud 데이터를 graph 형태로 변환하여 &lt;em&gt;n&lt;/em&gt;개의 node와 &lt;em&gt;m&lt;/em&gt;개의 edge를 얻었다고 가정하겠습니다. 이 때 node의 feature vector가 &lt;em&gt;l&lt;/em&gt; 차원, edge의 feature vector가 &lt;em&gt;s&lt;/em&gt; 차원이라고 하면 우리는 edge의 feature vector로부터 node feature vector의 transformation matrix (&lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원)를 얻는 미분 가능한 함수를 정의하고자 합니다. 논문에서는 가장 간단한 multi-layer perceptron을 활용하였는데, input이 &lt;em&gt;s&lt;/em&gt;차원 &amp;amp; output이 &lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원인 linear layer입니다. 이렇게 각 node마다 &lt;em&gt;l&lt;/em&gt;x&lt;em&gt;l&lt;/em&gt; 차원의 “edge-specific weights”를 얻을 수 있고, 이는 edge feature vector에서 추출한 행렬이기 때문에 점들 사이의 관계를 담고 있습니다. 이렇게 얻은 weight을 이웃한 각 node feature vector에 곱해주고 normalize하면 edge-conditioned convolution을 거친 해당 점의 feature vector를 얻을 수 있습니다.
-&lt;img src=&quot;assets/images/edge-convolution/2-one-hot-edge.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;assets/images/210120-ECC/2-one-hot-edge.png&quot; alt=&quot;&quot; /&gt;
 각 edge feature vector를 순서에 맞는 one-hot vector로 설정하면 edge-conditioned convolution 연산은 uniform function에 대한 convolution과 같아집니다. 위의 그림에서 ECC는 filter size가 3인 1차원의 discrete convolution과 정확히 같아지는 것을 확인할 수 있습니다.
 ECC의 특징 중의 하나가 multi-hop convolution이 불가능하다는 점입니다. 다른 graph convolution 연산의 경우에는 인접 행렬을 여러번 곱해서 multi-hop의 범위를 가지는 node에 대해서도 feature aggregation을 할 수가 있지만, ECC는 인접 행렬을 이용하지 않기 때문에 multi-hop 연산이 불가능합니다. 하지만 저자는 일반적인 2D convolution에서도 크기가 큰 filter를 이용하는 것보다 3x3 크기의 filter를 여러개 이어붙이는 것이 더 좋은 feature를 추출하기 때문에 ECC layer도 여러번 반복하면 multi-hop convolution보다 좋은 성능을 낼 것이라고 이야기합니다.
 ECC layer의 끝에는 다른 convolution layer와 마찬가지로 batch normalization layer를 붙여주어 학습을 효율적으로 진행할 수 있게 하였습니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;deep-network-with-ecc&quot;&gt;Deep network with ECC&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;assets/images/edge-convolution/3-network-architecture.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/210120-ECC/3-network-architecture.png&quot; alt=&quot;&quot; /&gt;
 ECC 연산을 통해 2D image data에 대한 neural network와 비슷한 구조를 graph 구조에 대해서도 구현할 수 있습니다. 위 그림은 ECC를 이용한 convolution layer와 graph-pooling 및 coarsening 과정을 이용한 pooling layer를 이어붙여 deep neural network를 구현한 그림입니다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Graph pooling &amp;amp; coarsening
@@ -616,13 +616,13 @@ Edge label은 해당 edge와 연결된 두 vertex 좌표값의 차이로 설정�
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;ModelNet
-&lt;img src=&quot;assets/images/edge-convolution/4-modelnet-result.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;assets/images/210120-ECC/4-modelnet-result.png&quot; alt=&quot;&quot; /&gt;
 ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 카테고리 개수에 따라 ModelNet10과 ModelNet40으로 구분되며 각각 4000개, 10000개 정도의 학습 데이터가 존재합니다. 논문에서는 Mesh 형태의 데이터의 표면에서 uniform하게 1000개씩의 point를 sampling하여 point cloud 형태로 변환해주었습니다. 신경망 구조는 &lt;strong&gt;&lt;em&gt;ECC(16)-ECC(32)-MP(2.5/32,7.5/32)-ECC(32)-ECC(32)-MP(7.5/32,22.5/32)-ECC(64)-GMP-FC(64)-Dropout(0.2)-FC(10 or 40)&lt;/em&gt;&lt;/strong&gt; 의 형태를 이용하였고 100 epoch의 학습을 진행하였습니다. Classification에 대한 전반적인 accuracy는 SOTA만큼은 아니지만 경쟁력 있는 수준을 보여주었습니다.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;MNIST
 논문에서는 숫자에 대한 28x28 크기의 이미지 데이터셋인 MNIST 데이터셋을 이용한 성능도 측정하였습니다. 우선 ECC를 적용할 수 있게 2D image를 &lt;em&gt;(x, y, 0)&lt;/em&gt;의 좌표를 가지는 point cloud 형태로 변환하고 nearest neighbor 알고리즘을 통해 다시 graph 형태로 변환하였습니다. 여기서는 &lt;strong&gt;&lt;em&gt;C(16)-MP(2,3.4)-C(32)-MP(4,6.8)-C(64)-MP(8,30)-C(128)-D(0.5)-FC(10)&lt;/em&gt;&lt;/strong&gt; 형태의 네트워크 구조를 활용하여 20 epoch만큼 학습을 진행하였습니다.
-&lt;img src=&quot;assets/images/edge-convolution/5-mnist-result.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;assets/images/210120-ECC/5-mnist-result.png&quot; alt=&quot;&quot; /&gt;
 학습 결과는 위와 같습니다. 기존의 baseline 모델들과 비교해도 괜찮은 결과를 도출하였습니다. 또한 2D image에서 어두운 부분을 제외하고 graph 형태로 변환하여 학습을 시켜도 비슷한 결과를 도출하였습니다. 이는 graph의 형태가 바뀌어도 neural network가 학습 및 추론을 안정적으로 할 수 있다는 것을 의미합니다.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
