@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="http://localhost:4000/tag/nlp/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T14:06:23+09:00</updated>
+  <updated>2021-02-09T14:18:00+09:00</updated>
   <id>http://localhost:4000/tag/nlp/feed.xml</id>
 
   
@@ -193,11 +193,11 @@
       </author>
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
@@ -339,11 +339,11 @@ Sub-layer 내의 연산은 W&lt;sup&gt;K&lt;/sup&gt;, W&lt;sup&gt;V&lt;/sup&gt;(
       </author>
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       

@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="http://localhost:4000/author/rauleun/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T14:06:23+09:00</updated>
+  <updated>2021-02-09T14:18:00+09:00</updated>
   <id>http://localhost:4000/author/rauleun/feed.xml</id>
 
   
@@ -145,11 +145,11 @@
       </author>
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
@@ -276,11 +276,11 @@ SPG는 point cloud로부터 크게 세 단계를 거쳐서 생성됩니다. 우�
       </author>
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
@@ -419,11 +419,11 @@ Feature pyramid network(FPN) 기반의 구조는 image segmentation 또는 objec
       </author>
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
@@ -541,11 +541,11 @@ ScanNet에서도 sampling density가 달라졌을 때 robust한 결과를 도출
       </author>
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
@@ -650,11 +650,11 @@ ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 
       </author>
 
       
-        <category term="NLP" />
+        <category term="3d" />
       
 
       
-        <category term="3D" />
+        <category term="3d" />
       
 
       
@@ -827,11 +827,11 @@ ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 
       </author>
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
@@ -970,11 +970,11 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
       </author>
 
       
-        <category term="Object-Detection" />
+        <category term="object-detection" />
       
 
       
-        <category term="Object-Detection" />
+        <category term="object-detection" />
       
 
       
@@ -1127,11 +1127,11 @@ Decoder의 output으로 나온 각 객체들과 인코딩 된 원본 이미지�
       </author>
 
       
-        <category term="Object-Detection" />
+        <category term="object-detection" />
       
 
       
-        <category term="Object-Detection" />
+        <category term="object-detection" />
       
 
       
@@ -1273,11 +1273,11 @@ Sub-layer 내의 연산은 W&lt;sup&gt;K&lt;/sup&gt;, W&lt;sup&gt;V&lt;/sup&gt;(
       </author>
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
-        <category term="NLP" />
+        <category term="nlp" />
       
 
       
