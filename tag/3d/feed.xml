@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="http://localhost:4000/tag/3d/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T16:15:58+09:00</updated>
-  <id>http://localhost:4000/tag/3d/feed.xml</id>
+  <link href="https://rauleun.github.io/tag/3d/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
+  <updated>2021-02-09T21:32:43+09:00</updated>
+  <id>https://rauleun.github.io/tag/3d/feed.xml</id>
 
   
   
@@ -33,11 +33,11 @@
   
     <entry>
       <title type="html">KPConv - Flexible and Deformable Convolution for Point Clouds 리뷰</title>
-      <link href="http://localhost:4000/KPConv" rel="alternate" type="text/html" title="KPConv - Flexible and Deformable Convolution for Point Clouds 리뷰" />
+      <link href="https://rauleun.github.io/KPConv" rel="alternate" type="text/html" title="KPConv - Flexible and Deformable Convolution for Point Clouds 리뷰" />
       <published>2021-02-07T09:00:00+09:00</published>
       <updated>2021-02-07T09:00:00+09:00</updated>
-      <id>http://localhost:4000/KPConv</id>
-      <content type="html" xml:base="http://localhost:4000/KPConv">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_ICCV_2019/html/Thomas_KPConv_Flexible_and_Deformable_Convolution_for_Point_Clouds_ICCV_2019_paper.html&quot;&gt;Thomas, Hugues, et al. “Kpconv: Flexible and deformable convolution for point clouds.” Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019.&lt;/a&gt;&lt;/p&gt;
+      <id>https://rauleun.github.io/KPConv</id>
+      <content type="html" xml:base="https://rauleun.github.io/KPConv">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_ICCV_2019/html/Thomas_KPConv_Flexible_and_Deformable_Convolution_for_Point_Clouds_ICCV_2019_paper.html&quot;&gt;Thomas, Hugues, et al. “Kpconv: Flexible and deformable convolution for point clouds.” Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;오늘 소개드릴 논문은 2019년 ICCV에서 소개된 &lt;strong&gt;&lt;em&gt;Kpconv: Flexible and deformable convolution for point clouds&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
 
@@ -162,11 +162,11 @@
   
     <entry>
       <title type="html">Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</title>
-      <link href="http://localhost:4000/Superpoint-Graphs" rel="alternate" type="text/html" title="Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰" />
+      <link href="https://rauleun.github.io/Superpoint-Graphs" rel="alternate" type="text/html" title="Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰" />
       <published>2021-01-29T09:00:00+09:00</published>
       <updated>2021-01-29T09:00:00+09:00</updated>
-      <id>http://localhost:4000/Superpoint-Graphs</id>
-      <content type="html" xml:base="http://localhost:4000/Superpoint-Graphs">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_cvpr_2018/html/Landrieu_Large-Scale_Point_Cloud_CVPR_2018_paper.html&quot;&gt;Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/a&gt;&lt;/p&gt;
+      <id>https://rauleun.github.io/Superpoint-Graphs</id>
+      <content type="html" xml:base="https://rauleun.github.io/Superpoint-Graphs">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_cvpr_2018/html/Landrieu_Large-Scale_Point_Cloud_CVPR_2018_paper.html&quot;&gt;Landrieu, Loic, and Martin Simonovsky. “Large-scale point cloud semantic segmentation with superpoint graphs.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;오늘 소개드릴 논문은 2018년 CVPR에서 소개된 &lt;strong&gt;&lt;em&gt;Large-scale point cloud semantic segmentation with superpoint graphs&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
 
@@ -293,11 +293,11 @@ SPG는 point cloud로부터 크게 세 단계를 거쳐서 생성됩니다. 우�
   
     <entry>
       <title type="html">Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</title>
-      <link href="http://localhost:4000/GACnet" rel="alternate" type="text/html" title="Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰" />
+      <link href="https://rauleun.github.io/GACnet" rel="alternate" type="text/html" title="Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰" />
       <published>2021-01-27T09:00:00+09:00</published>
       <updated>2021-01-27T09:00:00+09:00</updated>
-      <id>http://localhost:4000/GACnet</id>
-      <content type="html" xml:base="http://localhost:4000/GACnet">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Graph_Attention_Convolution_for_Point_Cloud_Semantic_Segmentation_CVPR_2019_paper.pdf&quot;&gt;Wang, Lei, et al. “Graph attention convolution for point cloud semantic segmentation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.&lt;/a&gt;&lt;/p&gt;
+      <id>https://rauleun.github.io/GACnet</id>
+      <content type="html" xml:base="https://rauleun.github.io/GACnet">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Graph_Attention_Convolution_for_Point_Cloud_Semantic_Segmentation_CVPR_2019_paper.pdf&quot;&gt;Wang, Lei, et al. “Graph attention convolution for point cloud semantic segmentation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;오늘 소개드릴 논문은 Stanford에서 2019년 CVPR에서 발표한 &lt;strong&gt;&lt;em&gt;Graph attention convolution for point cloud semantic segmentation&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
 
@@ -436,11 +436,11 @@ Feature pyramid network(FPN) 기반의 구조는 image segmentation 또는 objec
   
     <entry>
       <title type="html">PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰</title>
-      <link href="http://localhost:4000/PointNet++" rel="alternate" type="text/html" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" />
+      <link href="https://rauleun.github.io/PointNet++" rel="alternate" type="text/html" title="PointNet++ - Deep Hierarchical Feature Learning on Point Sets in a Metric Space 리뷰" />
       <published>2021-01-21T09:00:00+09:00</published>
       <updated>2021-01-21T09:00:00+09:00</updated>
-      <id>http://localhost:4000/PointNet++</id>
-      <content type="html" xml:base="http://localhost:4000/PointNet++">&lt;p&gt;원문 : &lt;a href=&quot;https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf&quot;&gt;Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
+      <id>https://rauleun.github.io/PointNet++</id>
+      <content type="html" xml:base="https://rauleun.github.io/PointNet++">&lt;p&gt;원문 : &lt;a href=&quot;https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf&quot;&gt;Qi, Charles Ruizhongtai, et al. “Pointnet++: Deep hierarchical feature learning on point sets in a metric space.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 &lt;strong&gt;&lt;em&gt;Pointnet++: Deep hierarchical feature learning on point sets in a metric space&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
 
@@ -558,11 +558,11 @@ ScanNet에서도 sampling density가 달라졌을 때 robust한 결과를 도출
   
     <entry>
       <title type="html">Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰</title>
-      <link href="http://localhost:4000/Edge-Conditioned-Convolution" rel="alternate" type="text/html" title="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰" />
+      <link href="https://rauleun.github.io/Edge-Conditioned-Convolution" rel="alternate" type="text/html" title="Dynamic Edge-Conditioned Filters in Convolutional Neural Networks on Graphs 리뷰" />
       <published>2021-01-20T09:00:00+09:00</published>
       <updated>2021-01-20T09:00:00+09:00</updated>
-      <id>http://localhost:4000/Edge-Conditioned-Convolution</id>
-      <content type="html" xml:base="http://localhost:4000/Edge-Conditioned-Convolution">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1704.02901&quot;&gt;Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
+      <id>https://rauleun.github.io/Edge-Conditioned-Convolution</id>
+      <content type="html" xml:base="https://rauleun.github.io/Edge-Conditioned-Convolution">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1704.02901&quot;&gt;Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
 &lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;오늘 소개드릴 논문은 ENPC에서 2017년 CVPR에 발표한 &lt;strong&gt;&lt;em&gt;Dynamic edge-conditioned filters in convolutional neural networks on graphs&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;

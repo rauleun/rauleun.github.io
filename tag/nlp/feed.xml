@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="http://localhost:4000/tag/nlp/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T16:15:58+09:00</updated>
-  <id>http://localhost:4000/tag/nlp/feed.xml</id>
+  <link href="https://rauleun.github.io/tag/nlp/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
+  <updated>2021-02-09T21:32:43+09:00</updated>
+  <id>https://rauleun.github.io/tag/nlp/feed.xml</id>
 
   
   
@@ -33,11 +33,11 @@
   
     <entry>
       <title type="html">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</title>
-      <link href="http://localhost:4000/BERT" rel="alternate" type="text/html" title="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
+      <link href="https://rauleun.github.io/BERT" rel="alternate" type="text/html" title="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
       <published>2020-11-03T09:00:00+09:00</published>
       <updated>2020-11-03T09:00:00+09:00</updated>
-      <id>http://localhost:4000/BERT</id>
-      <content type="html" xml:base="http://localhost:4000/BERT">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1810.04805&quot;&gt;Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).
+      <id>https://rauleun.github.io/BERT</id>
+      <content type="html" xml:base="https://rauleun.github.io/BERT">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1810.04805&quot;&gt;Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).
 &lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/bert.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
@@ -210,11 +210,11 @@
   
     <entry>
       <title type="html">Attention is All You Need</title>
-      <link href="http://localhost:4000/attention-is-all-you-need" rel="alternate" type="text/html" title="Attention is All You Need" />
+      <link href="https://rauleun.github.io/attention-is-all-you-need" rel="alternate" type="text/html" title="Attention is All You Need" />
       <published>2020-09-07T20:00:00+09:00</published>
       <updated>2020-09-07T20:00:00+09:00</updated>
-      <id>http://localhost:4000/attention-is-all-you-need</id>
-      <content type="html" xml:base="http://localhost:4000/attention-is-all-you-need">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
+      <id>https://rauleun.github.io/attention-is-all-you-need</id>
+      <content type="html" xml:base="https://rauleun.github.io/attention-is-all-you-need">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;본 글은 Google Brain에서 2017 NIPS에 발표한 &lt;strong&gt;&lt;em&gt;Attention is All You Need&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰이며 동시에 &lt;strong&gt;제 첫 논문 리뷰글&lt;/strong&gt;입니다.&lt;/p&gt;
 

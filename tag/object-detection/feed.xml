@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="http://localhost:4000/tag/object-detection/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T16:15:58+09:00</updated>
-  <id>http://localhost:4000/tag/object-detection/feed.xml</id>
+  <link href="https://rauleun.github.io/tag/object-detection/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
+  <updated>2021-02-09T21:32:43+09:00</updated>
+  <id>https://rauleun.github.io/tag/object-detection/feed.xml</id>
 
   
   
@@ -33,11 +33,11 @@
   
     <entry>
       <title type="html">EfficientDet - Scalable and Efficient Object Detection</title>
-      <link href="http://localhost:4000/EfficientDet" rel="alternate" type="text/html" title="EfficientDet - Scalable and Efficient Object Detection" />
+      <link href="https://rauleun.github.io/EfficientDet" rel="alternate" type="text/html" title="EfficientDet - Scalable and Efficient Object Detection" />
       <published>2020-09-26T09:00:00+09:00</published>
       <updated>2020-09-26T09:00:00+09:00</updated>
-      <id>http://localhost:4000/EfficientDet</id>
-      <content type="html" xml:base="http://localhost:4000/EfficientDet">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf&quot;&gt;Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
+      <id>https://rauleun.github.io/EfficientDet</id>
+      <content type="html" xml:base="https://rauleun.github.io/EfficientDet">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf&quot;&gt;Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
 &lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/main-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
@@ -176,11 +176,11 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
   
     <entry>
       <title type="html">End-to-End Object Detection with Transformers (DETR)</title>
-      <link href="http://localhost:4000/DETR" rel="alternate" type="text/html" title="End-to-End Object Detection with Transformers (DETR)" />
+      <link href="https://rauleun.github.io/DETR" rel="alternate" type="text/html" title="End-to-End Object Detection with Transformers (DETR)" />
       <published>2020-09-14T20:00:00+09:00</published>
       <updated>2020-09-14T20:00:00+09:00</updated>
-      <id>http://localhost:4000/DETR</id>
-      <content type="html" xml:base="http://localhost:4000/DETR">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2005.12872&quot;&gt;Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). &lt;/a&gt;&lt;/p&gt;
+      <id>https://rauleun.github.io/DETR</id>
+      <content type="html" xml:base="https://rauleun.github.io/DETR">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2005.12872&quot;&gt;Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). &lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/detr.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
