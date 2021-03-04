@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://rauleun.github.io/tag/object-detection/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
-  <updated>2021-02-09T22:05:05+09:00</updated>
+  <updated>2021-03-04T20:51:02+09:00</updated>
   <id>https://rauleun.github.io/tag/object-detection/feed.xml</id>
 
   
@@ -32,8 +32,8 @@
 
   
     <entry>
-      <title type="html">EfficientDet - Scalable and Efficient Object Detection</title>
-      <link href="https://rauleun.github.io/EfficientDet" rel="alternate" type="text/html" title="EfficientDet - Scalable and Efficient Object Detection" />
+      <title type="html">EfficientDet - Scalable and Efficient Object Detection 리뷰</title>
+      <link href="https://rauleun.github.io/EfficientDet" rel="alternate" type="text/html" title="EfficientDet - Scalable and Efficient Object Detection 리뷰" />
       <published>2020-09-26T09:00:00+09:00</published>
       <updated>2020-09-26T09:00:00+09:00</updated>
       <id>https://rauleun.github.io/EfficientDet</id>
@@ -175,8 +175,8 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
     </entry>
   
     <entry>
-      <title type="html">End-to-End Object Detection with Transformers (DETR)</title>
-      <link href="https://rauleun.github.io/DETR" rel="alternate" type="text/html" title="End-to-End Object Detection with Transformers (DETR)" />
+      <title type="html">(DETR) End-to-End Object Detection with Transformers 리뷰</title>
+      <link href="https://rauleun.github.io/DETR" rel="alternate" type="text/html" title="(DETR) End-to-End Object Detection with Transformers 리뷰" />
       <published>2020-09-14T20:00:00+09:00</published>
       <updated>2020-09-14T20:00:00+09:00</updated>
       <id>https://rauleun.github.io/DETR</id>

@@ -11,7 +11,7 @@
 
 
 
-    <title>EfficientDet - Scalable and Efficient Object Detection 리뷰</title>
+    <title>Point Transformer 리뷰</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -43,30 +43,30 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="machine learning research notes" />
     <link rel="shortcut icon" href="https://rauleun.github.io/" type="image/png" />
-    <link rel="canonical" href="https://rauleun.github.io/EfficientDet" />
+    <link rel="canonical" href="https://rauleun.github.io/Point-Transformer" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="RE Tech Archive" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="EfficientDet - Scalable and Efficient Object Detection 리뷰" />
-    <meta property="og:description" content="원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리" />
-    <meta property="og:url" content="https://rauleun.github.io/EfficientDet" />
-    <meta property="og:image" content="https://rauleun.github.io/assets/images/200926-EffiDet/cover.png" />
+    <meta property="og:title" content="Point Transformer 리뷰" />
+    <meta property="og:description" content="원문 : Zhao, Hengshuang, et al. “Point transformer.” arXiv preprint arXiv:2012.09164 (2020). 오늘 소개드릴 논문은 2020년 발표된 Point Transformer 논문에 대한 리뷰입니다. Transformer 구조는 Natural language processing(NLP) 분야에서 처음 소개된 이후로, NLP 뿐만 아니라 object classification 및 detection 등 다양한 task에 적용되어 뛰어난 성능을 보여주고 있습니다. Point Transformer는 point cloud" />
+    <meta property="og:url" content="https://rauleun.github.io/Point-Transformer" />
+    <meta property="og:image" content="https://rauleun.github.io/assets/images/210302-PointTransformer/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2020-09-26T09:00:00+09:00" />
-    <meta property="article:modified_time" content="2020-09-26T09:00:00+09:00" />
-    <meta property="article:tag" content="Object-detection" />
+    <meta property="article:published_time" content="2021-03-02T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-03-02T09:00:00+09:00" />
+    <meta property="article:tag" content="3d" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="EfficientDet - Scalable and Efficient Object Detection 리뷰" />
-    <meta name="twitter:description" content="원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리" />
+    <meta name="twitter:title" content="Point Transformer 리뷰" />
+    <meta name="twitter:description" content="원문 : Zhao, Hengshuang, et al. “Point transformer.” arXiv preprint arXiv:2012.09164 (2020). 오늘 소개드릴 논문은 2020년 발표된 Point Transformer 논문에 대한 리뷰입니다. Transformer 구조는 Natural language processing(NLP) 분야에서 처음 소개된 이후로, NLP 뿐만 아니라 object classification 및 detection 등 다양한 task에 적용되어 뛰어난 성능을 보여주고 있습니다. Point Transformer는 point cloud" />
     <meta name="twitter:url" content="https://rauleun.github.io/" />
-    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/200926-EffiDet/cover.png" />
+    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/210302-PointTransformer/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="Object-detection" />
+    <meta name="twitter:data2" content="3d" />
     <meta name="twitter:site" content="@" />
     <meta name="twitter:creator" content="@" />
     <meta property="og:image:width" content="1400" />
@@ -81,18 +81,18 @@
         "name": "RE Tech Archive",
         "logo": "https://rauleun.github.io/"
     },
-    "url": "https://rauleun.github.io/EfficientDet",
+    "url": "https://rauleun.github.io/Point-Transformer",
     "image": {
         "@type": "ImageObject",
-        "url": "https://rauleun.github.io/assets/images/200926-EffiDet/cover.png",
+        "url": "https://rauleun.github.io/assets/images/210302-PointTransformer/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://rauleun.github.io/EfficientDet"
+        "@id": "https://rauleun.github.io/Point-Transformer"
     },
-    "description": "원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리"
+    "description": "원문 : Zhao, Hengshuang, et al. “Point transformer.” arXiv preprint arXiv:2012.09164 (2020). 오늘 소개드릴 논문은 2020년 발표된 Point Transformer 논문에 대한 리뷰입니다. Transformer 구조는 Natural language processing(NLP) 분야에서 처음 소개된 이후로, NLP 뿐만 아니라 object classification 및 detection 등 다양한 task에 적용되어 뛰어난 성능을 보여주고 있습니다. Point Transformer는 point cloud"
 }
     </script>
 
@@ -105,7 +105,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="EfficientDet - Scalable and Efficient Object Detection 리뷰" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Point Transformer 리뷰" href="/feed.xml" />
 
 
 </head>
@@ -166,137 +166,126 @@ into the {body} of the default.hbs template -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <article class="post-full  tag-object-detection  ">
+        <article class="post-full  tag-3d  ">
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="26 September 2020">26 September 2020</time>
+                    <time class="post-full-meta-date" datetime=" 2 March 2021"> 2 March 2021</time>
                     
                         <span class="date-divider">/</span>
                         
                             
-                               <a href='/tag/object-detection/'>OBJECT-DETECTION</a>
+                               <a href='/tag/3d/'>3D</a>
                             
                         
                     
                 </section>
-                <h1 class="post-full-title">EfficientDet - Scalable and Efficient Object Detection 리뷰</h1>
+                <h1 class="post-full-title">Point Transformer 리뷰</h1>
             </header>
             <!--
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/200926-EffiDet/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/210302-PointTransformer/cover.png)">
             </figure>
             
             -->
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>원문 : <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf">Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
-</a></p>
+                    <p>원문 : <a href="https://arxiv.org/abs/2012.09164">Zhao, Hengshuang, et al. “Point transformer.” arXiv preprint arXiv:2012.09164 (2020).</a></p>
 
-<p><img src="assets/images/200926-EffiDet/main-result.png" alt="" /></p>
+<p>오늘 소개드릴 논문은 2020년 발표된 <strong><em>Point Transformer</em></strong> 논문에 대한 리뷰입니다.</p>
 
-<p>오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 <strong><em>Efficientdet: Scalable and efficient object detection</em></strong> 논문에 대한 리뷰입니다.</p>
+<p>Transformer 구조는 Natural language processing(NLP) 분야에서 처음 소개된 이후로, NLP 뿐만 아니라 object classification 및 detection 등 다양한 task에 적용되어 뛰어난 성능을 보여주고 있습니다.</p>
 
-<p>이 논문은 주어진 제약 조건(메모리 및 레이턴시) 아래에서 가장 효율적인 모델 구조를 찾아주는 <a href="https://arxiv.org/pdf/1905.11946.pdf">EfficientNet</a>을 object detection 분야에 접목시킨 연구를 다루고 있으며, 기존의 여러 모델과 비교하였을 떄 성능 및 효율성 측면에서 아주 뛰어난 결과를 보여주었습니다.</p>
+<p>Point Transformer는 point cloud classification 및 segmentation task에 transformer 구조를 적용한 논문인데, 구체적으로는 self-attention 연산을 이용해서 feature를 추출하였습니다. Transformer의 self-attention mechanism은 permutation-invariant한 특성을 가지고 있기 때문에 point cloud 형태의 데이터에 바로 적용할 수 있습니다.</p>
 
-<p>EfficientNet 구조를 backbone으로 하며, 그 논문에서 제안한 compound scaling을 활용해 여러 capacity의 모델을 제안했기 때문에 EfficientNet 논문을 읽고서 보시는 것을 추천드립니다. 그럼 시작하겠습니다!</p>
-<h2 id="efficientdet-architecture">EfficientDet Architecture</h2>
-<p>전통적으로 object detection을 수행하기 위한 모델 구조는 region-of-interest(ROI)를 제안하는 부분의 유무에 따라 one-stage와 two-stage로 구분합니다. 일반적으로 one-stage가 학습 및 추론 속도가 빠르고 간단한 구조를 가진다는 장점이 있다면, two-stage는 복잡한 구조를 가지지만 높은 정확성 및 AP 값을 가진다는 장점이 있습니다. 본문에서 소개한 EfficientDet은 ROI proposal 단계가 없으면서도 모델의 구조 최적화를 통해 높은 성능을 보여줍니다.</p>
+<p>논문에서는 이런 self-attention layer를 이용해서 U-net 형태의 구조를 가진 네트워크를 형성하였습니다. 그럼 구체적으로 Point Transformer가 어떤 구조로 구성되어 있는지 설명드리겠습니다. (Transformer 또는 self-attention에 대한 이해가 부족하신 분들은 <a href="https://rauleun.github.io/attention-is-all-you-need">Attention is all you need</a> 리뷰를 보고 오시면 좋습니다.)</p>
 
-<p><img src="assets/images/200926-EffiDet/efficientdet-architecture.png" alt="" /></p>
+<h2 id="point-transformer-layer">Point Transformer Layer</h2>
 
-<p>EfficientDet은 크게 CNN backbone, BiFPN, Class/Bbox prediction의 세 부분으로 구성되어 있습니다. 하나씩 살펴보겠습니다.</p>
+<p><img src="assets/images/210302-PointTransformer/1-point-transformer-layer.png" alt="" /></p>
 
-<ul>
-  <li>CNN backbone (EfficientNet)</li>
-</ul>
+<p>Point Transformer network에서는 point transformer layer를 정의하고, 이를 통해 점들 간의 관계를 고려한 feature vector를 multi-scale로 추출해주었습니다. 이는 vector-based self-attention 연산에 기반을 두고 있는데, <em>scalar-based</em> 와 <em>vector-based self-attention</em> 은 attention 값의 형태가 scalar인지 vector인지에 따라 구별됩니다. Vector-based self-attention의 경우에는 attention vector가 feature vector와 같은 크기로 정해져서, elementwise 곱을 통해서 최종 output vector를 얻게 됩니다.</p>
 
-<p>CNN backbone으로는 SOTA의 이미지 분류 성능을 보여준 EfficientNet이 사용되었습니다. EfficientNet은 convolution 연산 기반 모델의 성능을 높이기 위해 모델의 width(channel 개수), depth(layer 개수), resolution(input 크기)를 동시에 늘리는 compound scaling을 적용하였습니다. 또한 세 가지 hyperparameter를 일정 비율로 키워 memory, latency 등의 자원 제약에 따라 모델의 capacity를 증가하였습니다. 결과적으로 EfficientNet은 같은 자원을 활용한 ResNet이나 Inception, DenseNet보다 훨씬 높은 성능을 보여주었습니다. EfficientDet은 이러한 EfficientNet을 backbone으로 하여 객체의 특징을 잘 나타내주는 여러 scale의 feature map을 추출하였습니다.</p>
+<p>이러한 self-attention 연산은 기본적으로 <em>set operator</em> 이기 때문에, set 형태의 구조를 가진 point cloud 연산에 특화되어 있습니다. 논문에서는 이를 활용하여 위와 같은 구조의 point transformer layer를 구성하였습니다. 구조는 생각보다 간단합니다. 한 점과 그 점의 kNN에 해당하는 점들을 input으로 하고, 점들 간 feature vector의 차이와 attention vector를 곱해서 output vector를 추출합니다.</p>
 
-<ul>
-  <li>Weighted Bidirectional FPN</li>
-</ul>
+<p>기본적으로 point transformer layer에서 얻은 output vector는, input point cloud의 점의 개수와 같은 수의 점들로 구성되어 있으며, vector의 차원은 중간에 존재하는 MLP 또는 linear layer의 input/output size에 따라 달라질 수 있습니다. 따라서 여러 layer를 이어붙일 수도 있고 up/down-sampling layer를 이용해서 U-Net 형태의 구조를 가진 network를 구성할 수도 있습니다.</p>
 
-<p>전통적인 CNN 기반의 one-stage 모델들은 하나의 feature map에서 object detection을 수행했기 때문에 다양한 크기의 객체를 검출하지 못하는 문제가 있었습니다. Feature Pyramid Network(FPN) 구조는 이를 해결하기 위해 등장하였습니다. FPN은 여러 layer에서 다양한 scale의 feature map을 추출하고, 각각으로부터 object detection을 수행하기 때문에 다양한 크기의 객체 검출이 가능했습니다. 또한 여러 resolution의 feature map을 더해주는 multi-scale feature fusion을 통해 성능을 높여주었습니다.</p>
+<p>또한 특이한 점은 기존의 transformer처럼 global하게 모든 점을 input으로 넣는 것이 아니라, 각 점에 대해 인접한 k개의 점만 선택해서 input으로 이용한다는 점입니다. 아마 sub-sampling을 하지 않고 모든 점들을 넣게 되면 input의 길이가 너무 길어져서 attention을 제대로 학습할 수 없고, 한 점에 대한 계산량도 많이지기 때문이 아닐까 생각됩니다. 논문에서는 연관되지 않는 점들에 대한 attention이 noise로 작용해서 성능을 떨어트렸다고 이야기하고 있습니다.</p>
 
-<p><img src="assets/images/200926-EffiDet/fpn-architectures.png" alt="" /></p>
+<p><img src="assets/images/210302-PointTransformer/2-point-transformer-block.png" alt="" /></p>
 
-<p>Multi-scale feature fusion 구조는 FPN에서 처음 제안된 이후에 더 높은 성능을 실현하기 위해 다양하게 변화하였습니다. FPN이 top-down 방식으로 서로 다른 두 scale의 feature map을 더해주었다면, PANet에서는 기존 FPN 구조에 bottom-up path aggregation 구조를 추가하여 information flow를 다양화해주었습니다. 또한 NAS-FPN에서는 강화학습을 이용한 수 천 시간의 학습을 통해 성능과 효율성이 동시에 뛰어난 cross-scale connection 구조를 제안하였습니다. 
-<img src="assets/images/200926-EffiDet/bifpn-architecture.png" alt="" /><br />
-EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 구조들 중 높은 성능을 내는 PANet을 몇 가지 부분에서 수정하였습니다. 우선 feature-fusion 없이 하나의 input만을 받는 top-down의 맨 위, 맨 아래 node를 제거하였습니다. 또한 같은 level에 있는 input feature를 output에 더해주는 skip-connection을 추가하여, 적은 수의 계산량으로 feature fusion을 수행할 수 있도록 설계하였습니다. 마지막으로 구성한 bi-directional(top-down &amp; bottom-up) 구조를 하나의 블럭으로 두고 여러 번 반복해 high-level feature fusion을 가능하게 만들었습니다. BiFPN 블럭의 반복 횟수는 compound scaling을 통해 최적화하였습니다.</p>
+<p>이 point transformer layer의 위/아래에 vector의 차원 조정을 위한 linear layer와 residual connection을 더해서 위의 그림과 같은 구조의 point transformer block을 형성했습니다. 이 block은 feature vector들의 정보를 통합하는 역할을 하며 추후에 설명드릴 point transformer network의 중요한 구성 요소로 이용됩니다.</p>
 
-<p>EfficientDet은 feature map를 더하는 과정도 개선하였습니다. 기존의 multi-scale feature fusion 과정에서는 서로 다른 여러 scale의 feature map을 단순하게 같은 비율로 더해주었습니다. 하지만 EfficientDet에서는 서로 다른 resolution을 가진 input으로부터 얻어진 feature map들이기 때문에 더해지는 과정에서 output에 기여하는 정도가 다를 수 있다고 판단하여, 이를 반영하여 weight를 곱해서 더해주는 방법을 제안하였습니다. 각 feature map의 weight는 다른 변수와 마찬가지로 학습을 통해서 최적화하였고, 계산의 효율성을 위해 feature 단위의 스칼라 값으로 정의하였습니다. 또한 feature fusion을 하는 과정에서 weight의 총합을 1로 normalize 해주었는데, latency cost를 줄이기 위해 softmax layer 대신 단순히 weight들을 더한 값에서 각 weight의 비율을 계산하는 fast-normalization fusion 방식을 활용하였습니다.</p>
+<h2 id="positional-encoding">Positional Encoding</h2>
 
-<p>마지막으로 parameter 개수를 줄이기 위해 feature fusion 과정에서 발생하는 convolution 연산들을 모두 depthwise-convolution으로 대신하였고, batch normalization과 activation layer를 convolution 뒤에 추가하였습니다.</p>
+<p>기존 transformer에서는 sequence 내 요소들의 순서를 나타내기 위해 각 embedding vector에 positional encoding vector를 더해주었습니다. Point transformer에서도 마찬가지로 positional encoding vector를 이용했는데, 각 점들의 xyz 좌표값이 점들 간의 위치 관계를 담고 있기 때문에 이를 활용하여 positional encoding vector를 생성하였습니다.</p>
 
-<ul>
-  <li>Class/Bbox prediction layer</li>
-</ul>
+<p>Positional encoding vector는 2개의 linear layer와 하나의 ReLU로 구성된 MLP를 학습시켜 얻었습니다(learnable positional embedding). 생성된 positional encoding vector는 self-attention 연산 중간에(attention generation 및 feature transformation) 더해줌으로써 점들 간의 위치 관계나 구조가 layer의 output에 반영될 수 있게 구현되었습니다.</p>
 
-<p>각각 여러 겹의 Convolution layer을 이용해 class 정보와 bounding box 좌표를 예측하였습니다. 이 때 convolution layer의 개수는 compound scaling을 통해 최적화하였습니다.</p>
-<h2 id="compound-scaling">Compound Scaling</h2>
-<p>이 논문에서 여러 번 반복해서 강조하는 EfficientDet의 설계 목표는 자원의 제약(resource constraint)이 주어질 때 가장 효율적인 모델 구조를 찾는 것입니다. EfficientDet에서는 다양한 resource constraint 상황을 대비하기 위해, baseline 구조를 잡고, 구조를 구성하는 각 요소의 크기를 동시에 늘리는 compound scaling을 이용하여 모델의 크기를 키워나갔습니다. EfficientNet에서는 이러한 compound scaling 과정을 grid search를 통해서 수행하여 최적의 compound coefficient를 찾았지만, EfficientDet은 훨씬 더 큰 차원의 모델이기에 grid search 대신에 heuristic 기반의 scaling approach를 활용하였습니다. 결과적으로 얻은 8개의 EfficientDet 모델에 대한 scaling configuration은 아래와 같습니다.</p>
+<h2 id="point-transfomer-network">Point Transfomer Network</h2>
 
-<p><img src="assets/images/200926-EffiDet/scale-parameters.png" alt="" /></p>
-<h2 id="training">Training</h2>
-<ul>
-  <li>Dataset</li>
-</ul>
+<p>Point transformer network는 point cloud classification 및 segmentation task를 수행하기 위해 point transformer block을 활용하여 구성한 network입니다. Network는 point transformer block 및 pooling layer 등을 활용하여 구성되었고, continuous convolution이나 graph convolution 등 기존 연구들에서 feature extraction을 위해 사용했던 연산은 일절 활용되지 않았습니다.</p>
 
-<p>EfficientDet은 COCO2017의 object detection 데이터셋을 활용하여 각각 약 118,000장과 5,000장의 이미지를 이용해 학습 및 검증되었습니다.</p>
+<p><img src="assets/images/210302-PointTransformer/4-point-transformer-network.png" alt="" /></p>
+
+<p>전체적인 구조는 위의 그림과 같습니다. Image segmentation 분야에서 주로 사용되는 U-Net 구조와 유사한데, down-sampling과 up-sampling 과정을 통해 5개 scale의 point set에서 정보를 추출하였습니다. 또한 같은 scale의 point set들은 residual connection으로 연결해주었습니다.</p>
+
+<p><img src="assets/images/210302-PointTransformer/3-transition-block.png" alt="" /></p>
+
+<p>위의 그림에서 왼쪽에 보이는 down-sampling layer는 서로 가장 거리가 먼 N개의 점들을 선택해주는 farthest point sampling 알고리즘을 이용했고, 해당 점의 feature vector는 주변 점들의 feature vector들에 대해 local하게 max-pooling 연산을 수해해서 얻었습니다. 오른쪽의 up-sampling layer는 segmentation task의 경우에 점들 별로 feature vector를 얻어야 하기 때문에 점들의 개수를 다시 늘려주기 위해 필요합니다. 이는 더 많은 점들로 구성된 point set에 대한 interpolation과 skip-connection layer로 구성되었습니다.</p>
+
+<p>Network의 마지막은 linear layer들로 구성된 MLP를 통해 합쳐진 feature vector들의 차원을 적절하게 조정해주었습니다. 특히 segmentation model에서는 각 점들에 대한 embedding vector 별로 classification logit을 추출해서 해당 점의 class 정보를 얻을 수 있게 구성되었습니다.</p>
+
+<h2 id="experiments">Experiments</h2>
+
+<p>Point Transformer Network의 classification / segmentation version의 성능을 측정하기 위해 다양한 실험을 진행했습니다. ModelNet40, ShapeNet, S3DIS 등의 대표적인 dataset을 이용하여 성능을 평가했습니다. 결과는 대부분 SOTA!를 달성했습니다. 다만 공식적으로 code 및 model이 공개되지 않았고, 때문에 정확한 reproduction 및 평가 결과가 확인되지 않는 것이 아쉬웠습니다.</p>
 
 <ul>
-  <li>Loss function</li>
+  <li>Semantic Segmentation</li>
 </ul>
 
-<p>대부분의 object detection 모델과 마찬가지로, EfficientDet도 여러가지 loss function을 활용하였습니다. Class predictor에 대한 classification loss와 bbox predictor에 대한 L1 및 IOU loss의 합을 loss function으로 정의하였습니다.</p>
+<p><img src="assets/images/210302-PointTransformer/5-s3dis-result.png" alt="" /></p>
+
+<p>S3DIS dataset을 이용해서 실내 환경에 대한 semantic segmentation 성능을 평가하였습니다. Area 5를 제외한 나머지로 모델을 학습하고, Area 5로 모델을 평가하였습니다. mIOU 및 OA가 70.4%, 90.8%를 기록하며 SOTA의 성능을 보여주었습니다. (기존에 KPConv에서 달성한 SOTA 성능을 뛰어넘었습니다.)</p>
+
+<p><img src="assets/images/210302-PointTransformer/8-s3dis-vis-result.png" alt="" /></p>
+
+<p>위의 그림은 결과를 시각화한 것인데, 의자의 다리 등 detail한 부분까지도 잘 classification 하는 것을 볼 수 있습니다.</p>
 
 <ul>
-  <li>그 외 details</li>
+  <li>Shape Classification</li>
 </ul>
 
-<p>Stochastic gradient descent(SGD) optimizer를 이용하였습니다. 또한 activation function으로는 ReLU를 대체하기 위해 Google에서 고안한 swish activation을 이용하였습니다. Sigmoid 함수에 일차함수를 곱한 형태입니다.</p>
+<p><img src="assets/images/210302-PointTransformer/6-modelnet-result.png" alt="" /></p>
 
-<p>각 모델은 32개의 TPU v3 코어를 활용하여 코어 당 4개의 이미지를 학습했고, 결과적으로 128의 batch size를 가집니다.</p>
+<p>ModelNet40 dataset을 이용해서 shape classification 성능을 평가하였습니다. 기존 dataset에서 점들을 2048개 정도로 sub-sampling하여 input으로 활용하였습니다. 마찬가지로 graph convolution 기반의 방법들이나, continuous convolution 기반의 KPConv를 제치고 SOTA의 성능을 달성하였습니다.</p>
 
-<ul>
-  <li>Segmentation</li>
-</ul>
+<p><img src="assets/images/210302-PointTransformer/9-modelnet-vis-result.png" alt="" /></p>
 
-<p>EfficientDet에 약간의 구조를 추가하여 semantic segmentation을 학습해보았는데, ResNet 또는 Xception 기반의 DeepLabV3보다 성능이 뛰어났다고 합니다. 모델 구조는 D4 EfficientDet에 backbone의 level-2 feature를 받아 pixelwise classification하는 layer를 추가하였습니다.</p>
-<h2 id="result">Result</h2>
-<p><img src="assets/images/200926-EffiDet/result-params.png" alt="" /></p>
+<p>Point transformer network를 통해서 나온 최종 embedding vector의 타당성을 보이기 위해, 임의의 물체의 embedding vector와 거리가 가까운 embedding vector들의 원래 모습을 검색해보았습니다. 위의 그림에서 알 수 있듯 차에 대한 embedding들이 서로 가깝고, 책상에 대학 embedding이 가깝게 잘 mapping되는 것을 확인할 수 있었습니다.</p>
 
-<p>위의 표는 다른 object detection 모델들과 비교한 EfficientDet의 성능을 나타내는데, 압도적인 결과를 보여주고 있습니다. EfficientDet은 다른 모델들과 비슷한 Parameter 개수나 CPU/GPU latency의 조건에서 뛰어난 AP성능을 보여주었습니다. 실험을 할 때, 다른 네트워크에 대해서는 공정한 비교를 위해 convolution 연산을 모두 depthwise로 바꿔주었다고 합니다. 모델의 크기를 늘리는 데에는 한계가 있기 떄문에, 주어진 모델 capacity에서 뛰어난 효율성을 보여주어야 한다는 EfficientDet의 철학이 제대로 반영된 결과라고 할 수 있을 것 같습니다. 유사한 크기의 다른 네트워크에 대한 스펙을 아래 표로 정리하였습니다.</p>
+<h2 id="ablation-studies">Ablation studies</h2>
 
-<p><img src="assets/images/200926-EffiDet/result-ap.png" alt="" /></p>
+<p>그 외에 몇 가지 간단한 ablation study를 진행했습니다. 우선 주변 몇 개의 점들까지 neighboring point로 볼 것인가에 대한 <em>k</em> 값을 바꿔가면서 결과를 비교했습니다.</p>
 
-<p>논문에서는 여러가지 ablation study를 진행하였는데, 우선 EfficientDet 내의 EfficientNet과 BiFPN을 각각 ResNet과 FPN으로 바꾼 모델과 성능을 비교해보았습니다. 각각을 다른 구조로 치환한 두 실험에서 모두 AP가 3~4정도 낮아진 걸로 보아 두 구조 모두 성능에 중요한 역할을 하는 것을 확인할 수 있었습니다.</p>
+<p><img src="assets/images/210302-PointTransformer/10-ablation-k.png" alt="" /></p>
 
-<p><img src="assets/images/200926-EffiDet/ablation-backbone-fpn.png" alt="" /></p>
+<p><em>k</em> 값을 16으로 두었을 때 가장 성능이 좋았습니다. <em>k</em> 를 4나 8 정도로 두면, 주변의 구조나 관계에 대한 정보가 부족해서 학습 성능이 충분히 나오지 않는 것으로 보였습니다. 반면에 <em>k</em> 를 32나 64 정도로 크게 잡으면, 너무 많은 점들이 들어오게 되어 연관성이 없는 점들이 noise로 작용하고, 결국 정확도를 떨어트렸습니다.</p>
 
-<p>또한 BiFPN 구조 우수성을 보여주기 위해, EfficientDet을 다른 여러 multi-scale feature fusion 방식으로 바꾸어 결과를 비교하였습니다. 마찬가지로 공정한 비교를 위해 FPN 블럭을 반복하여 parameter 개수를 비슷하게 맞춰주었습니다. 결과에서 BiFPN은 기존의 방법 중 가장 뛰어난 성능을 내던 PANet의 AP를 따라잡거나 뛰어 넘는 모습을 보여주었으며, 훨씬 작은 수의 메모리와 FLOPs를 이용하며 효율성 측면에서 압도적인 모습을 보여주었습니다.</p>
+<p><img src="assets/images/210302-PointTransformer/11-ablation-attention.png" alt="" /></p>
 
-<p><img src="assets/images/200926-EffiDet/ablation-fpn.png" alt="" /></p>
+<p>또한 self-attention 연산의 종류에 대해서 실험했습니다. 논문에서는 vector-based attention을 기준으로, 아예 attention을 사용하지 않았을 때(MLP, MLP + pooling)와 scalar-based attention을 사용했을 때의 결과를 비교했습니다. Vector-based self-attention을 이용했을 때 전반적인 성능이 가장 잘 나왔는데, feature vector의 각 channel이 이론적으로는 서로 independent하기 때문에 각각에 맞는 attention weight를 가해줄 수 있을 때 feature 변환이 가장 효율적으로 이뤄지는 것으로 설명했습니다.</p>
 
-<p>학습이 진행됨에 따라 multi-scale feature fusion에 사용하는 weight 값의 변화 과정을 softmax와 fast normalization fusion 각각을 사용했을 때에 대해 그려보았습니다. 두 실험에서 모두 모델이 데이터에 따라 어떤 resolution의 input을 강조해야하는지를 잘 학습하고 있는 것 같았고, 결과적으로 유사한 weight 값으로 수렴하였음을 확인할 수 있었습니다.</p>
-
-<p><img src="assets/images/200926-EffiDet/ablation-weight1.png" alt="" /><br />
-<img src="assets/images/200926-EffiDet/ablation-weight2.png" alt="" /></p>
-
-<p>EfficientDet 구조에서 각 구성 요소의 hyperparameter를 동시에 높여서 학습시키는 compound scaling 도 각각의 hyperparameter를 하나씩 키워서 학습시킬 때보다 훨씬 더 높은 AP 결과를 보여주었습니다.</p>
-
-<p><img src="assets/images/200926-EffiDet/result-compound-scaling.png" alt="" /></p>
 <h2 id="summary">Summary</h2>
-<p>EfficientDet은 발표일 기준 COCO object detection task에 대해 SOTA의 성능 및 효율성을 보여준 획기적인 논문입니다. 실제로 공식 github 코드를 받아 자율주행 및 문자인식 데이터셋으로 fine-tuning하여 사용해보았는데, 다른 모델들과 비교하여 꽤나 뛰어난 성능을 보여주었습니다. 또한 각자의 자원 제약 조건(GPU 메모리 크기, 최대 추론 시간)에 맞는 최적의 모델을 선택할 수 있기 때문에 제가 사용하고 있는 GPU 메모리에 맞는 모델을 능동적으로 결정할 수 있어 효용성이 크다고 느꼈습니다.
-다만 Compound scaling을 적용함에 있어서 일정한 비율로 scale-up을 해줄 때 좀 더 최적화된 heuristic 또는 규칙이 있을 수도 있겠다는 생각이 듭니다. 어떤 모델이 EfficientDet의 성능 또는 효율성을 뛰어넘을 수 있을지 기대하며 이번 리뷰는 마치겠습니다. 읽어주셔서 감사합니다 :)</p>
+
+<p>Point transformer는 point cloud를 transformer 구조를 이용해서 다룬 초창기 논문인데도 graph convolution, continuous convolution 기반의 논문들을 제치고 SOTA의 성능을 달성하였습니다. Point cloud가 set 형태의 data이기 때문에, 그에 맞는 set operator를 이용했을 때 성능이 월등하게 잘 나오지 않았나 싶습니다. Transformer를 적용한 초창기 연구이기 때문에 추후에 더 뛰어난 model들이 많이 발표되지 않을까 생각됩니다. 개인적인 바람으로는 official code를 공개해주었으면 좋겠습니다.</p>
+
+<p>그럼 이만 마무리하겠습니다. 궁금하거나 잘못된 점이 있다면 댓글 부탁드리겠습니다. 읽어주셔서 감사합니다 :)</p>
 
 <p><strong>참고 문헌 및 출처</strong></p>
 
 <ol>
-  <li><a href="https://arxiv.org/pdf/1905.11946.pdf">https://arxiv.org/pdf/1905.11946.pdf</a></li>
-  <li><a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf">https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf</a></li>
-  <li><a href="https://github.com/google/automl/tree/master/efficientdet">https://github.com/google/automl/tree/master/efficientdet</a></li>
+  <li><a href="https://arxiv.org/abs/2012.09164">https://arxiv.org/abs/2012.09164</a></li>
 </ol>
 
 
@@ -353,9 +342,9 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                     <div id="disqus_thread"></div>
                     <script>
                         var disqus_config = function () {
-                            this.page.url = 'https://rauleun.github.io/EfficientDet';
-                            this.page.identifier = '/EfficientDet';
-                            this.page.title = 'EfficientDet - Scalable and Efficient Object Detection 리뷰';
+                            this.page.url = 'https://rauleun.github.io/Point-Transformer';
+                            this.page.identifier = '/Point Transformer';
+                            this.page.title = 'Point Transformer 리뷰';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -389,7 +378,7 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                         <header class="read-next-card-header">
                             <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
                             
-                                <h3 class="read-next-card-header-title"><a href="/tag/object-detection/">Object-detection</a></h3>
+                                <h3 class="read-next-card-header-title"><a href="/tag/3d/">3d</a></h3>
                             
                         </header>
                         <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
@@ -399,20 +388,6 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                                 
                                 
                                   
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
                                     
                                   
                                 
@@ -420,9 +395,47 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                                     
                                         
                                         
-                                            <li><a href="/DETR">(DETR) End-to-End Object Detection with Transformers 리뷰</a></li>
+                                            <li><a href="/KPConv">KPConv - Flexible and Deformable Convolution for Point Clouds 리뷰</a></li>
                                         
                                     
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/Superpoint-Graphs">Large-scale Point Cloud Semantic Segmentation with Superpoint Graphs 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/GACnet">Graph Attention Convolution for Point Cloud Semantic Segmentation 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
                                   
                                 
                                   
@@ -430,9 +443,9 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                             </ul>
                         </div>
                         <footer class="read-next-card-footer">
-                            <a href="/tag/object-detection/">
+                            <a href="/tag/3d/">
                                 
-                                    See all 1 posts  →
+                                    See all 5 posts  →
                                 
                             </a>
                         </footer>
@@ -442,53 +455,6 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/BERT">
-                <div class="post-card-image" style="background-image: url(/assets/images/201102-BERT/cover.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/BERT">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Nlp</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <span class="post-card-author">
-                            <a href="/author/rauleun/">Hyunsung Eun</a>
-                        </span>
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -496,22 +462,22 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/DETR">
-                <div class="post-card-image" style="background-image: url(/assets/images/200914-DETR/cover.png)"></div>
+            <a class="post-card-image-link" href="/KPConv">
+                <div class="post-card-image" style="background-image: url(/assets/images/210207-KPConv/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/DETR">
+            <a class="post-card-content-link" href="/KPConv">
                 <header class="post-card-header">
                     
                         
                             
-                                <span class="post-card-tags">Object-detection</span>
+                                <span class="post-card-tags">3d</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">(DETR) End-to-End Object Detection with Transformers 리뷰</h2>
+                    <h2 class="post-card-title">KPConv - Flexible and Deformable Convolution for Point Clouds 리뷰</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -553,18 +519,18 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">EfficientDet - Scalable and Efficient Object Detection 리뷰</div>
+    <div class="floating-header-title">Point Transformer 리뷰</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=EfficientDet+-+Scalable+and+Efficient+Object+Detection+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/EfficientDet"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Point+Transformer+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/Point-Transformer"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/EfficientDet"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/Point-Transformer"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 

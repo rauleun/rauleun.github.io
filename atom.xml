@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Point Transformer 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2012.09164&quot;&gt;Zhao, Hengshuang, et al. “Point transformer.” arXiv preprint arXiv:2012.09164 (2020).&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 02 Mar 2021 09:00:00 +0900</pubDate>
+        <link>
+        https://rauleun.github.io/Point-Transformer</link>
+        <guid isPermaLink="true">https://rauleun.github.io/Point-Transformer</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>KPConv - Flexible and Deformable Convolution for Point Clouds 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_ICCV_2019/html/Thomas_KPConv_Flexible_and_Deformable_Convolution_for_Point_Clouds_ICCV_2019_paper.html&quot;&gt;Thomas, Hugues, et al. “Kpconv: Flexible and deformable convolution for point clouds.” Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019.&lt;/a&gt;&lt;/p&gt;
@@ -100,7 +115,7 @@
     
       
       <item>
-        <title>EfficientDet - Scalable and Efficient Object Detection</title>
+        <title>EfficientDet - Scalable and Efficient Object Detection 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf&quot;&gt;Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
 &lt;/a&gt;&lt;/p&gt;
@@ -116,7 +131,7 @@
     
       
       <item>
-        <title>End-to-End Object Detection with Transformers (DETR)</title>
+        <title>(DETR) End-to-End Object Detection with Transformers 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2005.12872&quot;&gt;Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). &lt;/a&gt;&lt;/p&gt;
 
@@ -131,7 +146,7 @@
     
       
       <item>
-        <title>Attention is All You Need</title>
+        <title>Attention is All You Need 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Vaswani, Ashish, et al. “Attention is all you need.” Advances in neural information processing systems. 2017.&lt;/a&gt;&lt;/p&gt;
 
