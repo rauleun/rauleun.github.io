@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>SimCLR v1 &amp; v2 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2002.05709&quot;&gt;Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020.&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://arxiv.org/abs/2006.10029&quot;&gt;Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020).&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Apr 2021 09:00:00 +0900</pubDate>
+        <link>
+        https://rauleun.github.io/SimCLR</link>
+        <guid isPermaLink="true">https://rauleun.github.io/SimCLR</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Point Transformer 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2012.09164&quot;&gt;Zhao, Hengshuang, et al. “Point transformer.” arXiv preprint arXiv:2012.09164 (2020).&lt;/a&gt;&lt;/p&gt;

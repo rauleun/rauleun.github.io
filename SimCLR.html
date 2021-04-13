@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>SimCLR v1 & v2 리뷰</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/global.css" />    
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--custom.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/built/custom.css"
+
+    <!-- 웹 폰트 설정 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+    
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="machine learning research notes" />
+    <link rel="shortcut icon" href="https://rauleun.github.io/" type="image/png" />
+    <link rel="canonical" href="https://rauleun.github.io/SimCLR" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="RE Tech Archive" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SimCLR v1 & v2 리뷰" />
+    <meta property="og:description" content="원문 : Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020. &amp; Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020). 오늘 소개드릴 논문은 Google Research에서 2020년 각각 ICML과 NIPS에 발표한 A simple" />
+    <meta property="og:url" content="https://rauleun.github.io/SimCLR" />
+    <meta property="og:image" content="https://rauleun.github.io/assets/images/210410-SimCLR/cover.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2021-04-10T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-04-10T09:00:00+09:00" />
+    <meta property="article:tag" content="Cv" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SimCLR v1 & v2 리뷰" />
+    <meta name="twitter:description" content="원문 : Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020. &amp; Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020). 오늘 소개드릴 논문은 Google Research에서 2020년 각각 ICML과 NIPS에 발표한 A simple" />
+    <meta name="twitter:url" content="https://rauleun.github.io/" />
+    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/210410-SimCLR/cover.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="RE Tech Archive" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Cv" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "RE Tech Archive",
+        "logo": "https://rauleun.github.io/"
+    },
+    "url": "https://rauleun.github.io/SimCLR",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://rauleun.github.io/assets/images/210410-SimCLR/cover.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://rauleun.github.io/SimCLR"
+    },
+    "description": "원문 : Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020. &amp; Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020). 오늘 소개드릴 논문은 Google Research에서 2020년 각각 ICML과 NIPS에 발표한 A simple"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="SimCLR v1 & v2 리뷰" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://rauleun.github.io/">RE Tech Archive</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/cv/">CV</a></li>
+    <li class="nav-nlp" role="menuitem"><a href="/tag/nlp/">NLP</a></li>
+    <li class="nav-3D" role="menuitem"><a href="/tag/3d/">3D</a></li>
+    <li class="nav-archive" role="menuitem">
+        <a href="/archive.html">All Posts</a>
+    </li>
+    <!--
+    <li class="nav-archive" role="menuitem">
+        <a href="/author_archive.html">Tag별 Posts</a>
+    </li>
+    -->
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-cv  ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="10 April 2021">10 April 2021</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/cv/'>CV</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">SimCLR v1 & v2 리뷰</h1>
+            </header>
+            <!--
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/210410-SimCLR/cover.png)">
+            </figure>
+            
+            -->
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>원문 : <a href="https://arxiv.org/abs/2002.05709">Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020.</a> &amp; <a href="https://arxiv.org/abs/2006.10029">Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020).</a></p>
+
+<p><img src="assets/images/210410-SimCLR/1-SimCLR.png" alt="" /></p>
+
+<p>오늘 소개드릴 논문은 Google Research에서 2020년 각각 ICML과 NIPS에 발표한 <strong><em>A simple framework for contrastive learning of visual representations (SimCLR)</em></strong> 논문과 <strong><em>Big self-supervised models are strong semi-supervised learners (SimCLR v2)</em></strong> 대한 리뷰입니다.</p>
+
+<p>후자의 논문은 전자에서 제안한 SimCLR 기반 모델의 성능을 개선한 후속 연구를 담고 있습니다. 따라서 이 글의 순서는 SimCLR의 개념을 소개하는 전자의 논문을 먼저 리뷰하고, SimCLR의 성능을 고도화한 후자의 논문을 이어서 리뷰하겠습니다.</p>
+
+<h1 id="simclr-v1"><em>SimCLR v1</em></h1>
+
+<p>첫 번째 논문은 이미지 데이터의 정답 label이 없는 상황에서 효과적으로 visual representation 을 추출하는 SimCLR이라는 이름의 unsupervised learning algorithm을 소개하고 있습니다. SimCLR은 data augmentation을 통해 얻은 positive/negative sample들에 대해 contrastive learning을 적용시켰으며, 성능 측면에서 supervised learning으로 학습한 모델들에 준하는 모습을 보여주었습니다. 그럼 SimCLR을 지금부터 파헤쳐보겠습니다!</p>
+
+<h2 id="contrastive-learning-framework">Contrastive Learning Framework</h2>
+
+<p>Unsupervised learning이란 데이터의 label 없이 네트워크 모델을 학습하는 것을 의미합니다. 이전에 Computer vision 분야에서는 이미지를 임의로 회전시킨 후 모델이 회전 방향을 맞추게끔 학습시키거나, 이미지를 잘라 zigsaw 퍼즐을 만든 후 모델이 퍼즐을 풀 수 있게끔 모델을 학습했습니다. 이렇게 모델을 학습하기 위해 정의한 새로운 형태의 문제를 pretext task 라고 부릅니다. Pretext task를 통해 학습하는 방식은 어느 정도의 성능을 보여주긴 했지만, 해당 pretext task를 잘 풀 게끔 학습되었을 뿐 이미지의 일반적인 시각적 특징을 잡아내지는 못하는 모습을 보여주었습니다.</p>
+
+<p>이를 해결하기 위해 최근에는 contrastive learning 기반의 방식들이 많이 연구되고 있습니다. Contrastive learning이란 positive pair끼리는 같게, negative pair끼리는 다르게 구분하면서 모델을 학습하는 방식입니다. 예를 들면 노랑이라는 키워드(query)가 주어지고 사과/바나나/딸기라는 보기(key)가 있을 때, 노랑-바나나를 연결하고 사과/딸기와는 연결되지 않게 학습하는 방법입니다. 위 방식은 이전에 발표된 여러 연구들(CPC, CMC 등)에서 뛰어난 성능을 보여주었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/2-framework.png" alt="" /></p>
+
+<p>SimCLR은 각 이미지에 서로 다른 두 data augmentation들을 적용하여, 같은 이미지로부터 나온 결과들은 positive pair로 정의하고 서로 다른 image로부터 나온 결과들은 negative pair로 정의하는 형태로 contrastive learning 방식을 적용하였습니다. 위의 그림에서 보면, 하나의 이미지(x)가 서로 다른 두 개의 augmentation 변환을 거쳐 두 개의 이미지(xi, xj)로 나눠집니다. 이렇게 변환된 두 이미지는 같은 이미지로부터 얻었기 때문에 positive pair로 정의합니다. 만약 또다른 이미지인 y로부터 yi, yj의 변환된 이미지가 나왔다고 한다면 xi과 yi(또는 yj)는 서로 다른 이미지로부터 얻었기 때문에 negative pair로 정의합니다.</p>
+
+<p>변환된 각 이미지들(xi, xj)은 CNN기반의 네트워크(f)를 통과하여 visual representation embedding vector(hi, hj)로 변환됩니다. 이러한 representation vector를 생성하는 network를 base encoder라고 부르며 논문에서는 ResNet을 base encoder로 이용하였습니다. Visual representation vector는 MLP 기반의 네트워크(g)를 통과하여 변환되고, 변환된 output(zi, zj)를 이용하여 contrastive loss를 계산합니다. MLP 기반의 네트워크는 projection head라고 부르며, 두 개의 linear layer 사이에 ReLU activation function을 넣은 구조로 구성되어 있습니다.</p>
+
+<p>Encoder 및 projection head는 batch 단위로 학습하게 되는데, 만약 N의 batch size를 이용하게 된다면 각각 data augmentation을 거쳐서 2N개의 sample을 얻을 수 있습니다. 이렇게 되면 각 sample 별로 1쌍의 positive pair와 2N-2쌍의 negative pair를 구성할 수 있게 됩니다. 논문에서는 positive pair 간의 similarity는 높이고, negative pair 간의 similarity는 최소화하는 형태의 loss function을 제안하여 학습에 활용하였습니다. 해당 loss function은 NT-Xent라는 이름으로 불리며, 아래와 같은 방식으로 계산됩니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/3-augmentations.png" alt="" /></p>
+
+<p>일반적으로 contrastive learning 방식으로 학습을 진행할 때, 1.좋은 퀄리티를 가지며 2.충분히 많은 양의 negative pair가 필요하다고 알려져 있습니다. 학습은 batch 단위로 진행되기 때문에, 많은 양의 negative pair를 구성하기 위해서는 큰 batch size를 이용해서 학습해야 합니다. 이를 위해 SimCLR은 기본적으로 4096의 batch size(총 8192개의 sample)를 이용하여 학습했으며 빠른 학습을 위해 128 코어의 google cloud TPU를 사용했다고 합니다. 또한 SGD나 Momentum optimizer가 아닌, 큰 크기의 batch size로 학습할 때 적절하다고 알려진 LARS optimizer를 이용하여 multi-device(분산학습)으로 학습하였습니다. Batch normalization을 적용할 떄는, device 별로 평균과 표준 편차를 계산하여 적용하는 것이 아니라, 모든 device에서의 평균/표준편차 값들을 통합해서 적용하였습니다. 이렇게 하면 positive sample이 포함된 device와 negative sample만으로 구성된 device들 간의 분포를 같게 normalize하게 되어 batch normalization 과정에서 발생하는 정보 손실을 최소화할 수 있습니다.</p>
+
+<p>논문에서는 위에서 제안한 contrastive learning 기반의 framework로 다양한 실험을 진행했습니다. 기본적인 unsupervised learning 과정은 모두 ImageNet ILSVRC-2012 데이터셋으로 진행하였고, 학습한 encoder를 고정(freeze)시키고 그 위에 linear classifier를 얹어서 정확도를 측정하는 linear evaluation 방식으로 모델을 평가하였습니다. 그 외에 encoder를 고정시키지 않고 학습 가능하게 만들어서 평가하는 fine-tuning 방식이나, 다른 dataset을 이용해서 모델 변수를 조정하는 transfer learning 방식으로 SimCLR encoder를 평가하였습니다.</p>
+
+<p>지금까지 대략적으로 SimCLR에 대해 소개했습니다. 지금부터는 SimCLR에서 어떤 data augmentation 방법을 사용했는지, 왜 projection head를 제외한 encoder만 실제로 이용하는지 등에 대해 조금 더 자세히 알아보겠습니다.</p>
+
+<h2 id="data-augmentation-for-contrastive-representation-learning">Data Augmentation for Contrastive Representation Learning</h2>
+
+<p>SimCLR에서는 우리가 supervised learning에서 일반적으로 사용하던 data augmentation 방법들을 이용하여 positive pair와 negative pair를 생성하였습니다. Data augmentation을 이용하기 전에는 두 종류의 sample을 만들기 위해 서로 다른 모델 구조를 가진 네트워크를 이용했다고 하는데요. 예를 들면 receptive field가 다른 두 CNN을 이용하여 하나는 local한 정보 위주로 추출하고, 다른 하나는 global한 정보 위주로 추출하여 contrastive loss를 적용하는 식이었다고 합니다. 하지만 이는 data augmentation으로 random crop을 하는 것과 같은 효과를 보이는데요, data augmentation 기반의 방법으로 훨씬 더 간단하게 sample을 추출할 수 있는 것입니다.</p>
+
+<p>그렇다면 어떤 data augmentation 방법들을 이용해야 최적의 visual representation을 학습할 수 있을까요? SimCLR에서는 위의 그림에서 보이듯 cropping이나 resizing, rotating, cutout 등 이미지의 공간적/기하학적 구조를 변형하는 data augmentation 방법과 color dropping, jittering, Gaussian blurring, Sobel filtering 등 이미지의 색상을 왜곡하는 data augmentation 방법들을 제시하였습니다. 사실 ImageNet 데이터셋의 이미지들은 서로 다른 크기를 가지고 있기 떄문에 학습 전에 항상 crop/resize 과정을 거쳐서 변환해주었다고 하는데요. SimCLR에서는 crop/resize 과정을 기본으로 하고, 한쪽 augmentation branch에서는 테스트해보고자 하는 다른 augmentation 방법들을 추가해주고 다른 한쪽 branch는 그대로 둔 채 학습을 진행하여 성능을 비교했습니다. 이러한 비대칭적인 구성은 다른 branch에도 augmentation 과정을 추가했을 때보다 성능이 낮을 수 있는데요, 그럼에도 불구하고 공정한 비교를 위해 이러한 방식을 선택했다고 합니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/4-augmentations-comparison.png" alt="" /></p>
+
+<p>총 7가지의 data augmentation 방법을 하나 또는 두개 이어붙여서 성능을 측정하였는데요, 결과적으로 하나의 augmentation 만으로는 좋은 성능을 달성하기 어려웠고, 여러 augmentation을 더해주었을 때 predictive task의 난이도가 높아지면서 representation quality가 증가했다고 합니다. 두 가지 augmentation을 이어 붙인 경우에는 위의 그림에서 알 수 있듯 random crop과 random color distortion을 이어붙인 경우에 가장 좋은 성능을 보여주었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/5-color-distribution.png" alt="" /></p>
+
+<p>특히 논문에서는 Color distortion이 꼭 필요한 이유에 대해서도 나름의 분석을 보여주었는데요. Color distortion 없이 random crop만 진행한 경우에는 augmentation branch를 통해서 얻은 sample들이 위의 historgram에서 보이듯 서로 같은 color distribution을 공유하고 있었고, 결국 네트워크가 시각적인 특징을 찾아내는 것이 아닌 색 배합만을 찾아내어 낮은 representation quality를 보여주었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/6-color-distortion.png" alt="" /></p>
+
+<p>또한 data augmentation의 세기를 바꾸어가며 모델의 성능을 측정해보기도 하였는데요, 위의 표를 보시면 color distortion을 강하게 가할수록 contrastive prediction task의 난이도가 증가하여 visual representation을 더 잘 추출하게끔 학습하였습니다. 심지어는 supervised learning에 도움이 되지 않는 강도의 augmentation도 SimCLR에서는 성능 향상에 기여하는 것을 볼 수 있습니다.</p>
+
+<h2 id="model-architecture-of-simclr">Model Architecture of SimCLR</h2>
+
+<p><img src="assets/images/210410-SimCLR/7-result-le.png" alt="" /></p>
+
+<p>위의 그림은 SimCLR과 supervised learning의 학습 방법을 다양한 크기의 모델에 적용시키며 linear evaluation 성능을 통해 비교한 것입니다. Supervised learning과 마찬가지로 SimCLR도 모델의 크기가 커질수록 학습 성능이 증가하는 경향을 보여주었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/9-projection-head.png" alt="" /></p>
+
+<p>또한 non-linear projection head를 통해서 contrastive loss를 계산하는 구조 역시 linear projection head나 projection head를 아예 이용하지 않을 때보다 항상 좋은 성능을 낸다는 것을 보여주었습니다. 이 때 projection head의 output dimension은 성능에 크게 영향을 주지 않는 것이 확인되었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/16-t-sne.png" alt="" /></p>
+
+<p>Projection head는 학습 성능을 높여주었지만, projection head를 통해서 얻은 output vector는 base encoder의 output보다 시각적인 특징을 잘 표현하지 못하였습니다. 위의 그림은 10개의 클래스에 대한 base encoder와 projection head의 output vector를 t-SNE 방법으로 군집화한 것인데요. Base encoder로부터 나온 vector들이 클래스 별로 훨씬 더 잘 구분되는 것을 확인할 수 있습니다. 논문에서는 contrastive learning을 통해서 학습한 정보들이 projection head를 지나면서 소실되기 때문이라고 이를 설명하는데요. 이를 보여주기 위해서 contrastive prediction task를 두 벡터들이 얼마나 잘 맞추는지에 대한 실험을 합니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/10-projection-head-loose-information.png" alt="" /></p>
+
+<p>위의 결과를 보시면 projection head의 output vector는 base encoder의 output보다 rotation이나 gaussian noise, sobel filtering 등의 정보를 많이 담고 있지 않은 것을 볼 수 있습니다. 일반적인 downstream task가 이러한 시각적인 정보들을 기반으로 해결할 수 있는 task들이라고 한다면, base encoder에서 나온 vector를 visual representation으로 활용하는 것이 논리적으로 맞는 선택인 것 같습니다.</p>
+
+<h2 id="loss-function-and-batch-size">Loss Function and Batch Size</h2>
+
+<p><img src="assets/images/210410-SimCLR/8-loss-functions.png" alt="" /></p>
+
+<p>SimCLR에서는 cross-entropy 기반의 NT-Xent loss function을 이용하여 contrastive learning을 진행합니다. 논문에서는 NT-Xent loss와 기존 Contrastive learning에서 많이 사용되는 NT-Logistic, Margin triplet loss를 비교하면서 loss function 선정의 정당성을 보여주었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/11-loss-comparison.png" alt="" /></p>
+
+<p>NT-Xent loss는 cross entropy loss를 기반으로 하기 때문에 negative sample들이 기준 sample과 얼마나 다른지에 대한 크기를 반영하고 있고, 결과적으로 좋은 성능을 보여준다고 합니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/12-batch-size.png" alt="" /></p>
+
+<p>Contrastive learning은 안정적인 학습을 위해 충분한 양의 negative sample이 필수적입니다. Negative sample의 개수는 batch size와 비례하기 때문에, SimCLR을 학습할 때 batch size를 키울수록 모델의 성능이 증가하는 경향을 보여주었습니다. 또한 학습 과정에 random augmentation이 포함되어 있기 때문에 학습 시간이 길어질수록 충분한 양의 negative sample을 볼 수 있고, 성능에 대한 유의미한 경향성을 찾을 수 있었습니다.</p>
+
+<h2 id="comparison-with-sota">Comparison with SOTA</h2>
+
+<p><img src="assets/images/210410-SimCLR/13-result-le-table.png" alt="" /></p>
+
+<p>SimCLR은 1. 학습된 모델을 고정(freeze)하고 위에 linear classifier를 얹어서 성능을 평가하는 <em>linear evaluation</em>, 2.학습된 모델과 linear classifier를 모두 learnable한 상태로 학습하는 <em>fine-tuning</em>, 3.학습된 모델을 다른 종류의 dataset에 대하여 learnable한 상태로 학습하는 <em>transfer learning</em> 의 세 가지 방법으로 평가하였습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/14-result-ft.png" alt="" /></p>
+
+<p>우선 기존의 self-supervised 방법들과 비교했을 때 SOTA의 성능을 보여주었습니다. 위의 두 그림은 Linear evaluation과 적은 dataset에 대한 fine-tuning 평가의 결과입니다. 두 방법들 모두 좋은 성능을 보여주었고, fine-tuning의 경우에는 같은 모델의 supervised learning 학습 결과보다도 좋은 성능을 보여주었습니다. (단, SimCLR의 경우 이미 pre-training된 모델을 fine-tuning 한 것이고 supervised learning의 경우 scratch부터 학습했기 때문에 학습량 차원에서는 공정한 비교가 아닙니다.)</p>
+
+<p><img src="assets/images/210410-SimCLR/15-result-tl.png" alt="" /></p>
+
+<p>또한 다양한 데이터셋에 대해 transfer learning으로 학습했을 때, supervised learning에 준하거나 그 이상의 결과를 보여주었습니다.</p>
+
+<h1 id="simclr-v2"><em>SimCLR v2</em></h1>
+
+<p>앞서 설명한 SimCLR은 각종 평가 지표에서 SOTA의 성능을 보여주었습니다. SimCLR v2에서는 다양한 실험을 통해 기존 SimCLR의 성능을 개선하는 한편, few-labeled 데이터셋을 활용하여 SimCLR을 fine-tuning하고, 작거나 같은 크기의 모델로의 distillation 과정을 통해 모델의 효율성을 극대화하여 semi-supervised learning에서도 SOTA의 성능을 달성했습니다. 이는 NLP 분야에서 좋은 성능을 발휘한 BERT의 학습 패러다임과 나날이 발전하고 있는 student-teacher 기반의 semi-supervised learning 기법을 통합한 형태로, computer vision 분야에서는 어떤 형태로 연구되었는지 설명드리겠습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/17-simclrv2.png" alt="" /></p>
+
+<p>전반적인 framework의 구조는 위와 같습니다. SimCLR 기반의 unsupervised learning 방법으로 visual representation을 학습한 후에, 적은 labeled 데이터를 이용하여 이를 fine-tuning합니다. 이 때 unsupervised learning 과정은 최종 task와는 전혀 무관한 contrastive prediction task를 이용하여 학습을 진행했기 때문에 본문에서는 task-agnostic이라는 단어를 이용하여 표현하였습니다. 이후 fine-tuning된 모델은 unlabeled 데이터와 labeled 데이터를 모두 이용한 distillation 과정을 통해 성능 및 효율성 차원에서 고도화됩니다.</p>
+
+<h2 id="self-supervised-pretraining-with-simclr-v2">Self-supervised Pretraining with SimCLR v2</h2>
+
+<p><img src="assets/images/210410-SimCLR/18-model-size.png" alt="" /></p>
+
+<p>SimCLR v2는 세 가지 측면에서 개선되었습니다. 우선 기존에 ResNet-50을 4배 키운 모델을 이용했었는데, SimCLR v2에서는 ResNet-152를 3배 키우고 selective kernel을 더해 channel별로 attention을 가해주었습니다. 이는 기존과 비교했을 때 2배 정도 많은 parameter를 이용하지만, 1% labeled sample로 fine-tuning 했을 때 29%의 놀라운 top-1 accuracy 성능 향상을 보여주었습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/20-projection-head-size.png" alt="" /></p>
+
+<p>또한 SimCLR v2는 projection head를 구성하는 linear layer 개수를 2개에서 3개로 늘렸고, 학습 후에 모든 projection head를 버리는 것이 아니라 첫 번째 linear layer까지 encoder에 포함하였습니다. 이는 결국 기존 base encoder의 구조에 linear layer 하나를 추가한 것과 같은 구조인데, 앞선 실험과 마찬가지로 1% sample로 fine-tuning을 했을 때 14%의 top-1 accuracy 성능 향상을 보여주었습니다. 위의 그림은 projection head의 layer를 늘렸을 때와 projection head를 fine-tuning 과정에 포함했을 때 결과를 나타내고 있는데요. Projection head가 많을 수록 few-labeled 데이터에서 좋은 성능을 보이고, 그 중 첫번째 head를 fine-tuning에 포함할 때 성능이 가장 크게 향상되는 것을 확인할 수 있습니다.</p>
+
+<p>마지막으로 SimCLR v2는 MoCo에서 영감을 받아 negative example을 최대한 늘리기 위한 memory network를 추가하였습니다. 하지만 이는 1% 정도의 적은 성능 향상을 보여주었는데, 논문에서는 기존 SimCLR이 4096개 이상의 batch size로 충분히 많은 negative sample을 제공하기 때문이라고 설명하고 있습니다.</p>
+
+<h2 id="distillation-via-unlabeled-samples">Distillation via Unlabeled Samples</h2>
+
+<p>SimCLR v2는 projection head의 일부를 포함한 fine-tuning을 거친 후에, distillation 과정을 통해 성능 향상을 달성하였습니다. Student-Teacher 기반의 distillation 방법은 사전 학습된 teacher network(fine-tuning된 SimCLR v2)를 이용해 unlabeled 데이터에 대한 hidden layer output vector를 생성하고, 이를 기반으로 distillation loss를 활용하여 student network를 학습시키는 방법입니다.</p>
+
+<p>만약 Student network의 크기가 teacher network의 크기보다 작은 경우에는, teacher network와 유사한 성능을 더 작은 모델로 달성할 수 있기 때문에 모델의 효율성 측면에서 개선의 여지가 있으며, teacher network와 같은 student network를 쓰는 경우에는 self-distillation을 통한 성능 개선이 가능합니다. 또한 적은 양의 labeled 데이터가 있는 경우에 이를 활용하여 distillation의 성능 향상폭을 극대화할 수 있습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/21-distillation.png" alt="" /></p>
+
+<p>위의 그림은 1% 또는 10% 데이터로 fine-tuning한 모델과, 이후에 distillation 과정까지 진행한 모델, 그리고 모든 데이터로 supervised-learning을 진행한 모델의 성능을 비교하였습니다. 적은 labeled data의 경우에 distillation 과정을 통해 성능 향상이 발생하며, supervised learning에 거의 준하는 성능을 보이는 것을 확인할 수 있습니다.</p>
+
+<h2 id="discussion-and-result">Discussion and Result</h2>
+
+<p><img src="assets/images/210410-SimCLR/19-model-size2.png" alt="" /></p>
+
+<p>논문에서는 SimCLR의 성능을 개선하고 semi-supervised learning 분야에서 이를 활용하기 위해 수많은 실험을 진행하였습니다. 이 실험들은 공통적으로 모델의 크기를 키우면 contrastive learning이나 fine-tuning 결과가 개선된다는 것을 보여줍니다. 사실 모델의 크기를 키우면, 모든 데이터의 특징을 외울 수 있기 때문에 generalization이 떨어지고 성능 저하가 발생하기 쉬워보입니다. 논문에서도 모델을 키울수록 성능이 향상되는 실험 결과들에 대한 해석을 찾지 못했으며, 추후에 연구되길 바란다고 이야기하고 있습니다.</p>
+
+<p><img src="assets/images/210410-SimCLR/22-simclr-v2-result.png" alt="" /></p>
+
+<p>이렇게 distillation 과정을 거친 SimCLR v2 모델은 이전의 모든 self-supervised learning과 semi-supervised learning 기법들을 능가하는 SOTA의 성능을 보이고 있습니다.</p>
+
+<h2 id="summary">Summary</h2>
+<p>SimCLR은 contrastive learning 기반의 학습을 통해 supervised learning에 준하는 성능의 unsupervised learning 학습 결과를 보여주었습니다. 물론 학습을 안정성을 위해 아주 큰 batch size를 이용해야 하고, 일반적인 연구실의 GPU 환경에서는 논문에서 사용한 4096개 정도의 batch size를 감당할 수 없기에, 구글이기에 할 수 있었던 연구였구나 하는 생각도 듭니다.</p>
+
+<p>이어서 나온 SimCLR v2는 pre-training and fine-tuning이라는 패러다임에 맞게 학습을 진행했고, distillation을 통해 성능을 고도화했습니다. 다양한 실험을 통해 self- 그리고 semi-supervised learning에 대한 통찰을 하는 논문이라고 생각합니다.</p>
+
+<p>분명한 것은 NLP에서 BERT 및 GPT3 등이 큰 성공을 거두고 있는 지금, 구글의 SimCLR은 computer vision에서의 unsupervised learning 연구에 큰 기여를 했고, 앞으로 어떤 모델이 나올지 기대해보며 이번 리뷰글을 마치겠습니다. 읽어주셔서 감사합니다 :)</p>
+
+<p><strong>참고 문헌 및 출처</strong></p>
+
+<ol>
+  <li><a href="https://arxiv.org/abs/2002.05709">https://arxiv.org/abs/2002.05709</a></li>
+  <li><a href="https://arxiv.org/abs/2006.10029">https://arxiv.org/abs/2006.10029</a></li>
+  <li><a href="https://github.com/google-research/simclr">https://github.com/google-research/simclr</a></li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            <!--
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to RE Tech Archive</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+                </section>
+            
+            -->
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/rauleun">Hyunsung Eun</a></h4>
+                                
+                                    <p>Machine learning researcher</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/rauleun">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'https://rauleun.github.io/SimCLR';
+                            this.page.identifier = '/SimCLR';
+                            this.page.title = 'SimCLR v1 & v2 리뷰';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://rauleun-github-io.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover2.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; RE Tech Archive &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/cv/">Cv</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/EfficientDet">EfficientDet - Scalable and Efficient Object Detection 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/DETR">(DETR) End-to-End Object Detection with Transformers 리뷰</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/cv/">
+                                
+                                    See all 2 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/Point-Transformer">
+                <div class="post-card-image" style="background-image: url(/assets/images/210302-PointTransformer/cover.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/Point-Transformer">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Point Transformer 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://rauleun.github.io/">
+            
+            <span>RE Tech Archive</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">SimCLR v1 & v2 리뷰</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=SimCLR+v1+%26+v2+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/SimCLR"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/SimCLR"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://rauleun.github.io/">RE Tech Archive</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+    <!-- The big email subscribe modal content -->
+    <!--
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to RE Tech Archive</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <!--
+<form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+-->
+            </div>
+        </div>
+    
+    -->
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

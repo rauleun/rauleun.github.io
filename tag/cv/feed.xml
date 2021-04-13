@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
+  <link href="https://rauleun.github.io/tag/cv/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
+  <updated>2021-04-13T11:01:41+09:00</updated>
+  <id>https://rauleun.github.io/tag/cv/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">RE Tech Archive | </title>
+  
+
+  
+    <subtitle>machine learning research notes</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">SimCLR v1 &amp;amp; v2 리뷰</title>
+      <link href="https://rauleun.github.io/SimCLR" rel="alternate" type="text/html" title="SimCLR v1 &amp; v2 리뷰" />
+      <published>2021-04-10T09:00:00+09:00</published>
+      <updated>2021-04-10T09:00:00+09:00</updated>
+      <id>https://rauleun.github.io/SimCLR</id>
+      <content type="html" xml:base="https://rauleun.github.io/SimCLR">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2002.05709&quot;&gt;Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020.&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://arxiv.org/abs/2006.10029&quot;&gt;Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020).&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/1-SimCLR.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘 소개드릴 논문은 Google Research에서 2020년 각각 ICML과 NIPS에 발표한 &lt;strong&gt;&lt;em&gt;A simple framework for contrastive learning of visual representations (SimCLR)&lt;/em&gt;&lt;/strong&gt; 논문과 &lt;strong&gt;&lt;em&gt;Big self-supervised models are strong semi-supervised learners (SimCLR v2)&lt;/em&gt;&lt;/strong&gt; 대한 리뷰입니다.&lt;/p&gt;
+
+&lt;p&gt;후자의 논문은 전자에서 제안한 SimCLR 기반 모델의 성능을 개선한 후속 연구를 담고 있습니다. 따라서 이 글의 순서는 SimCLR의 개념을 소개하는 전자의 논문을 먼저 리뷰하고, SimCLR의 성능을 고도화한 후자의 논문을 이어서 리뷰하겠습니다.&lt;/p&gt;
+
+&lt;h1 id=&quot;simclr-v1&quot;&gt;&lt;em&gt;SimCLR v1&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;첫 번째 논문은 이미지 데이터의 정답 label이 없는 상황에서 효과적으로 visual representation 을 추출하는 SimCLR이라는 이름의 unsupervised learning algorithm을 소개하고 있습니다. SimCLR은 data augmentation을 통해 얻은 positive/negative sample들에 대해 contrastive learning을 적용시켰으며, 성능 측면에서 supervised learning으로 학습한 모델들에 준하는 모습을 보여주었습니다. 그럼 SimCLR을 지금부터 파헤쳐보겠습니다!&lt;/p&gt;
+
+&lt;h2 id=&quot;contrastive-learning-framework&quot;&gt;Contrastive Learning Framework&lt;/h2&gt;
+
+&lt;p&gt;Unsupervised learning이란 데이터의 label 없이 네트워크 모델을 학습하는 것을 의미합니다. 이전에 Computer vision 분야에서는 이미지를 임의로 회전시킨 후 모델이 회전 방향을 맞추게끔 학습시키거나, 이미지를 잘라 zigsaw 퍼즐을 만든 후 모델이 퍼즐을 풀 수 있게끔 모델을 학습했습니다. 이렇게 모델을 학습하기 위해 정의한 새로운 형태의 문제를 pretext task 라고 부릅니다. Pretext task를 통해 학습하는 방식은 어느 정도의 성능을 보여주긴 했지만, 해당 pretext task를 잘 풀 게끔 학습되었을 뿐 이미지의 일반적인 시각적 특징을 잡아내지는 못하는 모습을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하기 위해 최근에는 contrastive learning 기반의 방식들이 많이 연구되고 있습니다. Contrastive learning이란 positive pair끼리는 같게, negative pair끼리는 다르게 구분하면서 모델을 학습하는 방식입니다. 예를 들면 노랑이라는 키워드(query)가 주어지고 사과/바나나/딸기라는 보기(key)가 있을 때, 노랑-바나나를 연결하고 사과/딸기와는 연결되지 않게 학습하는 방법입니다. 위 방식은 이전에 발표된 여러 연구들(CPC, CMC 등)에서 뛰어난 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/2-framework.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SimCLR은 각 이미지에 서로 다른 두 data augmentation들을 적용하여, 같은 이미지로부터 나온 결과들은 positive pair로 정의하고 서로 다른 image로부터 나온 결과들은 negative pair로 정의하는 형태로 contrastive learning 방식을 적용하였습니다. 위의 그림에서 보면, 하나의 이미지(x)가 서로 다른 두 개의 augmentation 변환을 거쳐 두 개의 이미지(xi, xj)로 나눠집니다. 이렇게 변환된 두 이미지는 같은 이미지로부터 얻었기 때문에 positive pair로 정의합니다. 만약 또다른 이미지인 y로부터 yi, yj의 변환된 이미지가 나왔다고 한다면 xi과 yi(또는 yj)는 서로 다른 이미지로부터 얻었기 때문에 negative pair로 정의합니다.&lt;/p&gt;
+
+&lt;p&gt;변환된 각 이미지들(xi, xj)은 CNN기반의 네트워크(f)를 통과하여 visual representation embedding vector(hi, hj)로 변환됩니다. 이러한 representation vector를 생성하는 network를 base encoder라고 부르며 논문에서는 ResNet을 base encoder로 이용하였습니다. Visual representation vector는 MLP 기반의 네트워크(g)를 통과하여 변환되고, 변환된 output(zi, zj)를 이용하여 contrastive loss를 계산합니다. MLP 기반의 네트워크는 projection head라고 부르며, 두 개의 linear layer 사이에 ReLU activation function을 넣은 구조로 구성되어 있습니다.&lt;/p&gt;
+
+&lt;p&gt;Encoder 및 projection head는 batch 단위로 학습하게 되는데, 만약 N의 batch size를 이용하게 된다면 각각 data augmentation을 거쳐서 2N개의 sample을 얻을 수 있습니다. 이렇게 되면 각 sample 별로 1쌍의 positive pair와 2N-2쌍의 negative pair를 구성할 수 있게 됩니다. 논문에서는 positive pair 간의 similarity는 높이고, negative pair 간의 similarity는 최소화하는 형태의 loss function을 제안하여 학습에 활용하였습니다. 해당 loss function은 NT-Xent라는 이름으로 불리며, 아래와 같은 방식으로 계산됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/3-augmentations.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;일반적으로 contrastive learning 방식으로 학습을 진행할 때, 1.좋은 퀄리티를 가지며 2.충분히 많은 양의 negative pair가 필요하다고 알려져 있습니다. 학습은 batch 단위로 진행되기 때문에, 많은 양의 negative pair를 구성하기 위해서는 큰 batch size를 이용해서 학습해야 합니다. 이를 위해 SimCLR은 기본적으로 4096의 batch size(총 8192개의 sample)를 이용하여 학습했으며 빠른 학습을 위해 128 코어의 google cloud TPU를 사용했다고 합니다. 또한 SGD나 Momentum optimizer가 아닌, 큰 크기의 batch size로 학습할 때 적절하다고 알려진 LARS optimizer를 이용하여 multi-device(분산학습)으로 학습하였습니다. Batch normalization을 적용할 떄는, device 별로 평균과 표준 편차를 계산하여 적용하는 것이 아니라, 모든 device에서의 평균/표준편차 값들을 통합해서 적용하였습니다. 이렇게 하면 positive sample이 포함된 device와 negative sample만으로 구성된 device들 간의 분포를 같게 normalize하게 되어 batch normalization 과정에서 발생하는 정보 손실을 최소화할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;논문에서는 위에서 제안한 contrastive learning 기반의 framework로 다양한 실험을 진행했습니다. 기본적인 unsupervised learning 과정은 모두 ImageNet ILSVRC-2012 데이터셋으로 진행하였고, 학습한 encoder를 고정(freeze)시키고 그 위에 linear classifier를 얹어서 정확도를 측정하는 linear evaluation 방식으로 모델을 평가하였습니다. 그 외에 encoder를 고정시키지 않고 학습 가능하게 만들어서 평가하는 fine-tuning 방식이나, 다른 dataset을 이용해서 모델 변수를 조정하는 transfer learning 방식으로 SimCLR encoder를 평가하였습니다.&lt;/p&gt;
+
+&lt;p&gt;지금까지 대략적으로 SimCLR에 대해 소개했습니다. 지금부터는 SimCLR에서 어떤 data augmentation 방법을 사용했는지, 왜 projection head를 제외한 encoder만 실제로 이용하는지 등에 대해 조금 더 자세히 알아보겠습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-augmentation-for-contrastive-representation-learning&quot;&gt;Data Augmentation for Contrastive Representation Learning&lt;/h2&gt;
+
+&lt;p&gt;SimCLR에서는 우리가 supervised learning에서 일반적으로 사용하던 data augmentation 방법들을 이용하여 positive pair와 negative pair를 생성하였습니다. Data augmentation을 이용하기 전에는 두 종류의 sample을 만들기 위해 서로 다른 모델 구조를 가진 네트워크를 이용했다고 하는데요. 예를 들면 receptive field가 다른 두 CNN을 이용하여 하나는 local한 정보 위주로 추출하고, 다른 하나는 global한 정보 위주로 추출하여 contrastive loss를 적용하는 식이었다고 합니다. 하지만 이는 data augmentation으로 random crop을 하는 것과 같은 효과를 보이는데요, data augmentation 기반의 방법으로 훨씬 더 간단하게 sample을 추출할 수 있는 것입니다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 어떤 data augmentation 방법들을 이용해야 최적의 visual representation을 학습할 수 있을까요? SimCLR에서는 위의 그림에서 보이듯 cropping이나 resizing, rotating, cutout 등 이미지의 공간적/기하학적 구조를 변형하는 data augmentation 방법과 color dropping, jittering, Gaussian blurring, Sobel filtering 등 이미지의 색상을 왜곡하는 data augmentation 방법들을 제시하였습니다. 사실 ImageNet 데이터셋의 이미지들은 서로 다른 크기를 가지고 있기 떄문에 학습 전에 항상 crop/resize 과정을 거쳐서 변환해주었다고 하는데요. SimCLR에서는 crop/resize 과정을 기본으로 하고, 한쪽 augmentation branch에서는 테스트해보고자 하는 다른 augmentation 방법들을 추가해주고 다른 한쪽 branch는 그대로 둔 채 학습을 진행하여 성능을 비교했습니다. 이러한 비대칭적인 구성은 다른 branch에도 augmentation 과정을 추가했을 때보다 성능이 낮을 수 있는데요, 그럼에도 불구하고 공정한 비교를 위해 이러한 방식을 선택했다고 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/4-augmentations-comparison.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;총 7가지의 data augmentation 방법을 하나 또는 두개 이어붙여서 성능을 측정하였는데요, 결과적으로 하나의 augmentation 만으로는 좋은 성능을 달성하기 어려웠고, 여러 augmentation을 더해주었을 때 predictive task의 난이도가 높아지면서 representation quality가 증가했다고 합니다. 두 가지 augmentation을 이어 붙인 경우에는 위의 그림에서 알 수 있듯 random crop과 random color distortion을 이어붙인 경우에 가장 좋은 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/5-color-distribution.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;특히 논문에서는 Color distortion이 꼭 필요한 이유에 대해서도 나름의 분석을 보여주었는데요. Color distortion 없이 random crop만 진행한 경우에는 augmentation branch를 통해서 얻은 sample들이 위의 historgram에서 보이듯 서로 같은 color distribution을 공유하고 있었고, 결국 네트워크가 시각적인 특징을 찾아내는 것이 아닌 색 배합만을 찾아내어 낮은 representation quality를 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/6-color-distortion.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 data augmentation의 세기를 바꾸어가며 모델의 성능을 측정해보기도 하였는데요, 위의 표를 보시면 color distortion을 강하게 가할수록 contrastive prediction task의 난이도가 증가하여 visual representation을 더 잘 추출하게끔 학습하였습니다. 심지어는 supervised learning에 도움이 되지 않는 강도의 augmentation도 SimCLR에서는 성능 향상에 기여하는 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;model-architecture-of-simclr&quot;&gt;Model Architecture of SimCLR&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/7-result-le.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림은 SimCLR과 supervised learning의 학습 방법을 다양한 크기의 모델에 적용시키며 linear evaluation 성능을 통해 비교한 것입니다. Supervised learning과 마찬가지로 SimCLR도 모델의 크기가 커질수록 학습 성능이 증가하는 경향을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/9-projection-head.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 non-linear projection head를 통해서 contrastive loss를 계산하는 구조 역시 linear projection head나 projection head를 아예 이용하지 않을 때보다 항상 좋은 성능을 낸다는 것을 보여주었습니다. 이 때 projection head의 output dimension은 성능에 크게 영향을 주지 않는 것이 확인되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/16-t-sne.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Projection head는 학습 성능을 높여주었지만, projection head를 통해서 얻은 output vector는 base encoder의 output보다 시각적인 특징을 잘 표현하지 못하였습니다. 위의 그림은 10개의 클래스에 대한 base encoder와 projection head의 output vector를 t-SNE 방법으로 군집화한 것인데요. Base encoder로부터 나온 vector들이 클래스 별로 훨씬 더 잘 구분되는 것을 확인할 수 있습니다. 논문에서는 contrastive learning을 통해서 학습한 정보들이 projection head를 지나면서 소실되기 때문이라고 이를 설명하는데요. 이를 보여주기 위해서 contrastive prediction task를 두 벡터들이 얼마나 잘 맞추는지에 대한 실험을 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/10-projection-head-loose-information.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 결과를 보시면 projection head의 output vector는 base encoder의 output보다 rotation이나 gaussian noise, sobel filtering 등의 정보를 많이 담고 있지 않은 것을 볼 수 있습니다. 일반적인 downstream task가 이러한 시각적인 정보들을 기반으로 해결할 수 있는 task들이라고 한다면, base encoder에서 나온 vector를 visual representation으로 활용하는 것이 논리적으로 맞는 선택인 것 같습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;loss-function-and-batch-size&quot;&gt;Loss Function and Batch Size&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/8-loss-functions.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SimCLR에서는 cross-entropy 기반의 NT-Xent loss function을 이용하여 contrastive learning을 진행합니다. 논문에서는 NT-Xent loss와 기존 Contrastive learning에서 많이 사용되는 NT-Logistic, Margin triplet loss를 비교하면서 loss function 선정의 정당성을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/11-loss-comparison.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;NT-Xent loss는 cross entropy loss를 기반으로 하기 때문에 negative sample들이 기준 sample과 얼마나 다른지에 대한 크기를 반영하고 있고, 결과적으로 좋은 성능을 보여준다고 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/12-batch-size.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Contrastive learning은 안정적인 학습을 위해 충분한 양의 negative sample이 필수적입니다. Negative sample의 개수는 batch size와 비례하기 때문에, SimCLR을 학습할 때 batch size를 키울수록 모델의 성능이 증가하는 경향을 보여주었습니다. 또한 학습 과정에 random augmentation이 포함되어 있기 때문에 학습 시간이 길어질수록 충분한 양의 negative sample을 볼 수 있고, 성능에 대한 유의미한 경향성을 찾을 수 있었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;comparison-with-sota&quot;&gt;Comparison with SOTA&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/13-result-le-table.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SimCLR은 1. 학습된 모델을 고정(freeze)하고 위에 linear classifier를 얹어서 성능을 평가하는 &lt;em&gt;linear evaluation&lt;/em&gt;, 2.학습된 모델과 linear classifier를 모두 learnable한 상태로 학습하는 &lt;em&gt;fine-tuning&lt;/em&gt;, 3.학습된 모델을 다른 종류의 dataset에 대하여 learnable한 상태로 학습하는 &lt;em&gt;transfer learning&lt;/em&gt; 의 세 가지 방법으로 평가하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/14-result-ft.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;우선 기존의 self-supervised 방법들과 비교했을 때 SOTA의 성능을 보여주었습니다. 위의 두 그림은 Linear evaluation과 적은 dataset에 대한 fine-tuning 평가의 결과입니다. 두 방법들 모두 좋은 성능을 보여주었고, fine-tuning의 경우에는 같은 모델의 supervised learning 학습 결과보다도 좋은 성능을 보여주었습니다. (단, SimCLR의 경우 이미 pre-training된 모델을 fine-tuning 한 것이고 supervised learning의 경우 scratch부터 학습했기 때문에 학습량 차원에서는 공정한 비교가 아닙니다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/15-result-tl.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 다양한 데이터셋에 대해 transfer learning으로 학습했을 때, supervised learning에 준하거나 그 이상의 결과를 보여주었습니다.&lt;/p&gt;
+
+&lt;h1 id=&quot;simclr-v2&quot;&gt;&lt;em&gt;SimCLR v2&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;앞서 설명한 SimCLR은 각종 평가 지표에서 SOTA의 성능을 보여주었습니다. SimCLR v2에서는 다양한 실험을 통해 기존 SimCLR의 성능을 개선하는 한편, few-labeled 데이터셋을 활용하여 SimCLR을 fine-tuning하고, 작거나 같은 크기의 모델로의 distillation 과정을 통해 모델의 효율성을 극대화하여 semi-supervised learning에서도 SOTA의 성능을 달성했습니다. 이는 NLP 분야에서 좋은 성능을 발휘한 BERT의 학습 패러다임과 나날이 발전하고 있는 student-teacher 기반의 semi-supervised learning 기법을 통합한 형태로, computer vision 분야에서는 어떤 형태로 연구되었는지 설명드리겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/17-simclrv2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;전반적인 framework의 구조는 위와 같습니다. SimCLR 기반의 unsupervised learning 방법으로 visual representation을 학습한 후에, 적은 labeled 데이터를 이용하여 이를 fine-tuning합니다. 이 때 unsupervised learning 과정은 최종 task와는 전혀 무관한 contrastive prediction task를 이용하여 학습을 진행했기 때문에 본문에서는 task-agnostic이라는 단어를 이용하여 표현하였습니다. 이후 fine-tuning된 모델은 unlabeled 데이터와 labeled 데이터를 모두 이용한 distillation 과정을 통해 성능 및 효율성 차원에서 고도화됩니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;self-supervised-pretraining-with-simclr-v2&quot;&gt;Self-supervised Pretraining with SimCLR v2&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/18-model-size.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SimCLR v2는 세 가지 측면에서 개선되었습니다. 우선 기존에 ResNet-50을 4배 키운 모델을 이용했었는데, SimCLR v2에서는 ResNet-152를 3배 키우고 selective kernel을 더해 channel별로 attention을 가해주었습니다. 이는 기존과 비교했을 때 2배 정도 많은 parameter를 이용하지만, 1% labeled sample로 fine-tuning 했을 때 29%의 놀라운 top-1 accuracy 성능 향상을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/20-projection-head-size.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 SimCLR v2는 projection head를 구성하는 linear layer 개수를 2개에서 3개로 늘렸고, 학습 후에 모든 projection head를 버리는 것이 아니라 첫 번째 linear layer까지 encoder에 포함하였습니다. 이는 결국 기존 base encoder의 구조에 linear layer 하나를 추가한 것과 같은 구조인데, 앞선 실험과 마찬가지로 1% sample로 fine-tuning을 했을 때 14%의 top-1 accuracy 성능 향상을 보여주었습니다. 위의 그림은 projection head의 layer를 늘렸을 때와 projection head를 fine-tuning 과정에 포함했을 때 결과를 나타내고 있는데요. Projection head가 많을 수록 few-labeled 데이터에서 좋은 성능을 보이고, 그 중 첫번째 head를 fine-tuning에 포함할 때 성능이 가장 크게 향상되는 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로 SimCLR v2는 MoCo에서 영감을 받아 negative example을 최대한 늘리기 위한 memory network를 추가하였습니다. 하지만 이는 1% 정도의 적은 성능 향상을 보여주었는데, 논문에서는 기존 SimCLR이 4096개 이상의 batch size로 충분히 많은 negative sample을 제공하기 때문이라고 설명하고 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;distillation-via-unlabeled-samples&quot;&gt;Distillation via Unlabeled Samples&lt;/h2&gt;
+
+&lt;p&gt;SimCLR v2는 projection head의 일부를 포함한 fine-tuning을 거친 후에, distillation 과정을 통해 성능 향상을 달성하였습니다. Student-Teacher 기반의 distillation 방법은 사전 학습된 teacher network(fine-tuning된 SimCLR v2)를 이용해 unlabeled 데이터에 대한 hidden layer output vector를 생성하고, 이를 기반으로 distillation loss를 활용하여 student network를 학습시키는 방법입니다.&lt;/p&gt;
+
+&lt;p&gt;만약 Student network의 크기가 teacher network의 크기보다 작은 경우에는, teacher network와 유사한 성능을 더 작은 모델로 달성할 수 있기 때문에 모델의 효율성 측면에서 개선의 여지가 있으며, teacher network와 같은 student network를 쓰는 경우에는 self-distillation을 통한 성능 개선이 가능합니다. 또한 적은 양의 labeled 데이터가 있는 경우에 이를 활용하여 distillation의 성능 향상폭을 극대화할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/21-distillation.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림은 1% 또는 10% 데이터로 fine-tuning한 모델과, 이후에 distillation 과정까지 진행한 모델, 그리고 모든 데이터로 supervised-learning을 진행한 모델의 성능을 비교하였습니다. 적은 labeled data의 경우에 distillation 과정을 통해 성능 향상이 발생하며, supervised learning에 거의 준하는 성능을 보이는 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;discussion-and-result&quot;&gt;Discussion and Result&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/19-model-size2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문에서는 SimCLR의 성능을 개선하고 semi-supervised learning 분야에서 이를 활용하기 위해 수많은 실험을 진행하였습니다. 이 실험들은 공통적으로 모델의 크기를 키우면 contrastive learning이나 fine-tuning 결과가 개선된다는 것을 보여줍니다. 사실 모델의 크기를 키우면, 모든 데이터의 특징을 외울 수 있기 때문에 generalization이 떨어지고 성능 저하가 발생하기 쉬워보입니다. 논문에서도 모델을 키울수록 성능이 향상되는 실험 결과들에 대한 해석을 찾지 못했으며, 추후에 연구되길 바란다고 이야기하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210410-SimCLR/22-simclr-v2-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 distillation 과정을 거친 SimCLR v2 모델은 이전의 모든 self-supervised learning과 semi-supervised learning 기법들을 능가하는 SOTA의 성능을 보이고 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;SimCLR은 contrastive learning 기반의 학습을 통해 supervised learning에 준하는 성능의 unsupervised learning 학습 결과를 보여주었습니다. 물론 학습을 안정성을 위해 아주 큰 batch size를 이용해야 하고, 일반적인 연구실의 GPU 환경에서는 논문에서 사용한 4096개 정도의 batch size를 감당할 수 없기에, 구글이기에 할 수 있었던 연구였구나 하는 생각도 듭니다.&lt;/p&gt;
+
+&lt;p&gt;이어서 나온 SimCLR v2는 pre-training and fine-tuning이라는 패러다임에 맞게 학습을 진행했고, distillation을 통해 성능을 고도화했습니다. 다양한 실험을 통해 self- 그리고 semi-supervised learning에 대한 통찰을 하는 논문이라고 생각합니다.&lt;/p&gt;
+
+&lt;p&gt;분명한 것은 NLP에서 BERT 및 GPT3 등이 큰 성공을 거두고 있는 지금, 구글의 SimCLR은 computer vision에서의 unsupervised learning 연구에 큰 기여를 했고, 앞으로 어떤 모델이 나올지 기대해보며 이번 리뷰글을 마치겠습니다. 읽어주셔서 감사합니다 :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2002.05709&quot;&gt;https://arxiv.org/abs/2002.05709&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2006.10029&quot;&gt;https://arxiv.org/abs/2006.10029&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/google-research/simclr&quot;&gt;https://github.com/google-research/simclr&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyunsung Eun</name>
+        
+        
+      </author>
+
+      
+        <category term="CV" />
+      
+
+      
+        <category term="CV" />
+      
+
+      
+        <summary type="html">원문 : Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020. &amp;amp; Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020).</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">EfficientDet - Scalable and Efficient Object Detection 리뷰</title>
+      <link href="https://rauleun.github.io/EfficientDet" rel="alternate" type="text/html" title="EfficientDet - Scalable and Efficient Object Detection 리뷰" />
+      <published>2020-09-26T09:00:00+09:00</published>
+      <updated>2020-09-26T09:00:00+09:00</updated>
+      <id>https://rauleun.github.io/EfficientDet</id>
+      <content type="html" xml:base="https://rauleun.github.io/EfficientDet">&lt;p&gt;원문 : &lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf&quot;&gt;Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/main-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 &lt;strong&gt;&lt;em&gt;Efficientdet: Scalable and efficient object detection&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 주어진 제약 조건(메모리 및 레이턴시) 아래에서 가장 효율적인 모델 구조를 찾아주는 &lt;a href=&quot;https://arxiv.org/pdf/1905.11946.pdf&quot;&gt;EfficientNet&lt;/a&gt;을 object detection 분야에 접목시킨 연구를 다루고 있으며, 기존의 여러 모델과 비교하였을 떄 성능 및 효율성 측면에서 아주 뛰어난 결과를 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;EfficientNet 구조를 backbone으로 하며, 그 논문에서 제안한 compound scaling을 활용해 여러 capacity의 모델을 제안했기 때문에 EfficientNet 논문을 읽고서 보시는 것을 추천드립니다. 그럼 시작하겠습니다!&lt;/p&gt;
+&lt;h2 id=&quot;efficientdet-architecture&quot;&gt;EfficientDet Architecture&lt;/h2&gt;
+&lt;p&gt;전통적으로 object detection을 수행하기 위한 모델 구조는 region-of-interest(ROI)를 제안하는 부분의 유무에 따라 one-stage와 two-stage로 구분합니다. 일반적으로 one-stage가 학습 및 추론 속도가 빠르고 간단한 구조를 가진다는 장점이 있다면, two-stage는 복잡한 구조를 가지지만 높은 정확성 및 AP 값을 가진다는 장점이 있습니다. 본문에서 소개한 EfficientDet은 ROI proposal 단계가 없으면서도 모델의 구조 최적화를 통해 높은 성능을 보여줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/efficientdet-architecture.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;EfficientDet은 크게 CNN backbone, BiFPN, Class/Bbox prediction의 세 부분으로 구성되어 있습니다. 하나씩 살펴보겠습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CNN backbone (EfficientNet)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CNN backbone으로는 SOTA의 이미지 분류 성능을 보여준 EfficientNet이 사용되었습니다. EfficientNet은 convolution 연산 기반 모델의 성능을 높이기 위해 모델의 width(channel 개수), depth(layer 개수), resolution(input 크기)를 동시에 늘리는 compound scaling을 적용하였습니다. 또한 세 가지 hyperparameter를 일정 비율로 키워 memory, latency 등의 자원 제약에 따라 모델의 capacity를 증가하였습니다. 결과적으로 EfficientNet은 같은 자원을 활용한 ResNet이나 Inception, DenseNet보다 훨씬 높은 성능을 보여주었습니다. EfficientDet은 이러한 EfficientNet을 backbone으로 하여 객체의 특징을 잘 나타내주는 여러 scale의 feature map을 추출하였습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Weighted Bidirectional FPN&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;전통적인 CNN 기반의 one-stage 모델들은 하나의 feature map에서 object detection을 수행했기 때문에 다양한 크기의 객체를 검출하지 못하는 문제가 있었습니다. Feature Pyramid Network(FPN) 구조는 이를 해결하기 위해 등장하였습니다. FPN은 여러 layer에서 다양한 scale의 feature map을 추출하고, 각각으로부터 object detection을 수행하기 때문에 다양한 크기의 객체 검출이 가능했습니다. 또한 여러 resolution의 feature map을 더해주는 multi-scale feature fusion을 통해 성능을 높여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/fpn-architectures.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Multi-scale feature fusion 구조는 FPN에서 처음 제안된 이후에 더 높은 성능을 실현하기 위해 다양하게 변화하였습니다. FPN이 top-down 방식으로 서로 다른 두 scale의 feature map을 더해주었다면, PANet에서는 기존 FPN 구조에 bottom-up path aggregation 구조를 추가하여 information flow를 다양화해주었습니다. 또한 NAS-FPN에서는 강화학습을 이용한 수 천 시간의 학습을 통해 성능과 효율성이 동시에 뛰어난 cross-scale connection 구조를 제안하였습니다. 
+&lt;img src=&quot;assets/images/200926-EffiDet/bifpn-architecture.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 구조들 중 높은 성능을 내는 PANet을 몇 가지 부분에서 수정하였습니다. 우선 feature-fusion 없이 하나의 input만을 받는 top-down의 맨 위, 맨 아래 node를 제거하였습니다. 또한 같은 level에 있는 input feature를 output에 더해주는 skip-connection을 추가하여, 적은 수의 계산량으로 feature fusion을 수행할 수 있도록 설계하였습니다. 마지막으로 구성한 bi-directional(top-down &amp;amp; bottom-up) 구조를 하나의 블럭으로 두고 여러 번 반복해 high-level feature fusion을 가능하게 만들었습니다. BiFPN 블럭의 반복 횟수는 compound scaling을 통해 최적화하였습니다.&lt;/p&gt;
+
+&lt;p&gt;EfficientDet은 feature map를 더하는 과정도 개선하였습니다. 기존의 multi-scale feature fusion 과정에서는 서로 다른 여러 scale의 feature map을 단순하게 같은 비율로 더해주었습니다. 하지만 EfficientDet에서는 서로 다른 resolution을 가진 input으로부터 얻어진 feature map들이기 때문에 더해지는 과정에서 output에 기여하는 정도가 다를 수 있다고 판단하여, 이를 반영하여 weight를 곱해서 더해주는 방법을 제안하였습니다. 각 feature map의 weight는 다른 변수와 마찬가지로 학습을 통해서 최적화하였고, 계산의 효율성을 위해 feature 단위의 스칼라 값으로 정의하였습니다. 또한 feature fusion을 하는 과정에서 weight의 총합을 1로 normalize 해주었는데, latency cost를 줄이기 위해 softmax layer 대신 단순히 weight들을 더한 값에서 각 weight의 비율을 계산하는 fast-normalization fusion 방식을 활용하였습니다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로 parameter 개수를 줄이기 위해 feature fusion 과정에서 발생하는 convolution 연산들을 모두 depthwise-convolution으로 대신하였고, batch normalization과 activation layer를 convolution 뒤에 추가하였습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Class/Bbox prediction layer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각각 여러 겹의 Convolution layer을 이용해 class 정보와 bounding box 좌표를 예측하였습니다. 이 때 convolution layer의 개수는 compound scaling을 통해 최적화하였습니다.&lt;/p&gt;
+&lt;h2 id=&quot;compound-scaling&quot;&gt;Compound Scaling&lt;/h2&gt;
+&lt;p&gt;이 논문에서 여러 번 반복해서 강조하는 EfficientDet의 설계 목표는 자원의 제약(resource constraint)이 주어질 때 가장 효율적인 모델 구조를 찾는 것입니다. EfficientDet에서는 다양한 resource constraint 상황을 대비하기 위해, baseline 구조를 잡고, 구조를 구성하는 각 요소의 크기를 동시에 늘리는 compound scaling을 이용하여 모델의 크기를 키워나갔습니다. EfficientNet에서는 이러한 compound scaling 과정을 grid search를 통해서 수행하여 최적의 compound coefficient를 찾았지만, EfficientDet은 훨씬 더 큰 차원의 모델이기에 grid search 대신에 heuristic 기반의 scaling approach를 활용하였습니다. 결과적으로 얻은 8개의 EfficientDet 모델에 대한 scaling configuration은 아래와 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/scale-parameters.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;training&quot;&gt;Training&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Dataset&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;EfficientDet은 COCO2017의 object detection 데이터셋을 활용하여 각각 약 118,000장과 5,000장의 이미지를 이용해 학습 및 검증되었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Loss function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;대부분의 object detection 모델과 마찬가지로, EfficientDet도 여러가지 loss function을 활용하였습니다. Class predictor에 대한 classification loss와 bbox predictor에 대한 L1 및 IOU loss의 합을 loss function으로 정의하였습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;그 외 details&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Stochastic gradient descent(SGD) optimizer를 이용하였습니다. 또한 activation function으로는 ReLU를 대체하기 위해 Google에서 고안한 swish activation을 이용하였습니다. Sigmoid 함수에 일차함수를 곱한 형태입니다.&lt;/p&gt;
+
+&lt;p&gt;각 모델은 32개의 TPU v3 코어를 활용하여 코어 당 4개의 이미지를 학습했고, 결과적으로 128의 batch size를 가집니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Segmentation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;EfficientDet에 약간의 구조를 추가하여 semantic segmentation을 학습해보았는데, ResNet 또는 Xception 기반의 DeepLabV3보다 성능이 뛰어났다고 합니다. 모델 구조는 D4 EfficientDet에 backbone의 level-2 feature를 받아 pixelwise classification하는 layer를 추가하였습니다.&lt;/p&gt;
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/result-params.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 표는 다른 object detection 모델들과 비교한 EfficientDet의 성능을 나타내는데, 압도적인 결과를 보여주고 있습니다. EfficientDet은 다른 모델들과 비슷한 Parameter 개수나 CPU/GPU latency의 조건에서 뛰어난 AP성능을 보여주었습니다. 실험을 할 때, 다른 네트워크에 대해서는 공정한 비교를 위해 convolution 연산을 모두 depthwise로 바꿔주었다고 합니다. 모델의 크기를 늘리는 데에는 한계가 있기 떄문에, 주어진 모델 capacity에서 뛰어난 효율성을 보여주어야 한다는 EfficientDet의 철학이 제대로 반영된 결과라고 할 수 있을 것 같습니다. 유사한 크기의 다른 네트워크에 대한 스펙을 아래 표로 정리하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/result-ap.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문에서는 여러가지 ablation study를 진행하였는데, 우선 EfficientDet 내의 EfficientNet과 BiFPN을 각각 ResNet과 FPN으로 바꾼 모델과 성능을 비교해보았습니다. 각각을 다른 구조로 치환한 두 실험에서 모두 AP가 3~4정도 낮아진 걸로 보아 두 구조 모두 성능에 중요한 역할을 하는 것을 확인할 수 있었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/ablation-backbone-fpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 BiFPN 구조 우수성을 보여주기 위해, EfficientDet을 다른 여러 multi-scale feature fusion 방식으로 바꾸어 결과를 비교하였습니다. 마찬가지로 공정한 비교를 위해 FPN 블럭을 반복하여 parameter 개수를 비슷하게 맞춰주었습니다. 결과에서 BiFPN은 기존의 방법 중 가장 뛰어난 성능을 내던 PANet의 AP를 따라잡거나 뛰어 넘는 모습을 보여주었으며, 훨씬 작은 수의 메모리와 FLOPs를 이용하며 효율성 측면에서 압도적인 모습을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/ablation-fpn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;학습이 진행됨에 따라 multi-scale feature fusion에 사용하는 weight 값의 변화 과정을 softmax와 fast normalization fusion 각각을 사용했을 때에 대해 그려보았습니다. 두 실험에서 모두 모델이 데이터에 따라 어떤 resolution의 input을 강조해야하는지를 잘 학습하고 있는 것 같았고, 결과적으로 유사한 weight 값으로 수렴하였음을 확인할 수 있었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/ablation-weight1.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;assets/images/200926-EffiDet/ablation-weight2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;EfficientDet 구조에서 각 구성 요소의 hyperparameter를 동시에 높여서 학습시키는 compound scaling 도 각각의 hyperparameter를 하나씩 키워서 학습시킬 때보다 훨씬 더 높은 AP 결과를 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200926-EffiDet/result-compound-scaling.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;EfficientDet은 발표일 기준 COCO object detection task에 대해 SOTA의 성능 및 효율성을 보여준 획기적인 논문입니다. 실제로 공식 github 코드를 받아 자율주행 및 문자인식 데이터셋으로 fine-tuning하여 사용해보았는데, 다른 모델들과 비교하여 꽤나 뛰어난 성능을 보여주었습니다. 또한 각자의 자원 제약 조건(GPU 메모리 크기, 최대 추론 시간)에 맞는 최적의 모델을 선택할 수 있기 때문에 제가 사용하고 있는 GPU 메모리에 맞는 모델을 능동적으로 결정할 수 있어 효용성이 크다고 느꼈습니다.
+다만 Compound scaling을 적용함에 있어서 일정한 비율로 scale-up을 해줄 때 좀 더 최적화된 heuristic 또는 규칙이 있을 수도 있겠다는 생각이 듭니다. 어떤 모델이 EfficientDet의 성능 또는 효율성을 뛰어넘을 수 있을지 기대하며 이번 리뷰는 마치겠습니다. 읽어주셔서 감사합니다 :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.11946.pdf&quot;&gt;https://arxiv.org/pdf/1905.11946.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf&quot;&gt;https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/google/automl/tree/master/efficientdet&quot;&gt;https://github.com/google/automl/tree/master/efficientdet&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyunsung Eun</name>
+        
+        
+      </author>
+
+      
+        <category term="CV" />
+      
+
+      
+        <category term="CV" />
+      
+
+      
+        <summary type="html">원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">(DETR) End-to-End Object Detection with Transformers 리뷰</title>
+      <link href="https://rauleun.github.io/DETR" rel="alternate" type="text/html" title="(DETR) End-to-End Object Detection with Transformers 리뷰" />
+      <published>2020-09-14T20:00:00+09:00</published>
+      <updated>2020-09-14T20:00:00+09:00</updated>
+      <id>https://rauleun.github.io/DETR</id>
+      <content type="html" xml:base="https://rauleun.github.io/DETR">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2005.12872&quot;&gt;Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020). &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/detr.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;본 글은 Facebook AI에서 2020년 arxiv에 발표한 &lt;strong&gt;&lt;em&gt;End-to-End Object Detection with Transformers (DETR)&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다. 리뷰를 읽기 전 Transformer가 익숙하지 않으신 분들은 Attention is All You Need 관련 리뷰를 보고 나서 읽으시는 것을 권장드립니다.&lt;/p&gt;
+
+&lt;p&gt;객체 탐지(Object detection)에 관한 연구는 인공지능 연구가 시작된 이래로 지속적으로 발전해왔습니다. Regional-CNN, Faster R-CNN, Single Shot Detector, YOLO 등 많은 방법론들이 제안되었으며 학습의 효율성과 성능은 점점 향상되고 있습니다. 객체 탐지 문제의 목표는 input 이미지에서 찾을 수 있는 모든 객체들에 대한 class와 bounding box 정보를 얻는 것입니다. 이는 단순히 이미지를 분류(classification)하는 문제에 비해 훨씬 더 복잡하기 때문에, 기존의 여러 방법론들에서는 전/후처리 과정을 추가하거나 customize된 모델 구조를 활용하는 방법으로 문제를 해결하였습니다.&lt;/p&gt;
+
+&lt;p&gt;본문에서 소개한 DETR은 Transformer 구조와 Bipartite matching 기법을 활용하여 기존의 방법론들과 달리 end-to-end로 결과를 도출하였습니다. 기존에 꼭 필요했던 non-maximum suppression(NMS)나 anchor generation 과정이 생략되어 간단하고 빠르게 결과를 얻을 수 있습니다. 또한 Faster R-CNN과 비교했을 때 뒤지지 않는 성능을 보여주었습니다. 그럼 DETR에 대해서 지금부터 파헤쳐 보겠습니다.&lt;/p&gt;
+&lt;h2 id=&quot;set-prediction-with-bipartite-matching-loss&quot;&gt;Set prediction with bipartite matching loss&lt;/h2&gt;
+&lt;p&gt;DETR은 output으로 정해진 개수(N)의 객체에 대한 class와 bounding box를 도출합니다. 이 때 output의 개수(본문에서 N=100)는 일반적인 이미지에서 존재하는 객체의 개수보다 충분히 큰 값으로 사전에 설정해줍니다. Class 집합에는 사전에 정의한 class 외에 no-object class를 추가하여, output 중 객체가 없는 경우에 no-object class에 배정하도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;이제 학습을 위해서 결과로 나온 N쌍의 class와 bounding box를 target의 class, bounding box와 비교하여 손실 함수를 계산해야 합니다. 이 때 N개의 output에 대한 (class, bounding box)가  각각 target의 어떤 (class, bounding box)와 매칭되어 손실 함수를 계산할 것인지 결정해야합니다. 이를 이분 매칭(bipartite matching)이라고 부릅니다. Grid search로 모든 경우에 대한 matching loss를 계산하여 비교하게 되면 총 &lt;em&gt;O(n!*n)&lt;/em&gt; 의 complexity를 가지지만 본문에서는 Hungarian 알고리즘을 활용하여 complexity를 &lt;em&gt;O(n&lt;sup&gt;3&lt;/sup&gt;)&lt;/em&gt; 로 향상시켰습니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 이분 매칭을 활용하여 유일한 최적의 output-target 조합을 찾으면, output에 대한 loss를 계산하여 back-propagation에 활용할 수 있습니다. 만약 output을 도출하는 네트워크가 다른 추가적인 처리 모듈 없이 one-stage로 구성되어 있다면, end-to-end로 direct하게 객체 탐지 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 하나의 target object에 대해 여러 output을 생성해버리는 near-duplicate prediction 문제도 이분 매칭을 활용하게 되면 결국 하나의 output-target 쌍으로 매칭이 되기 때문에, 학습 과정에서 어느 정도 해결된다고 할 수 있습니다. 이는 이후에 살펴볼 decoder 단의 attention layer와 함께 DETR이 NMS 모듈 없이도 잘 동작할 수 있는 근거가 됩니다.&lt;/p&gt;
+&lt;h2 id=&quot;detr-architecture&quot;&gt;DETR Architecture&lt;/h2&gt;
+&lt;p&gt;DETR의 구조는 크게 CNN Backbone, Transformer(encoder-decoder), Feed-forward의 세 부분으로 나눌 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/detr-architecture.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CNN Backbone&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Backbone 구조는 3-color channel image를 받아 feature extraction을 하는 CNN 구조를 사용했습니다. 본문에서는 ImageNet을 활용하여 학습한 ResNet50이나 ResNet101을 이용하였습니다. CNN backbone을 거쳐서 나온 feature map(본문에서는 channels=2048, height과 width는 input의 1/32)은 1x1 convolution 과정을 통해 channel 차원을 감소한 뒤에 형변환을 거쳐서 Transformer로 들어갔습니다.&lt;/p&gt;
+
+&lt;p&gt;Transformer는 input 사이의 순서를 고려하지 않고 병렬적으로 attention score를 연산합니다. 따라서 일반적으로 sequential 데이터를 넣어줄 때는 순서 정보를 포함한 positional encoding 벡터를 더해서 넣어주는데요, DETR에서도 Transformer encoder로 들어가기 전에 pixel들 사이의 순서 정보(여기서는 pixel의 위치 정보라고 할 수 있겠네요)를 더해주기 위하여 spatial positional encoding 벡터를 더해주었습니다. Positional encoding은 Vanilla Transformer에서 사용했던 1D sinosoidal encoding을 2D로 일반화하여 사용하였으며 ablation study 과정에서 sinosoidal 대신 linear layer을 학습한 learned positional encoding을 사용하기도 하였습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Transformer (Encoder-Decoder)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Transformer 구조는 2017년 발표된 Attention is All You Need 논문에서 제안된 것으로, sequential한 데이터 간의 연관성을 병렬적으로 파악하여 자연어 처리 및 음성 처리 등의 분야에서 활발히 활용되고 있습니다. DETR은 다차원 행렬의 형태를 띈 이미지를 sequential한 형태로 변경하여 Transformer에 넣어주면 pixel 간의 연관성 및 유사도(compatibility)를 거시적으로 파악할 수 있을 것이라는 관점에서 고안되었습니다.&lt;/p&gt;
+
+&lt;p&gt;Encoder input으로는 sequence의 pixel값을 embedding 벡터로 변환하여 positional encoding을 더해준 값을 사용하였습니다. Encoder는 Multi-head self-attention 메커니즘을 활용하여 전체 이미지 내에서 pixel들 사이의 관계 정보를 추출하였고, 이를 attention score에 반영하게끔 학습하였습니다. 실제로 학습된 encoder에서 어떤 input 이미지에 대한 encoder의 attention score를 시각화했을 때, 아래 그림과 같이 같은 객체 내에 포함되는 pixel들 사이의 attention score가 높은 경향을 보였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/encoder-attention-score.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Decoder 부분도 Vanilla Transformer의 decoder 블럭과 같이 multi-head self-attention과 encoder-decoder attention을 활용하여 구현하였습니다. 다만 기존처럼 sequence output을 auto-regressive하게 하나씩 얻어내는 방식이 아니라 parallel하게 N개의 output을 한번에 얻는 방식을 활용하였습니다. 이것에 대해 조금 설명하자면 decoder가 해주는 multi-head self-attention 연산은 input의 순서와 무관하게 같은 결과를 도출하는 permutation-invariant한 연산입니다. 따라서 N개의 input이 서로 다른 객체 탐지 결과(class 및 bounding box)를 도출하려면 input 자체가 서로 다른 embedding 벡터로 구성되어야 합니다. DETR에서는 이 N개의 decoder input을 &lt;em&gt;object query&lt;/em&gt; 라고 부릅니다. Object query 값은 positional encoding과 마찬가지로 1D sinosoidal encoding 벡터를 이용하거나 linear layer을 학습시켜서 나온 output 벡터를 이용하였습니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 non-autoregressive한 decoder 구조는 autoregressive한 구조에 비해 inference에 대한 시간적-계산적 효율성이 높습니다. 기존의  Autoregressive한 decoding 과정은 각 과정마다 하나의 output만을 얻을 수 있기에 N=100인 경우 100번의 inference를 거쳐야 하나의 이미지에 대한 객체 탐색 결과를 얻을 수 있습니다. 반면에 DETR에서 활용한 구조는 100개의 output을 병렬적으로 decoding 할 수 있기 때문에 빠르고 효율적입니다.&lt;/p&gt;
+
+&lt;p&gt;Encoder의 역할이 이미지의 전체 pixel들 중 같은 객체의 pixel들 사이에 높은 attention score를 부여하여 객체의 존재 여부와 형태를 파악했다면, decoder의 기본적인 역할은 그 객체가 어떤 객체인지를 파악하는 데에 있습니다. 아래의 그림은 decoder의 attention score(encoder-decoder attention)를 시각화한 그림인데요, 탐지된 객체에서 class와 bounding box 정보를 추출해내기 위해 객체의 머리나 다리 같은 가장자리 부분에 대한 attention score가 크게 나타난 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/decoder-attention-score.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 decoder는 한 객체에 대해 생성된 여러 개의 중복된 prediction을 제거해주는 역할도 하고 있습니다. Decoder의 self-attention 메커니즘을 통해 모든 object query가 서로 pair-wise relation에 대한 연산을 하면서 같은 예측값을 제거하는 방향으로 학습이 되는 형태입니다.&lt;/p&gt;
+
+&lt;p&gt;이를 증명하기 위해 본문에서는 decoder의 output에 non-max suppression(NMS) 처리를 하여 기존의 output의 average precision(AP) 값을 비교해보았습니다. Input과 가까운 몇 단계의 decoder block에서는 NMS 연산을 통해 향상된 결과를 얻을 수 있었지만, decoder layer가 쌓이면 쌓일수록 그 정도가 줄어들다가 마지막 layer에서는 NMS가 서로 다른 object에 대한 prediction을 제거하여 오히려 성능을 떨어트렸습니다. 이는 decoder layer를 거치면 거칠수록 near-duplicate prediction들이 자연스럽게 제거되었고 결국 NMS 없이도 좋은 결과를 얻을 수 있었던 것으로 해석할 수 있습니다.
+&lt;img src=&quot;assets/images/200914-DETR/decoder-nms.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Decoder의 학습을 돕기 위해 각 decoder 블럭에 class와 bounding box를 예측하는 feed-forward 네트워크를 추가하여 loss를 계산하였습니다. Decoder에 연결된 feed-forward 네트워크는 서로 weight parameter를 공유하고, 계산한 loss function은 역전파를 통해 decoder의 학습 성능을 높히게 됩니다. 논문에서는 이를 auxiliary loss라고 부르며 F1/DICE loss를 사용하였다고 합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Feed-forward&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Feed-forward 네트워크는 N개의 decoder output을 독립적인 input으로 받아서 각각의 class와 bounding box 값을 예측합니다. 네트워크는 3-layer의 perceptron과 ReLu activation function으로 구성되었습니다. Class output은 softmax layer을 통과하여 각 class에 대한 확률값을 나타내고, bounding box output은 이미지의 원래 크기에 따라 normalize된 box의 중심 좌표와 너비, 높이에 대한 값을 나타냅니다. Class의 결과로는 기존에 정의한 class 외에 no-object라는 class를 추가하여 예측된 영역(slot)에 객체가 없는 경우를 표현하였으며, 다른 몇몇 모델에서 사용하는 background class와 유사한 역할을 합니다.&lt;/p&gt;
+&lt;h2 id=&quot;training&quot;&gt;Training&lt;/h2&gt;
+&lt;p&gt;지금부터는 DETR의 학습에 대해서 설명하겠습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Dataset&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DETR은 COCO 2017의 object detection 및 panoptic segmentation 데이터셋을 이용하여 학습하였습니다. 약 120000장과 5000장의 이미지를 학습과 검증에 활용하였습니다. 학습 데이터는 평균 7개, 최대 63개의 객체를 포함하고 있었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Matching cost&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DETR은 모델을 통해 예측한 100개의 output과 이미지에 실제로 존재하는 객체들을 매칭해서, 최적의 조합을 찾은 후에 손실 함수를 계산합니다. 이 때, 매칭에 사용되는 cost는 class와 bounding box의 유사도를 잘 나타낼 수 있는 값으로 설정해야 합니다. 본문에서는 class에 대한 확률값과 bounding box에 대한 L1 loss, IOU loss를 이용해 matching cost를 정의하였습니다.
+&lt;img src=&quot;assets/images/200914-DETR/matching-cost.png&quot; alt=&quot;&quot; /&gt;
+이후 Hungarian 알고리즘을 통해 최적의 cost 값을 가지는 output-target 조합을 정하고 나서 손실 함수를 계산하게 됩니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Loss function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;손실 함수는 matching cost와 비슷하게 class에 대한 negative log-likelihood와 bounding box에 대한 L1 loss, IOU loss를 1:5:2의 비율로 가중합하여 정의하였습니다. 
+&lt;img src=&quot;assets/images/200914-DETR/loss-function.png&quot; alt=&quot;&quot; /&gt;
+손실 함수로 IOU loss를 사용하는 이유는, DETR이 작은 객체 검출에 대한 성능이 부족하기 때문에 이를 보완하기 위해서입니다. DETR의 Transformer encoder는 모든 pixel에 대한 global relation을 파악하기 때문에 큰 객체에 대한 탐지 성능이 높습니다. 하지만 DETR은 CNN backbone에서 하나의 feature map만을 추출하여 객체 검출에 활용하기 때문에, Feature Pyramid Network(FPN)와 같이 여러 scale의 feature map을 추출하여 객체를 검출하는 밤식과 비교해서 작은 객체에 대한 탐지 성능이 떨어집니다. L1 loss 만을 이용하면, 작은 객체는 손실 함수에 작게 기여할 수밖에 없습니다. 하지만 IOU 값은 작은 객체든 큰 객체든 면적이 겹치는 비율에 따라 결정되기 때문에, IOU loss를 이용하면 작은 객체도 손실 함수에 크게 기여할 수 있게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;손실 함수는 각 이미지가 포함하는 객체의 개수에 독립적인 값이어야 하기 때문에, 항상 마지막에 객체 개수로 나눠주어 normalize 하였습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;그 외 Details&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Weight parameter의 초기값은 Xavier initialization을 활용하여 설정해주었고, Learning rate은 10&lt;sup&gt;-4&lt;/sup&gt;를 이용하여 학습하다가 200 epoch가 지나면 10&lt;sup&gt;-5&lt;/sup&gt;로 바꿔주었습니다.&lt;/p&gt;
+
+&lt;p&gt;최적화는 Adam W optimizer을 사용하였으며, 일반화를 위해 학습 과정에서 dropout 기법(p=0.1)을 사용하였습니다.&lt;/p&gt;
+
+&lt;p&gt;데이터 증강을 위해 random resize, random crop, random horizontal flip을 통한 scale augmentation를 진행하였습니다.&lt;/p&gt;
+
+&lt;p&gt;Baseline 모델은 16개의 V100 GPU로 3일 동안 300 epoch를 학습하였습니다. (학습 시간이 아주 길게 필요합니다.)&lt;/p&gt;
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DETR은 Faster R-CNN과 비교했을 때 구조적으로 훨씬 간단하고 빠른 추론 속도를 보이면서 높은 AP score의 객체 탐지 결과를 도출하였습니다.&lt;/p&gt;
+
+&lt;p&gt;다만 앞서 말씀드렸듯 single-scale feature map으로부터 결과를 도출하기 때문에, 작은 객체에 대한 탐지 능력이 큰 객체에 비해 떨어지는 경향을 보였습니다.
+&lt;img src=&quot;assets/images/200914-DETR/missing.png&quot; alt=&quot;&quot; /&gt;
+또한 60개 이상의 많은 객체를 포함한 이미지에 대해서는 잘 동작하지 못하는 모습을 보여주었습니다.
+평균적으로 학습한 이미지들이 7개 정도의 객체를 가지고 있었기 때문에, 60개 이상의 객체를 가진 이미지는 out-of-distribution 데이터이고 그에 따라 네트워크가 잘 반응하지 못하는 것 같습니다.&lt;/p&gt;
+&lt;h2 id=&quot;panoptic-segmentation&quot;&gt;Panoptic segmentation&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;assets/images/200914-DETR/panoptic-result.png&quot; alt=&quot;&quot; /&gt;
+Panoptic segmentation이라는 개념은 semantic segmentation과 instance segmentation을 융합한 개념으로, 배경 관련 객체인 `stuff`와 배경이 아닌 객체인 `thing`을 instance 단위로 모두 구별해주는 segmentation입니다.&lt;/p&gt;
+
+&lt;p&gt;Faster R-CNN에 segmentation head를 추가하여 Mask R-CNN을 구현했듯, DETR의 decoder output에 head를 추가하여 panoptic segmentation 결과를 얻을 수 있습니다. Segmentation head의 구조는 아래와 같습니다.
+&lt;img src=&quot;assets/images/200914-DETR/panoptic-head.png&quot; alt=&quot;&quot; /&gt;
+Decoder의 output으로 나온 각 객체들과 인코딩 된 원본 이미지를 multi-head attention 메커니즘에 통과시키면, 원본 이미지에서 각 객체와 연관성이 높은 pixel을 찾을 수 있습니다. 이렇게 나온 output을 FPN 형태의 CNN에 넣어주어 각 객체에 대한 mask image를 얻고, pixel별로 argmax 연산을 하여, 최종적으로 전체 이미지에 대한 segmentation map을 얻었습니다.&lt;/p&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;DETR은 이분 매칭(bipartite matching)을 통한 최적의 손실 함수 계산과 Transformer 구조를 통해 pixel 사이의 관계를 파악하여 객체 탐지 태스크를 end-to-end로 학습하였습니다. 기존의 Transformer와 달리 non-autoregressive하게 decoding하기 때문에 inference cost를 최소화할 수 있었습니다. 또한 decoder output에 몇 가지 layer를 추가하여 panoptic segmentation 태스크를 수행하는 등의 확장성도 보여주었습니다. 최근에 발표된 EfficientDet이나 DeTectORs 만큼의 성능을 보여주지는 못했지만, 복잡한 모듈이나 Custom layer 없이 간단하게 구현할 수 있고 end-to-end로 직접 결과를 얻을 수 있다는 점에서 큰 가치가 있는 논문이라고 생각합니다. 읽어주셔서 감사합니다 :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2005.12872&quot;&gt;https://arxiv.org/abs/2005.12872&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/facebookresearch/detr&quot;&gt;https://github.com/facebookresearch/detr&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyunsung Eun</name>
+        
+        
+      </author>
+
+      
+        <category term="CV" />
+      
+
+      
+        <category term="CV" />
+      
+
+      
+        <summary type="html">원문 : Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” arXiv preprint arXiv:2005.12872 (2020).</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

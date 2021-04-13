@@ -131,7 +131,7 @@ into the {body} of the default.hbs template -->
             <ul class="nav" role="menu">
     <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
     <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
-    <li class="nav-object-detection" role="menuitem"><a href="/tag/object-detection/">Object Detection</a></li>
+    <li class="nav-object-detection" role="menuitem"><a href="/tag/cv/">CV</a></li>
     <li class="nav-nlp" role="menuitem"><a href="/tag/nlp/">NLP</a></li>
     <li class="nav-3D" role="menuitem"><a href="/tag/3d/">3D</a></li>
     <li class="nav-archive" role="menuitem">
@@ -232,7 +232,7 @@ into the {body} of the default.hbs template -->
 
 <p><img src="assets/images/210302-PointTransformer/3-transition-block.png" alt="" /></p>
 
-<p>위의 그림에서 왼쪽에 보이는 down-sampling layer는 서로 가장 거리가 먼 N개의 점들을 선택해주는 farthest point sampling 알고리즘을 이용했고, 해당 점의 feature vector는 주변 점들의 feature vector들에 대해 local하게 max-pooling 연산을 수해해서 얻었습니다. 오른쪽의 up-sampling layer는 segmentation task의 경우에 점들 별로 feature vector를 얻어야 하기 때문에 점들의 개수를 다시 늘려주기 위해 필요합니다. 이는 더 많은 점들로 구성된 point set에 대한 interpolation과 skip-connection layer로 구성되었습니다.</p>
+<p>위의 그림에서 왼쪽에 보이는 down-sampling layer는 서로 가장 거리가 먼 N개의 점들을 선택해주는 farthest point sampling 알고리즘을 이용했고, 해당 점의 feature vector는 주변 점들의 feature vector들에 대해 local하게 max-pooling 연산을 수행해서 얻었습니다. 오른쪽의 up-sampling layer는 segmentation task의 경우에 점들 별로 feature vector를 얻어야 하기 때문에 점들의 개수를 다시 늘려주기 위해 필요합니다. 이는 더 많은 점들로 구성된 point set에 대한 interpolation과 skip-connection layer로 구성되었습니다.</p>
 
 <p>Network의 마지막은 linear layer들로 구성된 MLP를 통해 합쳐진 feature vector들의 차원을 적절하게 조정해주었습니다. 특히 segmentation model에서는 각 점들에 대한 embedding vector 별로 classification logit을 추출해서 해당 점의 class 정보를 얻을 수 있게 구성되었습니다.</p>
 
@@ -388,6 +388,8 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
+                                
+                                  
                                     
                                   
                                 
@@ -454,6 +456,53 @@ into the {body} of the default.hbs template -->
             
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/SimCLR">
+                <div class="post-card-image" style="background-image: url(/assets/images/210410-SimCLR/cover.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/SimCLR">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Cv</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">SimCLR v1 & v2 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
             
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
