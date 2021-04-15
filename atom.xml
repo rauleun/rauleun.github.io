@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Momentum Contrast(MoCo) v1 &amp; v2 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1911.05722&quot;&gt;He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://arxiv.org/abs/2003.04297&quot;&gt;Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020).&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 14 Apr 2021 09:00:00 +0900</pubDate>
+        <link>
+        https://rauleun.github.io/MoCo</link>
+        <guid isPermaLink="true">https://rauleun.github.io/MoCo</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>SimCLR v1 &amp; v2 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2002.05709&quot;&gt;Chen, Ting, et al. “A simple framework for contrastive learning of visual representations.” International conference on machine learning. PMLR, 2020.&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://arxiv.org/abs/2006.10029&quot;&gt;Chen, Ting, et al. “Big self-supervised models are strong semi-supervised learners.” arXiv preprint arXiv:2006.10029 (2020).&lt;/a&gt;&lt;/p&gt;

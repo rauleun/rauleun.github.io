@@ -11,7 +11,7 @@
 
 
 
-    <title>EfficientDet - Scalable and Efficient Object Detection 리뷰</title>
+    <title>Momentum Contrast(MoCo) v1 & v2 리뷰</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -43,26 +43,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="machine learning research notes" />
     <link rel="shortcut icon" href="https://rauleun.github.io/" type="image/png" />
-    <link rel="canonical" href="https://rauleun.github.io/EfficientDet" />
+    <link rel="canonical" href="https://rauleun.github.io/MoCo" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="RE Tech Archive" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="EfficientDet - Scalable and Efficient Object Detection 리뷰" />
-    <meta property="og:description" content="원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리" />
-    <meta property="og:url" content="https://rauleun.github.io/EfficientDet" />
-    <meta property="og:image" content="https://rauleun.github.io/assets/images/200926-EffiDet/cover.png" />
+    <meta property="og:title" content="Momentum Contrast(MoCo) v1 & v2 리뷰" />
+    <meta property="og:description" content="원문 : He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. &amp; Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020). 오늘은 FAIR에서 2020년에 CVPR에 발표한 Momentum contrast for unsupervised visual" />
+    <meta property="og:url" content="https://rauleun.github.io/MoCo" />
+    <meta property="og:image" content="https://rauleun.github.io/assets/images/210414-MoCo/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2020-09-26T09:00:00+09:00" />
-    <meta property="article:modified_time" content="2020-09-26T09:00:00+09:00" />
+    <meta property="article:published_time" content="2021-04-14T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-04-14T09:00:00+09:00" />
     <meta property="article:tag" content="Cv" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="EfficientDet - Scalable and Efficient Object Detection 리뷰" />
-    <meta name="twitter:description" content="원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리" />
+    <meta name="twitter:title" content="Momentum Contrast(MoCo) v1 & v2 리뷰" />
+    <meta name="twitter:description" content="원문 : He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. &amp; Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020). 오늘은 FAIR에서 2020년에 CVPR에 발표한 Momentum contrast for unsupervised visual" />
     <meta name="twitter:url" content="https://rauleun.github.io/" />
-    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/200926-EffiDet/cover.png" />
+    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/210414-MoCo/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:label2" content="Filed under" />
@@ -81,18 +81,18 @@
         "name": "RE Tech Archive",
         "logo": "https://rauleun.github.io/"
     },
-    "url": "https://rauleun.github.io/EfficientDet",
+    "url": "https://rauleun.github.io/MoCo",
     "image": {
         "@type": "ImageObject",
-        "url": "https://rauleun.github.io/assets/images/200926-EffiDet/cover.png",
+        "url": "https://rauleun.github.io/assets/images/210414-MoCo/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://rauleun.github.io/EfficientDet"
+        "@id": "https://rauleun.github.io/MoCo"
     },
-    "description": "원문 : Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. 오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 Efficientdet: Scalable and efficient object detection 논문에 대한 리뷰입니다. 이 논문은 주어진 제약 조건(메모리"
+    "description": "원문 : He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. &amp; Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020). 오늘은 FAIR에서 2020년에 CVPR에 발표한 Momentum contrast for unsupervised visual"
 }
     </script>
 
@@ -105,7 +105,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="EfficientDet - Scalable and Efficient Object Detection 리뷰" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Momentum Contrast(MoCo) v1 & v2 리뷰" href="/feed.xml" />
 
 
 </head>
@@ -170,7 +170,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="26 September 2020">26 September 2020</time>
+                    <time class="post-full-meta-date" datetime="14 April 2021">14 April 2021</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -180,123 +180,134 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">EfficientDet - Scalable and Efficient Object Detection 리뷰</h1>
+                <h1 class="post-full-title">Momentum Contrast(MoCo) v1 & v2 리뷰</h1>
             </header>
             <!--
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/200926-EffiDet/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/210414-MoCo/cover.png)">
             </figure>
             
             -->
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>원문 : <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf">Tan, Mingxing, Ruoming Pang, and Quoc V. Le. “Efficientdet: Scalable and efficient object detection.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
-</a></p>
+                    <p>원문 : <a href="https://arxiv.org/abs/1911.05722">He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.</a> &amp; <a href="https://arxiv.org/abs/2003.04297">Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020).</a></p>
 
-<p><img src="assets/images/200926-EffiDet/main-result.png" alt="" /></p>
+<p>오늘은 FAIR에서 2020년에 CVPR에 발표한 <em><strong>Momentum contrast for unsupervised visual representation learning (MoCo)</strong></em> 논문과 그 후속 연구로 약간의 성능을 개선한 <em><strong>Improved baselines with momentum contrastive learning (MoCo v2)</strong></em> 논문에 대해 리뷰를 진행해보겠습니다.</p>
 
-<p>오늘 소개드릴 논문은 Google Research에서 2020년 CVPR에 발표한 <strong><em>Efficientdet: Scalable and efficient object detection</em></strong> 논문에 대한 리뷰입니다.</p>
+<p>MoCo는 SimCLR과 마찬가지로 contrastive loss를 이용한 unsupervised learning 방법입니다. 다만 negative pair를 추출하는 방식이나, query encoder를 update하는 방식에 약간의 차이가 있습니다. SimCLR에 대한 리뷰를 먼저 읽고 오시면 이해하기 좀 더 수월할 것 같습니다. 그럼 MoCo에 대한 소개를 시작하겠습니다!</p>
 
-<p>이 논문은 주어진 제약 조건(메모리 및 레이턴시) 아래에서 가장 효율적인 모델 구조를 찾아주는 <a href="https://arxiv.org/pdf/1905.11946.pdf">EfficientNet</a>을 object detection 분야에 접목시킨 연구를 다루고 있으며, 기존의 여러 모델과 비교하였을 떄 성능 및 효율성 측면에서 아주 뛰어난 결과를 보여주었습니다.</p>
+<h2 id="contrastive-learning-as-dictionary-look-up">Contrastive Learning as Dictionary Look-up</h2>
 
-<p>EfficientNet 구조를 backbone으로 하며, 그 논문에서 제안한 compound scaling을 활용해 여러 capacity의 모델을 제안했기 때문에 EfficientNet 논문을 읽고서 보시는 것을 추천드립니다. 그럼 시작하겠습니다!</p>
-<h2 id="efficientdet-architecture">EfficientDet Architecture</h2>
-<p>전통적으로 object detection을 수행하기 위한 모델 구조는 region-of-interest(ROI)를 제안하는 부분의 유무에 따라 one-stage와 two-stage로 구분합니다. 일반적으로 one-stage가 학습 및 추론 속도가 빠르고 간단한 구조를 가진다는 장점이 있다면, two-stage는 복잡한 구조를 가지지만 높은 정확성 및 AP 값을 가진다는 장점이 있습니다. 본문에서 소개한 EfficientDet은 ROI proposal 단계가 없으면서도 모델의 구조 최적화를 통해 높은 성능을 보여줍니다.</p>
+<p>Contrastive learning이란 데이터의 label 없이 네트워크 모델을 학습하는 unsupervised learning의 일종으로, positive pair 간의 유사도는 높이고 negative pair 간의 유사도는 낮추는 방향으로 모델을 학습하는 방법입니다. Contrastive learning을 수행하려면 positive pair와 negative pair를 추출해야 하는데, SimCLR에서는 하나의 batch 안에서 positive pair과 negative pair를 추출하였습니다. 이와 달리 MoCo에서는 특정 크기의 dictionary를 정의하여 sample들의 key값을 저장해두고, query와 matching되는 값을 positive key로, 나머지를 negative key로 분류하여 추출하였습니다.</p>
 
-<p><img src="assets/images/200926-EffiDet/efficientdet-architecture.png" alt="" /></p>
+<p><img src="assets/images/210414-MoCo/1-moco.png" alt="" /></p>
 
-<p>EfficientDet은 크게 CNN backbone, BiFPN, Class/Bbox prediction의 세 부분으로 구성되어 있습니다. 하나씩 살펴보겠습니다.</p>
+<p>MoCo의 구조는 위의 그림과 같습니다. 각 이미지들에 대한 query와 key는 각각 query encoder와 key encoder를 이용하여 생성합니다. Encoder는 CNN 기반의 네트워크를 활용하며 MoCo에서는 ResNet을 활용하였습니다. 한 이미지에서 생성한 query는 같은 이미지로부터 생성한 key와 positive pair를 구성하고, 다른 이미지에서 생성한 key와 negative pair를 구성합니다.</p>
 
-<ul>
-  <li>CNN backbone (EfficientNet)</li>
-</ul>
+<p>Contrastive loss를 이용하여 안정적으로 학습하려면 충분한 개수의 negative pair이 꼭 필요합니다. MoCo에서는 충분히 큰 크기의 dictionary를 queue 형태로 두고, dictionary에서 negative sample들을 추출하였습니다. Dictionary의 크기는 일반적으로 batch size보다 크며 논문에서는 기본값으로 65536개를 이용하였습니다. 만약 256개의 batch 단위로 학습을 진행한다면, 하나의 입력 이미지에 대해 query와 key를 생성하여 positive pair를 이루고 dictionary에 이미 들어있는 65536개의 key와 negative pair를 이루게 됩니다. Dictionary는 queue 구조를 가지고 있기 때문에 256개의 batch에 대해 학습이 완료되고 나면, 학습 과정에서 생성된 256개의 key들이 가장 오래된 256개의 key들을 대체하게 됩니다. 학습에 따라 dictionary의 구성이 update되기 때문에, 이를 dynamic dictionary라고 부르기도 합니다.</p>
 
-<p>CNN backbone으로는 SOTA의 이미지 분류 성능을 보여준 EfficientNet이 사용되었습니다. EfficientNet은 convolution 연산 기반 모델의 성능을 높이기 위해 모델의 width(channel 개수), depth(layer 개수), resolution(input 크기)를 동시에 늘리는 compound scaling을 적용하였습니다. 또한 세 가지 hyperparameter를 일정 비율로 키워 memory, latency 등의 자원 제약에 따라 모델의 capacity를 증가하였습니다. 결과적으로 EfficientNet은 같은 자원을 활용한 ResNet이나 Inception, DenseNet보다 훨씬 높은 성능을 보여주었습니다. EfficientDet은 이러한 EfficientNet을 backbone으로 하여 객체의 특징을 잘 나타내주는 여러 scale의 feature map을 추출하였습니다.</p>
+<p>하지만 queue 구조의 큰 dictionary를 이용하게 되면, key encoder를 학습하는 과정에서 수많은 negative sample들에 대해 gradient를 전파해야하기 때문에 학습이 어려워집니다. 이를 해결하기 위해 key encoder를 따로 학습하지 않고(stop gradiet), 학습된 query encoder를 그대로 가져와서 이용해보았습니다.</p>
 
-<ul>
-  <li>Weighted Bidirectional FPN</li>
-</ul>
+<p><img src="assets/images/210414-MoCo/5-result-momentum.png" alt="" /></p>
 
-<p>전통적인 CNN 기반의 one-stage 모델들은 하나의 feature map에서 object detection을 수행했기 때문에 다양한 크기의 객체를 검출하지 못하는 문제가 있었습니다. Feature Pyramid Network(FPN) 구조는 이를 해결하기 위해 등장하였습니다. FPN은 여러 layer에서 다양한 scale의 feature map을 추출하고, 각각으로부터 object detection을 수행하기 때문에 다양한 크기의 객체 검출이 가능했습니다. 또한 여러 resolution의 feature map을 더해주는 multi-scale feature fusion을 통해 성능을 높여주었습니다.</p>
+<p>위의 표에서 momentum=0 인 경우가 매 batch마다 query encoder를 그대로 key encoder로 이용하여 학습한 결과입니다. Loss가 전혀 수렴하지 않아서 학습이 되지 않았는데, 논문에서는 빠르게 변화하는 query encoder를 그대로 이용해서 key를 계산하게 되면 key값들의 consistency가 유지되지 않기 때문이라고 설명합니다.</p>
 
-<p><img src="assets/images/200926-EffiDet/fpn-architectures.png" alt="" /></p>
+<p><img src="assets/images/210414-MoCo/3-momentum-update.png" alt="" /></p>
 
-<p>Multi-scale feature fusion 구조는 FPN에서 처음 제안된 이후에 더 높은 성능을 실현하기 위해 다양하게 변화하였습니다. FPN이 top-down 방식으로 서로 다른 두 scale의 feature map을 더해주었다면, PANet에서는 기존 FPN 구조에 bottom-up path aggregation 구조를 추가하여 information flow를 다양화해주었습니다. 또한 NAS-FPN에서는 강화학습을 이용한 수 천 시간의 학습을 통해 성능과 효율성이 동시에 뛰어난 cross-scale connection 구조를 제안하였습니다. 
-<img src="assets/images/200926-EffiDet/bifpn-architecture.png" alt="" /><br />
-EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 구조들 중 높은 성능을 내는 PANet을 몇 가지 부분에서 수정하였습니다. 우선 feature-fusion 없이 하나의 input만을 받는 top-down의 맨 위, 맨 아래 node를 제거하였습니다. 또한 같은 level에 있는 input feature를 output에 더해주는 skip-connection을 추가하여, 적은 수의 계산량으로 feature fusion을 수행할 수 있도록 설계하였습니다. 마지막으로 구성한 bi-directional(top-down &amp; bottom-up) 구조를 하나의 블럭으로 두고 여러 번 반복해 high-level feature fusion을 가능하게 만들었습니다. BiFPN 블럭의 반복 횟수는 compound scaling을 통해 최적화하였습니다.</p>
+<p>이를 해결하기 위해, momentum update를 적용시켜 key encoder를 천천히 진화시키는 방법을 이용했습니다. 위의 표에서 볼 수 있듯, 0.999의 momentum 값을 이용했을 때 가장 높은 정확도를 얻을 수 있었습니다. 이렇듯 dictionary 내의 key 구성이 consistent해야 학습이 안정적으로 진행되었습니다.</p>
 
-<p>EfficientDet은 feature map를 더하는 과정도 개선하였습니다. 기존의 multi-scale feature fusion 과정에서는 서로 다른 여러 scale의 feature map을 단순하게 같은 비율로 더해주었습니다. 하지만 EfficientDet에서는 서로 다른 resolution을 가진 input으로부터 얻어진 feature map들이기 때문에 더해지는 과정에서 output에 기여하는 정도가 다를 수 있다고 판단하여, 이를 반영하여 weight를 곱해서 더해주는 방법을 제안하였습니다. 각 feature map의 weight는 다른 변수와 마찬가지로 학습을 통해서 최적화하였고, 계산의 효율성을 위해 feature 단위의 스칼라 값으로 정의하였습니다. 또한 feature fusion을 하는 과정에서 weight의 총합을 1로 normalize 해주었는데, latency cost를 줄이기 위해 softmax layer 대신 단순히 weight들을 더한 값에서 각 weight의 비율을 계산하는 fast-normalization fusion 방식을 활용하였습니다.</p>
+<p>MoCo에서 강조하는 것은 크고 일관성 있는 dictionary의 구성입니다. MoCo는 queue 형태의 dictionary와 momentum update를 이용한 key encoder의 변화로 이를 가능하게 만들었습니다. 그렇다면 MoCo가 유사한 기존의 방법들과 어떻게 다른지에 대해 자세히 알아보겠습니다.</p>
 
-<p>마지막으로 parameter 개수를 줄이기 위해 feature fusion 과정에서 발생하는 convolution 연산들을 모두 depthwise-convolution으로 대신하였고, batch normalization과 activation layer를 convolution 뒤에 추가하였습니다.</p>
+<h2 id="comparison-to-previous-mechanisms">Comparison to previous mechanisms</h2>
 
-<ul>
-  <li>Class/Bbox prediction layer</li>
-</ul>
+<p><img src="assets/images/210414-MoCo/2-comparison-moco.png" alt="" /></p>
 
-<p>각각 여러 겹의 Convolution layer을 이용해 class 정보와 bounding box 좌표를 예측하였습니다. 이 때 convolution layer의 개수는 compound scaling을 통해 최적화하였습니다.</p>
-<h2 id="compound-scaling">Compound Scaling</h2>
-<p>이 논문에서 여러 번 반복해서 강조하는 EfficientDet의 설계 목표는 자원의 제약(resource constraint)이 주어질 때 가장 효율적인 모델 구조를 찾는 것입니다. EfficientDet에서는 다양한 resource constraint 상황을 대비하기 위해, baseline 구조를 잡고, 구조를 구성하는 각 요소의 크기를 동시에 늘리는 compound scaling을 이용하여 모델의 크기를 키워나갔습니다. EfficientNet에서는 이러한 compound scaling 과정을 grid search를 통해서 수행하여 최적의 compound coefficient를 찾았지만, EfficientDet은 훨씬 더 큰 차원의 모델이기에 grid search 대신에 heuristic 기반의 scaling approach를 활용하였습니다. 결과적으로 얻은 8개의 EfficientDet 모델에 대한 scaling configuration은 아래와 같습니다.</p>
+<p>논문에서는 MoCo를 기존의 두 가지 방법과 비교하고 있습니다. <em>end to end</em> 라고 부르는 첫 번째 방법은, key encoder도 query encoder와 마찬가지로 똑같이 학습시켜주는 방법입니다. 이 경우에는 queue 형태의 dictionary를 사용하는 것이 아니라, mini-batch에 해당하는 sample들을 batch로 이용했기 때문에 GPU memory 크기에 제약을 받을 수 밖에 없게 됩니다. 따라서 MoCo에 비해 상대적으로 적은 수의 negative sample밖에 이용할 수 없고, large-batch optimization에 대한 issue도 문제가 됩니다.</p>
 
-<p><img src="assets/images/200926-EffiDet/scale-parameters.png" alt="" /></p>
-<h2 id="training">Training</h2>
-<ul>
-  <li>Dataset</li>
-</ul>
+<p><em>Memory bank</em> 를 이용하는 두 번째 방법은, 데이터셋에 존재하는 모든 sample들의 representation을 memory bank에 넣어두고, 임의로 몇 개의 sample을 골라 dictionary를 구성하는 방법입니다. 이후 query에 해당하는 sample들로 memory bank를 update하면서 학습을 진행합니다. 이 경우에 memory bank 안의 key들이 빠르게 변하는 query encoder의 결과값으로 update 되기 때문에, dictionary가 inconsistent해지고 학습이 제대로 되지 않았습니다. 이를 해결하기 위해 key를 update할 때 momentum update를 적용하였는데, encoder가 아니라 key값 자체가 update되는 것이기 때문에 한 epoch 뒤의 encoder output에 대한 값을 이용하게 되고, 마찬가지로 inconsistency 문제가 발생하였습니다.</p>
 
-<p>EfficientDet은 COCO2017의 object detection 데이터셋을 활용하여 각각 약 118,000장과 5,000장의 이미지를 이용해 학습 및 검증되었습니다.</p>
+<p>MoCo는 위 두 방법과 달리 queue 구조를 활용한 dictionary를 이용하기 때문에 충분한 양의 negative sample로 학습할 수 있습니다. 또한 memory-efficient하고 데이터셋의 크기가 클 때도 안정적으로 학습할 수 있습니다. (memory bank의 경우 데이터셋의 크기가 너무 크면, update 주기가 길어지기 때문에 학습이 불안정합니다.)</p>
 
-<ul>
-  <li>Loss function</li>
-</ul>
+<p><img src="assets/images/210414-MoCo/4-result-momentum.png" alt="" /></p>
 
-<p>대부분의 object detection 모델과 마찬가지로, EfficientDet도 여러가지 loss function을 활용하였습니다. Class predictor에 대한 classification loss와 bbox predictor에 대한 L1 및 IOU loss의 합을 loss function으로 정의하였습니다.</p>
+<p>위의 그림은 세 방법에 대한 결과를 나타냅니다. <em>End-to-end</em> 방법은 MoCo와 비슷한 성능을 보이지만, 1024 이상으로 batch size를 키울 수 없었습니다. <em>Memory bank</em> 방법은 inconsistency issue로 인해 낮은 성능을 보여주었습니다.</p>
 
-<ul>
-  <li>그 외 details</li>
-</ul>
+<h2 id="momentum-contrast">Momentum Contrast</h2>
 
-<p>Stochastic gradient descent(SGD) optimizer를 이용하였습니다. 또한 activation function으로는 ReLU를 대체하기 위해 Google에서 고안한 swish activation을 이용하였습니다. Sigmoid 함수에 일차함수를 곱한 형태입니다.</p>
+<p>MoCo는 입력 이미지에 대해 random data augmentation을 거친 후 query 및 key encoder에 넣어주었습니다. Random data augmentation은 random resize/ random color jittering/ random horizontal flip/ random grayscale conversion의 순서로 구성했습니다.</p>
 
-<p>각 모델은 32개의 TPU v3 코어를 활용하여 코어 당 4개의 이미지를 학습했고, 결과적으로 128의 batch size를 가집니다.</p>
+<p>Constrastive learning을 위한 loss function은 InfoNCE라고 불리는 위와 같은 형태의 함수를 이용했습니다. <em>q</em> 는 query를, <em>k+</em> 는 positive key를, <em>t</em> 는 temperature htper-parameter를 의미합니다. <em>k+</em> 를 제외한 나머지 <em>k</em> 는 negative sample입니다.</p>
 
-<ul>
-  <li>Segmentation</li>
-</ul>
+<p>위 함수는 query와 positive key가 유사하고, 나머지 negative key와는 유사하지 않을때 값이 작아지는 cross-entropy 기반의 loss입니다. 유사도는 내적연산으로 계산합니다.</p>
 
-<p>EfficientDet에 약간의 구조를 추가하여 semantic segmentation을 학습해보았는데, ResNet 또는 Xception 기반의 DeepLabV3보다 성능이 뛰어났다고 합니다. 모델 구조는 D4 EfficientDet에 backbone의 level-2 feature를 받아 pixelwise classification하는 layer를 추가하였습니다.</p>
+<p>또한 multi-gpu device로 학습하는 과정에서,  ResNet 구조 내부의 batch normalization 과정을 거칠 때 device별로 batch normalization을 해주었습니다. 이 때 데이터가 device 별로 편향되어서 batch normalization 과정에서 전체 data에 대한 정보를 잃는 현상이 있었습니다. 이를 해결하기 위해 MoCo에서는 device에 데이터를 분배할 때 random한 순서로 넣어주는 <em>shuffling batch normalization</em> 방법을 이용하였습니다.</p>
+
+<p>MoCo는 ImageNet-1M 데이터셋과 Instagram-1B 데이터셋을 이용하여 학습하였습니다. 학습은 256개의 batch 단위로 진행되었고,  65536개의 sample을 넣을 수 있는 queue 구조의 dictionary를 이용하였습니다. Encoder 구조는 ResNet-50을 이용하였고 200 epochs만큼 학습해주었습니다.</p>
+
 <h2 id="result">Result</h2>
-<p><img src="assets/images/200926-EffiDet/result-params.png" alt="" /></p>
 
-<p>위의 표는 다른 object detection 모델들과 비교한 EfficientDet의 성능을 나타내는데, 압도적인 결과를 보여주고 있습니다. EfficientDet은 다른 모델들과 비슷한 Parameter 개수나 CPU/GPU latency의 조건에서 뛰어난 AP성능을 보여주었습니다. 실험을 할 때, 다른 네트워크에 대해서는 공정한 비교를 위해 convolution 연산을 모두 depthwise로 바꿔주었다고 합니다. 모델의 크기를 늘리는 데에는 한계가 있기 떄문에, 주어진 모델 capacity에서 뛰어난 효율성을 보여주어야 한다는 EfficientDet의 철학이 제대로 반영된 결과라고 할 수 있을 것 같습니다. 유사한 크기의 다른 네트워크에 대한 스펙을 아래 표로 정리하였습니다.</p>
+<p>학습된 MoCo 모델은 일반적으로 unsupervised learning 알고리즘을 평가할 때 이용하는 linear evaluation 방법으로 성능을 측정하였습니다. Linear evaluation은 학습된 모델을 고정(freeze)하고 그 위에 linear classifier를 얹어서 학습 후 결과를 측정하는 방법입니다.</p>
 
-<p><img src="assets/images/200926-EffiDet/result-ap.png" alt="" /></p>
+<p><img src="assets/images/210414-MoCo/6-result-eval.png" alt="" /><br />
+<img src="assets/images/210414-MoCo/7-result-eval.png" alt="" /></p>
 
-<p>논문에서는 여러가지 ablation study를 진행하였는데, 우선 EfficientDet 내의 EfficientNet과 BiFPN을 각각 ResNet과 FPN으로 바꾼 모델과 성능을 비교해보았습니다. 각각을 다른 구조로 치환한 두 실험에서 모두 AP가 3~4정도 낮아진 걸로 보아 두 구조 모두 성능에 중요한 역할을 하는 것을 확인할 수 있었습니다.</p>
+<p>위의 그림은 linear evaluation 결과를 비교하고 있는데요. MoCo가 발표된 당시 기준으로 다른 unsupervised learning 방법과 비교해 SOTA의 성능을 보여주었습니다. (하지만 얼마 지나지 않아 더 좋은 성능을 보이는 모델-SimCLR이 발표되었습니다.)</p>
 
-<p><img src="assets/images/200926-EffiDet/ablation-backbone-fpn.png" alt="" /></p>
+<p>논문에서는 또한 MoCo가 object detection이나 segmentation 등 다른 task의 backbone 모델로 이용되었을 때 어떤 결과를 보이는지에 대해서도 실험했습니다. Pascal VOC와 COCO 데이터셋을 이용하여 실험했는데, Pascal VOC 데이터셋에 대한 결과만 보여드리겠습니다.</p>
 
-<p>또한 BiFPN 구조 우수성을 보여주기 위해, EfficientDet을 다른 여러 multi-scale feature fusion 방식으로 바꾸어 결과를 비교하였습니다. 마찬가지로 공정한 비교를 위해 FPN 블럭을 반복하여 parameter 개수를 비슷하게 맞춰주었습니다. 결과에서 BiFPN은 기존의 방법 중 가장 뛰어난 성능을 내던 PANet의 AP를 따라잡거나 뛰어 넘는 모습을 보여주었으며, 훨씬 작은 수의 메모리와 FLOPs를 이용하며 효율성 측면에서 압도적인 모습을 보여주었습니다.</p>
+<p><img src="assets/images/210414-MoCo/8-result-ap.png" alt="" /></p>
 
-<p><img src="assets/images/200926-EffiDet/ablation-fpn.png" alt="" /></p>
+<p>MoCo는 scratch부터 학습하거나, supervised 방식으로 학습한 pretraining 모델을 이용한 경우보다 좋은 object detection 성능을 보여주었습니다.</p>
 
-<p>학습이 진행됨에 따라 multi-scale feature fusion에 사용하는 weight 값의 변화 과정을 softmax와 fast normalization fusion 각각을 사용했을 때에 대해 그려보았습니다. 두 실험에서 모두 모델이 데이터에 따라 어떤 resolution의 input을 강조해야하는지를 잘 학습하고 있는 것 같았고, 결과적으로 유사한 weight 값으로 수렴하였음을 확인할 수 있었습니다.</p>
+<p><img src="assets/images/210414-MoCo/9-result-comparison.png" alt="" /></p>
 
-<p><img src="assets/images/200926-EffiDet/ablation-weight1.png" alt="" /><br />
-<img src="assets/images/200926-EffiDet/ablation-weight2.png" alt="" /></p>
+<p>MoCo는 <em>end-to-end</em> 나 <em>memory bank</em>와 비교했을 때도 AP 기준 더 높은 성능을 보였습니다. Classification task에 대해 더 유용한 visual representation이 object detection task에서도 더 뛰어난 결과를 보여주었습니다.</p>
 
-<p>EfficientDet 구조에서 각 구성 요소의 hyperparameter를 동시에 높여서 학습시키는 compound scaling 도 각각의 hyperparameter를 하나씩 키워서 학습시킬 때보다 훨씬 더 높은 AP 결과를 보여주었습니다.</p>
+<p><img src="assets/images/210414-MoCo/10-result-unsupervised.png" alt="" /></p>
 
-<p><img src="assets/images/200926-EffiDet/result-compound-scaling.png" alt="" /></p>
+<p>또한 RelPos, Jigsaw 등의 다른 unsupervised learning 알고리즘보다도 object detection task에서 뛰어난 성능을 보여주었습니다. Pre-training을 여러 데이터셋에 대해 진행했는데, 모두 같은 경향성을 보였습니다.</p>
+
+<h2 id="moco-v2">MoCo v2</h2>
+
+<p>저자들은 MoCo의 짧았던 전성기가 아쉬웠던지 곧이어  몇 가지 항목을 개선한 MoCo v2를 발표했습니다.  MoCo v2는 SimCLR을 벤치마킹해서 기존의 MoCo를 세 가지 부분에서 개선했는데요. 우선 MLP 기반의 projection head를 추가하였고, encoder에 들어가는 sample들의 data augmentation 구성을 최적화했으며, cosine learning rate schedule을 추가하였습니다.</p>
+
+<p><img src="assets/images/210414-MoCo/12-result-mocov2.png" alt="" /></p>
+
+<ul>
+  <li>MLP projection head</li>
+</ul>
+
+<p>기존 MoCo와 SimCLR의  encoder network는 모두 ResNet을 기반으로 하고있지만, 약간의 구조적 차이가 존재합니다. MoCo는 ResNet의 마지막 global average-pooling layer와 연결된 linear layer(출력차원=128)까지를 기본 encoder로 이용했고, SimCLR은 global average-pooling layer까지를 base encoder로 이용하고 뒤에 MLP 구조의 projection head를 연결하였습니다.</p>
+
+<p>SimCLR의 핵심적인 아이디어 중 하나가, 학습에만 projection head를 사용하고 학습이 완료된 후에는 projection head를 제외한 구조로 visual representation을 추출하는 것인데요. MoCo는 이러한 SimCLR의 구조를 그대로 차용하여 실험했습니다. 실험 결과 MLP projection head를 이용하기 전보다 5.6%의 linear evaluation 성능이 향상되었습니다.</p>
+
+<ul>
+  <li>Data augmentation</li>
+</ul>
+
+<p>SimCLR에서는 다양한 data augmentation의 조합에 따른 성능을 비교하여, augmentation의 구성을 결정했습니다. MoCo v2도 여러가지 실험을 통해, 기존의 augmentation에 Gaussian blurring을 추가하였습니다. 추가한 결과 기존에 비해 2.8%의 성능이 향상되었습니다.</p>
+
+<ul>
+  <li>Cosine learning rate schedule</li>
+</ul>
+
+<p>SimCLR에서는 cosine learning rate scheduling 방법을 이용해 학습을 진행했습니다. MoCo v2에서도 기존의 개선 방안들에 cosine decay learning rate를 추가하여 학습했습니다.</p>
+
+<p><img src="assets/images/210414-MoCo/13-result-mocov2.png" alt="" /></p>
+
+<p>결과적으로 위 세가지 방법을 모두 이용하여 학습 시간을 충분히 늘려주었을 때, 71.1%로 SOTA의 성능을 보여주었습니다.또한 MoCo는 SimCLR과 비교해서 적은 batch size로도 학습이 가능하기 때문에 memory-efficiency 측면에서도 우세한 모습을 보여주었습니다.</p>
+
 <h2 id="summary">Summary</h2>
-<p>EfficientDet은 발표일 기준 COCO object detection task에 대해 SOTA의 성능 및 효율성을 보여준 획기적인 논문입니다. 실제로 공식 github 코드를 받아 자율주행 및 문자인식 데이터셋으로 fine-tuning하여 사용해보았는데, 다른 모델들과 비교하여 꽤나 뛰어난 성능을 보여주었습니다. 또한 각자의 자원 제약 조건(GPU 메모리 크기, 최대 추론 시간)에 맞는 최적의 모델을 선택할 수 있기 때문에 제가 사용하고 있는 GPU 메모리에 맞는 모델을 능동적으로 결정할 수 있어 효용성이 크다고 느꼈습니다.
-다만 Compound scaling을 적용함에 있어서 일정한 비율로 scale-up을 해줄 때 좀 더 최적화된 heuristic 또는 규칙이 있을 수도 있겠다는 생각이 듭니다. 어떤 모델이 EfficientDet의 성능 또는 효율성을 뛰어넘을 수 있을지 기대하며 이번 리뷰는 마치겠습니다. 읽어주셔서 감사합니다 :)</p>
+
+<p>MoCo는 크고 일관성 있는 negative sample dictionary를 구성해 학습 성능을 높이는데 초점을 맞춘 contrastive learning 기반의 모델입니다. 다양한 downstream task에 대한 unsupervised learning 기반 모델의 활용 가능성 또한 충분히 보여준 연구라고 생각합니다.</p>
+
+<p>MoCo와 SimCLR은 축구계의 메시와 호날두처럼 서로 긍정적인 경쟁을 하고 있는 것으로 보입니다. 두 논문이 서로 발전적으로 진화하는 모습을 지켜보는 것도 상당히 즐거울 것 같습니다. 이만 이번 리뷰는 마무리하겠습니다. 긴 글 읽어주셔서 감사합니다 :)</p>
 
 <p><strong>참고 문헌 및 출처</strong></p>
 
 <ol>
-  <li><a href="https://arxiv.org/pdf/1905.11946.pdf">https://arxiv.org/pdf/1905.11946.pdf</a></li>
-  <li><a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf">https://openaccess.thecvf.com/content_CVPR_2020/papers/Tan_EfficientDet_Scalable_and_Efficient_Object_Detection_CVPR_2020_paper.pdf</a></li>
-  <li><a href="https://github.com/google/automl/tree/master/efficientdet">https://github.com/google/automl/tree/master/efficientdet</a></li>
+  <li><a href="https://arxiv.org/abs/1911.05722">https://arxiv.org/abs/1911.05722</a></li>
+  <li><a href="https://arxiv.org/abs/2003.04297">https://arxiv.org/abs/2003.04297</a></li>
 </ol>
 
 
@@ -353,9 +364,9 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                     <div id="disqus_thread"></div>
                     <script>
                         var disqus_config = function () {
-                            this.page.url = 'https://rauleun.github.io/EfficientDet';
-                            this.page.identifier = '/EfficientDet';
-                            this.page.title = 'EfficientDet - Scalable and Efficient Object Detection 리뷰';
+                            this.page.url = 'https://rauleun.github.io/MoCo';
+                            this.page.identifier = '/MoCo';
+                            this.page.title = 'Momentum Contrast(MoCo) v1 & v2 리뷰';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -400,11 +411,6 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                                 
                                   
                                     
-                                        
-                                        
-                                            <li><a href="/MoCo">Momentum Contrast(MoCo) v1 & v2 리뷰</a></li>
-                                        
-                                    
                                   
                                 
                                   
@@ -431,6 +437,11 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                                   
                                 
                                   
+                                    
+                                        
+                                        
+                                            <li><a href="/EfficientDet">EfficientDet - Scalable and Efficient Object Detection 리뷰</a></li>
+                                        
                                     
                                   
                                 
@@ -460,53 +471,6 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/BERT">
-                <div class="post-card-image" style="background-image: url(/assets/images/201102-BERT/cover.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/BERT">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Nlp</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <span class="post-card-author">
-                            <a href="/author/rauleun/">Hyunsung Eun</a>
-                        </span>
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -514,12 +478,12 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/DETR">
-                <div class="post-card-image" style="background-image: url(/assets/images/200914-DETR/cover.png)"></div>
+            <a class="post-card-image-link" href="/SimCLR">
+                <div class="post-card-image" style="background-image: url(/assets/images/210410-SimCLR/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/DETR">
+            <a class="post-card-content-link" href="/SimCLR">
                 <header class="post-card-header">
                     
                         
@@ -529,7 +493,7 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
                         
                     
 
-                    <h2 class="post-card-title">(DETR) End-to-End Object Detection with Transformers 리뷰</h2>
+                    <h2 class="post-card-title">SimCLR v1 & v2 리뷰</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -571,18 +535,18 @@ EfficientDet은 multi-scale feature fusion을 위해 기존에 제안된 FPN류 
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">EfficientDet - Scalable and Efficient Object Detection 리뷰</div>
+    <div class="floating-header-title">Momentum Contrast(MoCo) v1 & v2 리뷰</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=EfficientDet+-+Scalable+and+Efficient+Object+Detection+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/EfficientDet"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Momentum+Contrast%28MoCo%29+v1+%26+v2+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/MoCo"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/EfficientDet"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/MoCo"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
