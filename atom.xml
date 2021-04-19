@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Momentum Contrast(MoCo) v3 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2104.02057&quot;&gt;Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021).&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 16 Apr 2021 09:00:00 +0900</pubDate>
+        <link>
+        https://rauleun.github.io/MoCo_v3</link>
+        <guid isPermaLink="true">https://rauleun.github.io/MoCo_v3</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Momentum Contrast(MoCo) v1 &amp; v2 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1911.05722&quot;&gt;He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://arxiv.org/abs/2003.04297&quot;&gt;Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020).&lt;/a&gt;&lt;/p&gt;

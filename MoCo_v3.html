@@ -11,7 +11,7 @@
 
 
 
-    <title>Momentum Contrast(MoCo) v1 & v2 리뷰</title>
+    <title>Momentum Contrast(MoCo) v3 리뷰</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -43,26 +43,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="machine learning research notes" />
     <link rel="shortcut icon" href="https://rauleun.github.io/" type="image/png" />
-    <link rel="canonical" href="https://rauleun.github.io/MoCo" />
+    <link rel="canonical" href="https://rauleun.github.io/MoCo_v3" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="RE Tech Archive" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Momentum Contrast(MoCo) v1 & v2 리뷰" />
-    <meta property="og:description" content="원문 : He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. &amp; Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020). 오늘은 FAIR에서 2020년에 CVPR에 발표한 Momentum contrast for unsupervised visual" />
-    <meta property="og:url" content="https://rauleun.github.io/MoCo" />
-    <meta property="og:image" content="https://rauleun.github.io/assets/images/210414-MoCo/cover.png" />
+    <meta property="og:title" content="Momentum Contrast(MoCo) v3 리뷰" />
+    <meta property="og:description" content="원문 : Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021). 오늘은 FAIR에서 최근에 발표한 An Empirical Study of Training Self-Supervised Visual Transformers (MoCo v3) 논문에 대해 리뷰를 진행해보려고 합니다. 논문에서는 기존의 MoCo v2를 개선한 MoCo v3를 소개하고 이를 ResNet이" />
+    <meta property="og:url" content="https://rauleun.github.io/MoCo_v3" />
+    <meta property="og:image" content="https://rauleun.github.io/assets/images/210416-MoCo_v3/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2021-04-14T09:00:00+09:00" />
-    <meta property="article:modified_time" content="2021-04-14T09:00:00+09:00" />
+    <meta property="article:published_time" content="2021-04-16T09:00:00+09:00" />
+    <meta property="article:modified_time" content="2021-04-16T09:00:00+09:00" />
     <meta property="article:tag" content="Cv" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Momentum Contrast(MoCo) v1 & v2 리뷰" />
-    <meta name="twitter:description" content="원문 : He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. &amp; Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020). 오늘은 FAIR에서 2020년에 CVPR에 발표한 Momentum contrast for unsupervised visual" />
+    <meta name="twitter:title" content="Momentum Contrast(MoCo) v3 리뷰" />
+    <meta name="twitter:description" content="원문 : Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021). 오늘은 FAIR에서 최근에 발표한 An Empirical Study of Training Self-Supervised Visual Transformers (MoCo v3) 논문에 대해 리뷰를 진행해보려고 합니다. 논문에서는 기존의 MoCo v2를 개선한 MoCo v3를 소개하고 이를 ResNet이" />
     <meta name="twitter:url" content="https://rauleun.github.io/" />
-    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/210414-MoCo/cover.png" />
+    <meta name="twitter:image" content="https://rauleun.github.io/assets/images/210416-MoCo_v3/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="RE Tech Archive" />
     <meta name="twitter:label2" content="Filed under" />
@@ -81,18 +81,18 @@
         "name": "RE Tech Archive",
         "logo": "https://rauleun.github.io/"
     },
-    "url": "https://rauleun.github.io/MoCo",
+    "url": "https://rauleun.github.io/MoCo_v3",
     "image": {
         "@type": "ImageObject",
-        "url": "https://rauleun.github.io/assets/images/210414-MoCo/cover.png",
+        "url": "https://rauleun.github.io/assets/images/210416-MoCo_v3/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://rauleun.github.io/MoCo"
+        "@id": "https://rauleun.github.io/MoCo_v3"
     },
-    "description": "원문 : He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. &amp; Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020). 오늘은 FAIR에서 2020년에 CVPR에 발표한 Momentum contrast for unsupervised visual"
+    "description": "원문 : Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021). 오늘은 FAIR에서 최근에 발표한 An Empirical Study of Training Self-Supervised Visual Transformers (MoCo v3) 논문에 대해 리뷰를 진행해보려고 합니다. 논문에서는 기존의 MoCo v2를 개선한 MoCo v3를 소개하고 이를 ResNet이"
 }
     </script>
 
@@ -105,7 +105,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Momentum Contrast(MoCo) v1 & v2 리뷰" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Momentum Contrast(MoCo) v3 리뷰" href="/feed.xml" />
 
 
 </head>
@@ -170,7 +170,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="14 April 2021">14 April 2021</time>
+                    <time class="post-full-meta-date" datetime="16 April 2021">16 April 2021</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -180,136 +180,169 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Momentum Contrast(MoCo) v1 & v2 리뷰</h1>
+                <h1 class="post-full-title">Momentum Contrast(MoCo) v3 리뷰</h1>
             </header>
             <!--
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/210414-MoCo/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/210416-MoCo_v3/cover.png)">
             </figure>
             
             -->
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>원문 : <a href="https://arxiv.org/abs/1911.05722">He, Kaiming, et al. “Momentum contrast for unsupervised visual representation learning.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.</a> &amp; <a href="https://arxiv.org/abs/2003.04297">Chen, Xinlei, et al. “Improved baselines with momentum contrastive learning.” arXiv preprint arXiv:2003.04297 (2020).</a></p>
+                    <p>원문 : <a href="https://arxiv.org/abs/2104.02057">Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021).</a></p>
 
-<p>오늘은 FAIR에서 2020년에 CVPR에 발표한 <em><strong>Momentum contrast for unsupervised visual representation learning (MoCo)</strong></em> 논문과 그 후속 연구로 약간의 성능을 개선한 <em><strong>Improved baselines with momentum contrastive learning (MoCo v2)</strong></em> 논문에 대해 리뷰를 진행해보겠습니다.</p>
+<p><img src="assets/images/210416-MoCo_v3/12-result.png" alt="" /></p>
 
-<p>MoCo는 SimCLR과 마찬가지로 contrastive loss를 이용한 unsupervised learning 방법입니다. 다만 negative pair를 추출하는 방식이나, query encoder를 update하는 방식에 약간의 차이가 있습니다. SimCLR에 대한 리뷰를 먼저 읽고 오시면 이해하기 좀 더 수월할 것 같습니다. 그럼 MoCo에 대한 소개를 시작하겠습니다!</p>
+<p>오늘은 FAIR에서 최근에 발표한 <em><strong>An Empirical Study of Training Self-Supervised Visual Transformers (MoCo v3)</strong></em> 논문에 대해 리뷰를 진행해보려고 합니다. 논문에서는 기존의 MoCo v2를 개선한 MoCo v3를 소개하고 이를 ResNet이 아닌 Transformer 기반 모델인 ViT에 적용하였습니다. MoCo 기반의 framework가 ViT를 만나서 어떤 결과를 보여주었을지 확인해보겠습니다.</p>
 
-<h2 id="contrastive-learning-as-dictionary-look-up">Contrastive Learning as Dictionary Look-up</h2>
+<h2 id="moco-v3">MoCo v3</h2>
 
-<p>Contrastive learning이란 데이터의 label 없이 네트워크 모델을 학습하는 unsupervised learning의 일종으로, positive pair 간의 유사도는 높이고 negative pair 간의 유사도는 낮추는 방향으로 모델을 학습하는 방법입니다. Contrastive learning을 수행하려면 positive pair와 negative pair를 추출해야 하는데, SimCLR에서는 하나의 batch 안에서 positive pair과 negative pair를 추출하였습니다. 이와 달리 MoCo에서는 특정 크기의 dictionary를 정의하여 sample들의 key값을 저장해두고, query와 matching되는 값을 positive key로, 나머지를 negative key로 분류하여 추출하였습니다.</p>
+<p>MoCo v3는 기존 MoCo v1/v2를 기반으로 하는 self-supervised learning framework입니다. 기본적인 MoCo에 대한 소개는 <a href="https://rauleun.github.io/MoCo">MoCo 리뷰글</a>을 참고하시면 좋을 것 같습니다.</p>
 
-<p><img src="assets/images/210414-MoCo/1-moco.png" alt="" /></p>
+<p>MoCo v3는 크게 두 가지 측면에서 개선되었습니다. 우선 MoCo v3는 기존 MoCo의 기반 아이디어 중 하나인 queue 구조의 dictionary를 없애고, SimCLR에서처럼 큰 batch size(default=4096)를 이용하여 batch 내부의 다른 이미지들을 negative sample로 활용했습니다.</p>
 
-<p>MoCo의 구조는 위의 그림과 같습니다. 각 이미지들에 대한 query와 key는 각각 query encoder와 key encoder를 이용하여 생성합니다. Encoder는 CNN 기반의 네트워크를 활용하며 MoCo에서는 ResNet을 활용하였습니다. 한 이미지에서 생성한 query는 같은 이미지로부터 생성한 key와 positive pair를 구성하고, 다른 이미지에서 생성한 key와 negative pair를 구성합니다.</p>
+<p>또한 MoCo v3는 기존의 projection head에 더해 prediction head를 추가하여 query encoder를 구성하였습니다. 이는 negative sample을 이용하지 않고도 성능을 극대화한 BYOL framework에서 아이디어를 얻은 것 같습니다.Query encoder와 달리 key encoder는 prediction head를 넣어주지 않았습니다.</p>
 
-<p>Contrastive loss를 이용하여 안정적으로 학습하려면 충분한 개수의 negative pair이 꼭 필요합니다. MoCo에서는 충분히 큰 크기의 dictionary를 queue 형태로 두고, dictionary에서 negative sample들을 추출하였습니다. Dictionary의 크기는 일반적으로 batch size보다 크며 논문에서는 기본값으로 65536개를 이용하였습니다. 만약 256개의 batch 단위로 학습을 진행한다면, 하나의 입력 이미지에 대해 query와 key를 생성하여 positive pair를 이루고 dictionary에 이미 들어있는 65536개의 key와 negative pair를 이루게 됩니다. Dictionary는 queue 구조를 가지고 있기 때문에 256개의 batch에 대해 학습이 완료되고 나면, 학습 과정에서 생성된 256개의 key들이 가장 오래된 256개의 key들을 대체하게 됩니다. 학습에 따라 dictionary의 구성이 update되기 때문에, 이를 dynamic dictionary라고 부르기도 합니다.</p>
+<p><img src="assets/images/210416-MoCo_v3/4-moco_version.png" alt="" /></p>
 
-<p>하지만 queue 구조의 큰 dictionary를 이용하게 되면, key encoder를 학습하는 과정에서 수많은 negative sample들에 대해 gradient를 전파해야하기 때문에 학습이 어려워집니다. 이를 해결하기 위해 key encoder를 따로 학습하지 않고(stop gradiet), 학습된 query encoder를 그대로 가져와서 이용해보았습니다.</p>
+<p>위 두 가지 개선사항으로 MoCo v3는 이전 버전과 비교해서 1.6%의 linear evaluation 성능 향상을 보여주었습니다. 지금부터는 MoCo v3 framework를 Transformer 기반 모델에 적용한 실험들에 대해 설명드리겠습니다.</p>
 
-<p><img src="assets/images/210414-MoCo/5-result-momentum.png" alt="" /></p>
+<h2 id="stability-of-self-supervised-vit-training">Stability of Self-Supervised ViT Training</h2>
 
-<p>위의 표에서 momentum=0 인 경우가 매 batch마다 query encoder를 그대로 key encoder로 이용하여 학습한 결과입니다. Loss가 전혀 수렴하지 않아서 학습이 되지 않았는데, 논문에서는 빠르게 변화하는 query encoder를 그대로 이용해서 key를 계산하게 되면 key값들의 consistency가 유지되지 않기 때문이라고 설명합니다.</p>
+<p>지금까지 대부분의 self-supervised learning 관련 연구들은 ResNet 기반의 encoder 구조를 이용하여 학습하고 평가하였습니다. 하지만 NLP 분야에서 self-supervised learning을 적용하여 큰 성공을 거둔 Bert나 GPT-3 등의 모델은 convolution이 아닌 self-attention mechanism을 활용한 Transformer 모델을 이용하였습니다. 또한 최근에는 CV 분야에서도 Transformer 모델을 기반으로 한 ViT 모델이 큰 주목을 받았고 좋은 성능을 보여주었습니다. 본 논문에서는 현재 연구 흐름에 따라, contrastive learning 기반의 self-supervised learning 방법을 Transformer 모델에 적용하였습니다.</p>
 
-<p><img src="assets/images/210414-MoCo/3-momentum-update.png" alt="" /></p>
+<p><img src="assets/images/210416-MoCo_v3/3-batch_size.png" alt="" /></p>
 
-<p>이를 해결하기 위해, momentum update를 적용시켜 key encoder를 천천히 진화시키는 방법을 이용했습니다. 위의 표에서 볼 수 있듯, 0.999의 momentum 값을 이용했을 때 가장 높은 정확도를 얻을 수 있었습니다. 이렇듯 dictionary 내의 key 구성이 consistent해야 학습이 안정적으로 진행되었습니다.</p>
+<p>하지만 막상 학습을 진행해보니, 학습의 불안정성과 관련한 문제가 대두되었습니다. 여러 실험들에서 batch size를 키울수록 학습 정확도가 조금씩 떨어지기에, 원인 분석을 위해 kNN 결과값을 좀 더 촘촘히 확인해보습니다.(기존에는 1 epoch마다 1번씩 확인했다면, 이후에는 10 iterations마다 1번씩 확인하였습니다.) 그러자 batch size를 키우면 키울수록 kNN curve에서 dips가 많이 관찰되고 전반적인 학습 정확도도 감소하였습니다.</p>
 
-<p>MoCo에서 강조하는 것은 크고 일관성 있는 dictionary의 구성입니다. MoCo는 queue 형태의 dictionary와 momentum update를 이용한 key encoder의 변화로 이를 가능하게 만들었습니다. 그렇다면 MoCo가 유사한 기존의 방법들과 어떻게 다른지에 대해 자세히 알아보겠습니다.</p>
-
-<h2 id="comparison-to-previous-mechanisms">Comparison to previous mechanisms</h2>
-
-<p><img src="assets/images/210414-MoCo/2-comparison-moco.png" alt="" /></p>
-
-<p>논문에서는 MoCo를 기존의 두 가지 방법과 비교하고 있습니다. <em>end to end</em> 라고 부르는 첫 번째 방법은, key encoder도 query encoder와 마찬가지로 똑같이 학습시켜주는 방법입니다. 이 경우에는 queue 형태의 dictionary를 사용하는 것이 아니라, mini-batch에 해당하는 sample들을 batch로 이용했기 때문에 GPU memory 크기에 제약을 받을 수 밖에 없게 됩니다. 따라서 MoCo에 비해 상대적으로 적은 수의 negative sample밖에 이용할 수 없고, large-batch optimization에 대한 issue도 문제가 됩니다.</p>
-
-<p><em>Memory bank</em> 를 이용하는 두 번째 방법은, 데이터셋에 존재하는 모든 sample들의 representation을 memory bank에 넣어두고, 임의로 몇 개의 sample을 골라 dictionary를 구성하는 방법입니다. 이후 query에 해당하는 sample들로 memory bank를 update하면서 학습을 진행합니다. 이 경우에 memory bank 안의 key들이 빠르게 변하는 query encoder의 결과값으로 update 되기 때문에, dictionary가 inconsistent해지고 학습이 제대로 되지 않았습니다. 이를 해결하기 위해 key를 update할 때 momentum update를 적용하였는데, encoder가 아니라 key값 자체가 update되는 것이기 때문에 한 epoch 뒤의 encoder output에 대한 값을 이용하게 되고, 마찬가지로 inconsistency 문제가 발생하였습니다.</p>
-
-<p>MoCo는 위 두 방법과 달리 queue 구조를 활용한 dictionary를 이용하기 때문에 충분한 양의 negative sample로 학습할 수 있습니다. 또한 memory-efficient하고 데이터셋의 크기가 클 때도 안정적으로 학습할 수 있습니다. (memory bank의 경우 데이터셋의 크기가 너무 크면, update 주기가 길어지기 때문에 학습이 불안정합니다.)</p>
-
-<p><img src="assets/images/210414-MoCo/4-result-momentum.png" alt="" /></p>
-
-<p>위의 그림은 세 방법에 대한 결과를 나타냅니다. <em>End-to-end</em> 방법은 MoCo와 비슷한 성능을 보이지만, 1024 이상으로 batch size를 키울 수 없었습니다. <em>Memory bank</em> 방법은 inconsistency issue로 인해 낮은 성능을 보여주었습니다.</p>
-
-<h2 id="momentum-contrast">Momentum Contrast</h2>
-
-<p>MoCo는 입력 이미지에 대해 random data augmentation을 거친 후 query 및 key encoder에 넣어주었습니다. Random data augmentation은 random resize/ random color jittering/ random horizontal flip/ random grayscale conversion의 순서로 구성했습니다.</p>
-
-<p><img src="assets/images/210414-MoCo/11-NCE-loss.png" alt="" /></p>
-
-<p>Constrastive learning을 위한 loss function은 InfoNCE라고 불리는 위와 같은 형태의 함수를 이용했습니다. <em>q</em> 는 query를, <em>k+</em> 는 positive key를, <em>t</em> 는 temperature htper-parameter를 의미합니다. <em>k+</em> 를 제외한 나머지 <em>k</em> 는 negative sample입니다.</p>
-
-<p>위 함수는 query와 positive key가 유사하고, 나머지 negative key와는 유사하지 않을때 값이 작아지는 cross-entropy 기반의 loss입니다. 유사도는 내적연산으로 계산합니다.</p>
-
-<p>또한 multi-gpu device로 학습하는 과정에서,  ResNet 구조 내부의 batch normalization 과정을 거칠 때 device별로 batch normalization을 해주었습니다. 이 때 데이터가 device 별로 편향되어서 batch normalization 과정에서 전체 data에 대한 정보를 잃는 현상이 있었습니다. 이를 해결하기 위해 MoCo에서는 device에 데이터를 분배할 때 random한 순서로 넣어주는 <em>shuffling batch normalization</em> 방법을 이용하였습니다.</p>
-
-<p>MoCo는 ImageNet-1M 데이터셋과 Instagram-1B 데이터셋을 이용하여 학습하였습니다. 학습은 256개의 batch 단위로 진행되었고,  65536개의 sample을 넣을 수 있는 queue 구조의 dictionary를 이용하였습니다. Encoder 구조는 ResNet-50을 이용하였고 200 epochs만큼 학습해주었습니다.</p>
-
-<h2 id="result">Result</h2>
-
-<p>학습된 MoCo 모델은 일반적으로 unsupervised learning 알고리즘을 평가할 때 이용하는 linear evaluation 방법으로 성능을 측정하였습니다. Linear evaluation은 학습된 모델을 고정(freeze)하고 그 위에 linear classifier를 얹어서 학습 후 결과를 측정하는 방법입니다.</p>
-
-<p><img src="assets/images/210414-MoCo/6-result-eval.png" alt="" /><br />
-<img src="assets/images/210414-MoCo/7-result-eval.png" alt="" /></p>
-
-<p>위의 그림은 linear evaluation 결과를 비교하고 있는데요. MoCo가 발표된 당시 기준으로 다른 unsupervised learning 방법과 비교해 SOTA의 성능을 보여주었습니다. (하지만 얼마 지나지 않아 더 좋은 성능을 보이는 모델-SimCLR이 발표되었습니다.)</p>
-
-<p>논문에서는 또한 MoCo가 object detection이나 segmentation 등 다른 task의 backbone 모델로 이용되었을 때 어떤 결과를 보이는지에 대해서도 실험했습니다. Pascal VOC와 COCO 데이터셋을 이용하여 실험했는데, Pascal VOC 데이터셋에 대한 결과만 보여드리겠습니다.</p>
-
-<p><img src="assets/images/210414-MoCo/8-result-ap.png" alt="" /></p>
-
-<p>MoCo는 scratch부터 학습하거나, supervised 방식으로 학습한 pretraining 모델을 이용한 경우보다 좋은 object detection 성능을 보여주었습니다.</p>
-
-<p><img src="assets/images/210414-MoCo/9-result-comparison.png" alt="" /></p>
-
-<p>MoCo는 <em>end-to-end</em> 나 <em>memory bank</em>와 비교했을 때도 AP 기준 더 높은 성능을 보였습니다. Classification task에 대해 더 유용한 visual representation이 object detection task에서도 더 뛰어난 결과를 보여주었습니다.</p>
-
-<p><img src="assets/images/210414-MoCo/10-result-unsupervised.png" alt="" /></p>
-
-<p>또한 RelPos, Jigsaw 등의 다른 unsupervised learning 알고리즘보다도 object detection task에서 뛰어난 성능을 보여주었습니다. Pre-training을 여러 데이터셋에 대해 진행했는데, 모두 같은 경향성을 보였습니다.</p>
-
-<h2 id="moco-v2">MoCo v2</h2>
-
-<p>저자들은 MoCo의 짧았던 전성기가 아쉬웠던지 곧이어  몇 가지 항목을 개선한 MoCo v2를 발표했습니다.  MoCo v2는 SimCLR을 벤치마킹해서 기존의 MoCo를 세 가지 부분에서 개선했는데요. 우선 MLP 기반의 projection head를 추가하였고, encoder에 들어가는 sample들의 data augmentation 구성을 최적화했으며, cosine learning rate schedule을 추가하였습니다.</p>
-
-<p><img src="assets/images/210414-MoCo/12-result-mocov2.png" alt="" /></p>
+<p>위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보엿습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.</p>
 
 <ul>
-  <li>MLP projection head</li>
+  <li>learning rate</li>
 </ul>
 
-<p>기존 MoCo와 SimCLR의  encoder network는 모두 ResNet을 기반으로 하고있지만, 약간의 구조적 차이가 존재합니다. MoCo는 ResNet의 마지막 global average-pooling layer와 연결된 linear layer(출력차원=128)까지를 기본 encoder로 이용했고, SimCLR은 global average-pooling layer까지를 base encoder로 이용하고 뒤에 MLP 구조의 projection head를 연결하였습니다.</p>
+<p><img src="assets/images/210416-MoCo_v3/5-learning_rate.png" alt="" /></p>
 
-<p>SimCLR의 핵심적인 아이디어 중 하나가, 학습에만 projection head를 사용하고 학습이 완료된 후에는 projection head를 제외한 구조로 visual representation을 추출하는 것인데요. MoCo는 이러한 SimCLR의 구조를 그대로 차용하여 실험했습니다. 실험 결과 MLP projection head를 이용하기 전보다 5.6%의 linear evaluation 성능이 향상되었습니다.</p>
+<p>Learning rate는 batch size에 따라 linear하게 결정하는 <em>linear scaling rule (lr x batch_size/256)</em> 에 따라 결정하였습니다. <em>lr</em> 은 hyper-parameter로써 여러 값을 비교해서 실험했습니다. 위의 그림에서 <em>lr</em> 의 크기가 너무 커지면 dips가 많아지며 학습이 불안정해지는 것을 확인할 수 있었습니다. 또한 <em>lr</em> 의 크기가 너무 작으면, 학습이 under-fitting되어 성능이 낮게 측정되었습니다. 결론적으로 적절한 <em>lr</em> 을 찾는 것이 중요했습니다.</p>
 
 <ul>
-  <li>Data augmentation</li>
+  <li>Optimizer</li>
 </ul>
 
-<p>SimCLR에서는 다양한 data augmentation의 조합에 따른 성능을 비교하여, augmentation의 구성을 결정했습니다. MoCo v2도 여러가지 실험을 통해, 기존의 augmentation에 Gaussian blurring을 추가하였습니다. 추가한 결과 기존에 비해 2.8%의 성능이 향상되었습니다.</p>
+<p><img src="assets/images/210416-MoCo_v3/6-optimizer.png" alt="" /></p>
+
+<p>기존 ViT에서는 AdamW optimizer를 이용하여 학습하였습니다. 하지만 SimCLR이나 BYOL 등에서 크기가 큰 batch size를 이용할 때 LARS optimizer를 이용하면 학습이 잘 된다고 이야기하였고, 논문에서는 AdamW의 LARS 버전인 LAMB optimizer를 이용하여 결과를 비교하였습니다. 위의 그림은 LAMB optimizer를 이용했을 때의 training curve인데, <em>lr</em> 에 따라 중간중간에 기울기가 매우 낮은 dips가 관찰되었습니다. 전반적으로 LAMB가 AdamW보다 <em>lr</em> 에 sensitive한 모습을 보였기 때문에 논문에서는 AdamW를 default optimizer로 이용했습니다.</p>
 
 <ul>
-  <li>Cosine learning rate schedule</li>
+  <li>Freezing patch projection layer</li>
 </ul>
 
-<p>SimCLR에서는 cosine learning rate scheduling 방법을 이용해 학습을 진행했습니다. MoCo v2에서도 기존의 개선 방안들에 cosine decay learning rate를 추가하여 학습했습니다.</p>
+<p>위의 실험 결과들 대부분에서 ViT + MoCo v3는 불안정한 학습을 보여주었습니다. 불안정성에 대한 원인을 좀 더 자세히 파악하기 위해, layer 별로 학습이 진행됨에 따라 gradient의 추이를 그려보았습니다.</p>
 
-<p><img src="assets/images/210414-MoCo/13-result-mocov2.png" alt="" /></p>
+<p><img src="assets/images/210416-MoCo_v3/7-gradient.png" alt="" /></p>
 
-<p>결과적으로 위 세가지 방법을 모두 이용하여 학습 시간을 충분히 늘려주었을 때, 71.1%로 SOTA의 성능을 보여주었습니다.또한 MoCo는 SimCLR과 비교해서 적은 batch size로도 학습이 가능하기 때문에 memory-efficiency 측면에서도 우세한 모습을 보여주었습니다.</p>
+<p>실험 과정에서 gradient의 급격한 변화가 kNN accuracy에서의 dips를 발생하시키며, 이러한 gradient의 급격한 변화는 주로 첫 번째 layer에서 발생하여 뒤의 layer로 전파되는 형태를 띄는 것을 확인했습니다. 이로부터 첫 번째 layer에서 불안정성이 발생한다고 가정하였고, 이를 해결하기 위해 가장 앞 단의 layer인 patch projection layer를 고정한 채 학습을 진행했습니다. 즉 patch를 embedding으로 변환해주는 layer를 학습하지 않음으로써 random patch projection을 수행했습니다.</p>
+
+<p><img src="assets/images/210416-MoCo_v3/8-random_patch_proj.png" alt="" /></p>
+
+<p>놀랍게도 random patch projection을 이용한 결과 training curve에서의 dips는 사라졌고, 학습의 안정성이 개선되자 전반적인 학습의 정확도도 향상되었습니다. Random patch projection을 이용하면 모든 <em>lr</em> 에서 안정화된 학습 결과를 보여주었습니다. 또한 MoCo 뿐만 아니라 SimCLR, BYOL을 ViT에 적용시킨 경우에도 기존의 ViT에서는 학습 과정이 불안정했지만, gradient를 통과시키지 않고 patch projection layer를 고정하자 학습이 안정화되었습니다.</p>
+
+<p><img src="assets/images/210416-MoCo_v3/9-random_patch_others.png" alt="" /></p>
+
+<p>그렇다면 random patch projection layer가 성능을 향상시킬 수 있었던 이유가 무엇일까요. 우선 patch projection matrix은 768차원으로, 각 patch와 정확히 같은 차원(16x16x3)을 가지기 때문에 정보의 손실이 발생하지 않습니다. Patch projection layer를 고정시키면 최적화해야할 parameter의 개수가 줄어들게 되고, 이는 solution space를 점진적으로 줄여나가는 과정의 일부라고 해석합니다. 따라서 논문은 ViT의 불안정성한 학습의 근본적인 원인은 최적화의 어려움이며, 이를 위해서는 근본적인 해결책이 있어야 한다고 이야기합니다. (해결책을 제시하지는 않고 있습니다.)</p>
+
+<h2 id="training-details">Training Details</h2>
+
+<p>ViT + MoCo v3는 기본 모델 위에 projection 및 prediction head를 추가한 구조로 학습을 진행하였습니다. 이 때 projection head와 prediction head는 각각 2-, 3-layer로 구성된 ReLU가 포함된 MLP 형태입니다. 또한 모든 layer들에는 batch normalization 과정이 포함되어 있습니다.</p>
+
+<p>Loss function으로는 MoCo에서 기존에 이용한 InfoNCE loss를 scaling하여 이용하였습니다. InfoNCE loss는 아래의 식을 가지는 contrastive loss입니다.</p>
+
+<p><img src="assets/images/210416-MoCo_v3/2-infonce_loss.png" alt="" /></p>
+
+<p>모델 구조는 기본적인 ViT의 구조를 따르고 있고, input patch의 크기는 <em>14x14</em> 또는 <em>16x16</em> 을 이용하였습니다. ViT에서와 마찬가지로 positional embedding을 통해 patch의 위치 정보를 부여하였는데, 기본값으로 sinosoidal positional encoding을 이용했습니다. 또한 학습가능한 class token을 두어 Transformer block을 통과하게 한 뒤 output으로 이용했습니다. Class token의 output은 MLP layer들의 input vector로 이용되었습니다.</p>
+
+<p>학습에 대한 평가는 linear evaluation(probing)을 통해서 진행했습니다. 학습이 종료된 후 projection head와 prediction head를 제거하고, linear classifier를 이어붙여 학습해주었습니다. 이 때 SGD optimizer와 4096의 batch size로 학습했습니다.</p>
+
+<h2 id="results">Results</h2>
+
+<p><img src="assets/images/210416-MoCo_v3/10-vit_model_size.png" alt="" /></p>
+
+<p>논문에서는 크게 네 가지 ViT 모델을 이용하여 실험하였습니다. ViT는 ResNet에 비해 parameter 수가 훨씬 많기 때문에, 더 많은 학습 시간과 학습 자원이 필요했습니다. 위의 표는 모델 별로 학습에 사용된 자원과 학습 시간을 보여주고 있습니다. 기본 모델로 이용한 ViT-Base 모델은 100 epochs를 학습하는 데 TPU core 256개를 약 2.1시간동안 이용했습니다.</p>
+
+<p><img src="assets/images/210416-MoCo_v3/11-result_other_frameworks.png" alt="" /></p>
+
+<p>ViT + MoCo v3는 ViT를 다양한 self-supervised framework로 학습한 여러 모델들보다 더 좋은 성능을 보여주었습니다. 위의 표는 MoCo v3와 SimCLR, BTOL, SwAV를 비교하고 있는데요, ResNet backbone의 경우 BYOL이 가장 좋은 성능을 보여주었지만, ViT backbone의 경우에는 MoCo v3가 우월한 성능을 보여주었습니다. 특히 MoCo와 SimCLR은 Transformer 기반의 backbone에서 상대적으로 더 잘 작동하는 것을 확인할 수 있습니다.</p>
+
+<p><img src="assets/images/210416-MoCo_v3/1-moco_v3_sota.png" alt="" /></p>
+
+<p>또한 MoCo v3는 masked patch prediction 기반의 iGPT나 ViT보다도 좋은 성능을 보여주며, self-supervised learning 모델의 ImageNet linear evaluation에서 SOTA의 성능을 보여주었습니다. 특히 Batch normalization을 추가한 <em>7x7</em> patch size의 ViT-L 모델은, 이전의 patch size를 이용했을 때보다 약 6배의 계산량을 이용해야 했지만, 무려 <strong>81.0%</strong>의 정확도를 기록했습니다.</p>
+
+<p>또한 self-supervised learning을 통해 학습한 ViT 모델들은 크기가 커질수록 더 높은 정확도를 보여주었습니다. 이는 ImageNet-1k/21k로 supervised learning을 통해 학습할 때 ViT-L보다 ViT-B가 높은 정확도를 보인 것과 상반된 결과였습니다. 이를 통해 self-supervised 기반의 representation learning이 over-fitting에 훨씬 더 강인하다는 것을 확인할 수 있었습니다.</p>
+
+<h2 id="ablation-studies">Ablation Studies</h2>
+
+<ul>
+  <li>Positional embedding</li>
+</ul>
+
+<p><img src="assets/images/210416-MoCo_v3/13-ablation_positional_embedding.png" alt="" /></p>
+
+<p>Sinosoidal positional embedding과 학습가능한 positional embedding, 그리고 positional embedding을 아예 이용하지 않았을 때의 경우를 비교하여 실험했습니다. 결과는 sinosoidal positional embedding을 이용했을 때가 아무런 positional embedding을 이용하지 않았을 때보다 1.6%정도 더 좋았습니다. 이는 Transformer가 위치 정보 없이도 물체의 종류를 충분히 잘 파악하는 것으로 해석할 수도 있지만, 현재 사용중인 positional embedding이 patch의 정보를 나타내기에 충분하지 않고 더 좋은 positional embedding 방법이 필요하다는 의미로 해석할 수도 있을 것 같습니다.</p>
+
+<ul>
+  <li>Class token</li>
+</ul>
+
+<p><img src="assets/images/210416-MoCo_v3/14-ablation_class_token.png" alt="" /></p>
+
+<p>Class token을 이용하여 output으로 이용했을 때와 class token 없이 sequence의 모든 final embedding vector들에 대한 global-average pooling을 거친 값을 output으로 이용했을 때, 그리고 후자의 경우에 layer normalization을 추가한 경우를 비교하여 실험했습니다. 앞선 두 경우는 거의 유사한 성능을 보여주었고, layer normalization은 오히려 정확도를 떨어트렸습니다. ViT 학습시에 class token이 꼭 필요하지는 않다는 것을 보여주었습니다.</p>
+
+<ul>
+  <li>BatchNorm in MLP heads</li>
+</ul>
+
+<p><img src="assets/images/210416-MoCo_v3/15-ablation_bn.png" alt="" /></p>
+
+<p>Batch normalization을 MLP heads에 포함한 경우, 포함하지 않은 경우보다 2.1%의 성능이 향상되었습니다.</p>
+
+<ul>
+  <li>Prediction head</li>
+</ul>
+
+<p><img src="assets/images/210416-MoCo_v3/16-ablation_pred.png" alt="" /></p>
+
+<p>BYOL에서 사용한 prediction head는 사용하지 않았을 경우와 비교해 ViT의 정확도를 1% 정도 향상시켰습니다.</p>
+
+<ul>
+  <li>Momentum encoder</li>
+</ul>
+
+<p><img src="assets/images/210416-MoCo_v3/17-ablation_momentum.png" alt="" /></p>
+
+<p>MoCo의 기본 아이디어 중의 하나인 momentum encoder의 정도에 대한 ablation study를 진행하였습니다. m=0인 경우는 key encoder를 따로 학습하는 SimCLR과 같은 형태의 학습 방법인데, 이는 SimCLR의 성능(73.9%)과 유사한 결과를 보여주었습니다. Momentum encoder의 이용은 결과적으로 2.2% 더 정확한 결과를 얻게 해주었습니다.</p>
+
+<h2 id="transfer-learning">Transfer Learning</h2>
+
+<p>논문에서는 linear evaluation 외에도 CIFAR-10/100, Oxford Flowes-102 등 다양한 데이터셋을 활용한 transfer learning을 통해 ViT + MoCo v3의 성능을 평가했습니다.</p>
+
+<p><img src="assets/images/210416-MoCo_v3/18-transfer_learning.png" alt="" /></p>
+
+<p>Scratch부터 학습을 진행한 경우, overfitting이 발생해서인지 학습이 제대로 되지 않았습니다. MoCo v3를 이용한 경우, ImageNet 데이터셋으로 supervised learning을 통해 학습했을 때보다 더 좋은 성능을 보여주었습니다. 비교적 일반적인 시각적 특징을 파악했기 때문에, supervised learning을 이용한 경우보다 saturation이 천천히 일어난 것으로 해석할 수 있을 것 같습니다.</p>
 
 <h2 id="summary">Summary</h2>
 
-<p>MoCo는 크고 일관성 있는 negative sample dictionary를 구성해 학습 성능을 높이는데 초점을 맞춘 contrastive learning 기반의 모델입니다. 다양한 downstream task에 대한 unsupervised learning 기반 모델의 활용 가능성 또한 충분히 보여준 연구라고 생각합니다.</p>
+<p>본 논문에서는 CV 분야에서 처음으로 self-supervised Transformer 모델을 학습하였습니다. 학습의 불안정성 문제와 더불어 다양한 Open question을 제시한 의미있는 논문이라고 생각됩니다.</p>
 
-<p>MoCo와 SimCLR은 축구계의 메시와 호날두처럼 서로 긍정적인 경쟁을 하고 있는 것으로 보입니다. 두 논문이 서로 발전적으로 진화하는 모습을 지켜보는 것도 상당히 즐거울 것 같습니다. 이만 이번 리뷰는 마무리하겠습니다. 긴 글 읽어주셔서 감사합니다 :)</p>
+<p>NLP 분야의 Transformer 기반 모델들과 달리, CV 분야에서는 아직 학습이 완벽하게 되지 않은 상태에서 모델이 saturation되는 것을 확인할 수 있었는데요. 이는 언어 기반 데이터와 이미지 기반 데이터 자체의 차이에서 기인할 수도 있지만, 각각의 sample들을 기반으로 학습하는 contrastive learning 기반의 task가 충분히 어렵지 않아서 일수도 있다는 생각이 듭니다.</p>
+
+<p>또한 positional embedding 등 충분히 연구되지 않은 부분에서 구조적인 발전이 지속적으로 이루어진다면, BERT와 맞먹는 visual representation learner도 충분히 탄생할 수 있을 것이라고 기대합니다. 그럼 긴 글 읽어주셔서 감사합니다. 궁금한 점은 언제나 댓글로 달아주시고, 다음 리뷰로 찾아오겠습니다 :)</p>
 
 <p><strong>참고 문헌 및 출처</strong></p>
 
 <ol>
   <li><a href="https://arxiv.org/abs/1911.05722">https://arxiv.org/abs/1911.05722</a></li>
-  <li><a href="https://arxiv.org/abs/2003.04297">https://arxiv.org/abs/2003.04297</a></li>
+  <li><a href="https://arxiv.org/abs/2104.02057">https://arxiv.org/abs/2104.02057</a></li>
 </ol>
 
 
@@ -366,9 +399,9 @@ into the {body} of the default.hbs template -->
                     <div id="disqus_thread"></div>
                     <script>
                         var disqus_config = function () {
-                            this.page.url = 'https://rauleun.github.io/MoCo';
-                            this.page.identifier = '/MoCo';
-                            this.page.title = 'Momentum Contrast(MoCo) v1 & v2 리뷰';
+                            this.page.url = 'https://rauleun.github.io/MoCo_v3';
+                            this.page.identifier = '/MoCo_v3';
+                            this.page.title = 'Momentum Contrast(MoCo) v3 리뷰';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -413,14 +446,14 @@ into the {body} of the default.hbs template -->
                                 
                                   
                                     
-                                        
-                                        
-                                            <li><a href="/MoCo_v3">Momentum Contrast(MoCo) v3 리뷰</a></li>
-                                        
-                                    
                                   
                                 
                                   
+                                    
+                                        
+                                        
+                                            <li><a href="/MoCo">Momentum Contrast(MoCo) v1 & v2 리뷰</a></li>
+                                        
                                     
                                   
                                 
@@ -480,53 +513,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/MoCo_v3">
-                <div class="post-card-image" style="background-image: url(/assets/images/210416-MoCo_v3/cover.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/MoCo_v3">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Cv</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Momentum Contrast(MoCo) v3 리뷰</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <span class="post-card-author">
-                            <a href="/author/rauleun/">Hyunsung Eun</a>
-                        </span>
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -534,12 +520,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/SimCLR">
-                <div class="post-card-image" style="background-image: url(/assets/images/210410-SimCLR/cover.png)"></div>
+            <a class="post-card-image-link" href="/MoCo">
+                <div class="post-card-image" style="background-image: url(/assets/images/210414-MoCo/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/SimCLR">
+            <a class="post-card-content-link" href="/MoCo">
                 <header class="post-card-header">
                     
                         
@@ -549,7 +535,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">SimCLR v1 & v2 리뷰</h2>
+                    <h2 class="post-card-title">Momentum Contrast(MoCo) v1 & v2 리뷰</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -591,18 +577,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Momentum Contrast(MoCo) v1 & v2 리뷰</div>
+    <div class="floating-header-title">Momentum Contrast(MoCo) v3 리뷰</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Momentum+Contrast%28MoCo%29+v1+%26+v2+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/MoCo"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Momentum+Contrast%28MoCo%29+v3+%EB%A6%AC%EB%B7%B0&amp;url=https://rauleun.github.io/MoCo_v3"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/MoCo"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://rauleun.github.io/MoCo_v3"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
