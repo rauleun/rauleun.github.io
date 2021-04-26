@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://rauleun.github.io/tag/cv/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
-  <updated>2021-04-19T20:58:01+09:00</updated>
+  <updated>2021-04-26T19:23:15+09:00</updated>
   <id>https://rauleun.github.io/tag/cv/feed.xml</id>
 
   
@@ -63,7 +63,7 @@
 
 &lt;p&gt;하지만 막상 학습을 진행해보니, 학습의 불안정성과 관련한 문제가 대두되었습니다. 여러 실험들에서 batch size를 키울수록 학습 정확도가 조금씩 떨어지기에, 원인 분석을 위해 kNN 결과값을 좀 더 촘촘히 확인해보습니다.(기존에는 1 epoch마다 1번씩 확인했다면, 이후에는 10 iterations마다 1번씩 확인하였습니다.) 그러자 batch size를 키우면 키울수록 kNN curve에서 dips가 많이 관찰되고 전반적인 학습 정확도도 감소하였습니다.&lt;/p&gt;
 
-&lt;p&gt;위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보엿습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.&lt;/p&gt;
+&lt;p&gt;위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보였습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;learning rate&lt;/li&gt;
@@ -274,7 +274,7 @@
 
 &lt;p&gt;&lt;img src=&quot;assets/images/210414-MoCo/11-NCE-loss.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Constrastive learning을 위한 loss function은 InfoNCE라고 불리는 위와 같은 형태의 함수를 이용했습니다. &lt;em&gt;q&lt;/em&gt; 는 query를, &lt;em&gt;k+&lt;/em&gt; 는 positive key를, &lt;em&gt;t&lt;/em&gt; 는 temperature htper-parameter를 의미합니다. &lt;em&gt;k+&lt;/em&gt; 를 제외한 나머지 &lt;em&gt;k&lt;/em&gt; 는 negative sample입니다.&lt;/p&gt;
+&lt;p&gt;Constrastive learning을 위한 loss function은 InfoNCE라고 불리는 위와 같은 형태의 함수를 이용했습니다. &lt;em&gt;q&lt;/em&gt; 는 query를, &lt;em&gt;k+&lt;/em&gt; 는 positive key를, &lt;em&gt;t&lt;/em&gt; 는 temperature hyper-parameter를 의미합니다. &lt;em&gt;k+&lt;/em&gt; 를 제외한 나머지 &lt;em&gt;k&lt;/em&gt; 는 negative sample입니다.&lt;/p&gt;
 
 &lt;p&gt;위 함수는 query와 positive key가 유사하고, 나머지 negative key와는 유사하지 않을때 값이 작아지는 cross-entropy 기반의 loss입니다. 유사도는 내적연산으로 계산합니다.&lt;/p&gt;
 

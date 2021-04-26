@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://rauleun.github.io/author/rauleun/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://rauleun.github.io/" rel="alternate" type="text/html" />
-  <updated>2021-04-19T20:58:01+09:00</updated>
+  <updated>2021-04-26T19:23:15+09:00</updated>
   <id>https://rauleun.github.io/author/rauleun/feed.xml</id>
 
   
@@ -30,6 +30,217 @@
   
   
 
+  
+    <entry>
+      <title type="html">RandLA-Net 리뷰</title>
+      <link href="https://rauleun.github.io/RandLA-Net" rel="alternate" type="text/html" title="RandLA-Net 리뷰" />
+      <published>2021-04-23T09:00:00+09:00</published>
+      <updated>2021-04-23T09:00:00+09:00</updated>
+      <id>https://rauleun.github.io/RandLA-Net</id>
+      <content type="html" xml:base="https://rauleun.github.io/RandLA-Net">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1911.11236&quot;&gt;Hu, Qingyong, et al. “Randla-net: Efficient semantic segmentation of large-scale point clouds.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘은 2020년 CVPR에서 발표한 &lt;strong&gt;&lt;em&gt;RandLA-Net: Efficient Semantic Segmentation of Large-Scale Point Clouds&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰를 진행해보려 합니다.&lt;/p&gt;
+
+&lt;p&gt;RandLA-Net은 큰 크기의 3D point cloud 데이터셋에 대해 시간 및 메모리 측면에서 효율적으로 Segmentation task를 수행하고, 결과적으로 높은 Segmentation 정확도를 보여주었습니다. 그렇다면 RandLA-Net에 대한 소개를 시작하겠습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;large-scale-point-clouds&quot;&gt;Large-scale Point Clouds&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/1-large_scale_dataset.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;PointNet을 시작으로, deep learning network를 이용해 3D point cloud 데이터를 처리하는 연구가 활발히 진행되고 있습니다. 하지만 몇몇 모델(&lt;a href=&quot;https://rauleun.github.io/Superpoint-Graphs&quot;&gt;Superpoint Graphs&lt;/a&gt;)을 제외한 대부분의 모델들은 연산량 및 메모리의 한계때문에 작은 크기의 점들로 구성된 point cloud 데이터만을 input으로 넣을 수 있고, 결국 공간을 1x1 제곱미터 또는 4,096개씩 단위로 subsampling해서 input으로 넣어주곤 합니다.&lt;/p&gt;
+
+&lt;p&gt;Subsampling을 하지 않은 large-scale point cloud 데이터셋을 그대로 이용하게 되면 subsampling 과정을 통해서 손실되는 정보가 없고, 공간 전체의 구조를 보면서 feature를 추출할 수 있기 때문에 복잡하고 큰 기하학적 구조도 학습할 수 있으며, voxelization이나 graph construction 등 별도의 전/후처리 과정이 필요하지 않습니다. 하지만 연산량 및 메모리적으로 무거워지고, 복잡한 기하학적 구조 때문에 학습이 잘 되지 않을 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;기존 모델들에서 연산량이 많아 병목이 생기는 부분은 점들에 대해 down-sampling을 진행하는 부분이었습니다. 예를 들어 PointNet이나 GACnet, Point Transformer 등은 모두 farthest point sampling(FPS) 알고리즘을 통해 점들을 선택하는데, FPS 알고리즘의 시간복잡도는 &lt;em&gt;O(N2)&lt;/em&gt; 으로 점들의 개수의 제곱에 비례해서 커지게 됩니다. 따라서 점들의 개수가 많아지면, 계산량이 급격하게 많아져 학습 시간이 길어지고 학습의 효율성이 떨어집니다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하기 위해 RandLA-Net에서는 &lt;strong&gt;random sampling (RS)&lt;/strong&gt;을 이용해 down-sampling을 진행했습니다. Random sampling은 &lt;em&gt;O(1)&lt;/em&gt; 의 시간복잡도를 가진 연산이기 때문에, 점들의 개수가 많아져도 연산량이 늘어나지 않습니다. 다만 RS 알고리즘은 임의로 점들을 선택하기 때문에, 이를 이용하는 경우 중요한 점들을 소실하여 전체 point cloud에 대한 대표성을 잃어버릴 수 있습니다. RandLA-Net에서는 이를 보완하기 위해 강력한 &lt;strong&gt;local feature aggregation module&lt;/strong&gt;을 제안하여 point cloud의 중요한 feature들을 유지할 수 있도록 네트워크를 설계했습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;efficient-sampling&quot;&gt;Efficient Sampling&lt;/h2&gt;
+
+&lt;p&gt;Point cloud를 구성하는 점들의 개수를 줄이면서 인접한 점들의 특징을 통합해주는 downsampling 과정은 convolution 기반 네트워크의 pooling layer와 같은 역할을 하는 중요한 과정입니다. 지금까지 연구된 다양한 downsampling 방법론들을 소개하고 장단점 및 특징을 정리해보겠습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Farthest Point Sampling (FPS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;FPS는 N개의 점들 중 서로 가장 거리가 먼 K개의 점들을 추출하는 sampling 알고리즘입니다. 전체 point set에 대해서 골고루 점들을 추출할 수 있기 때문에 정보를 잘 소실하지 않고, 이 때문에 가장 널리 이용되는 sampling 알고리즘입니다. 하지만 시간복잡도가 &lt;em&gt;O(N2)&lt;/em&gt; 으로 크기 때문에, 점들의 개수가 많은 point set에 이용하기에는 연산량이 많아 비효율적입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Inverse Density Inportance Sampling (IDIS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;IDIS는 각 점들의 density를 측정하고, 그에 따라 N개의 점들 중 density가 높은 K개의 점들을 추출하는 sampling 알고리즘입니다. 시간복잡도는 &lt;em&gt;O(N)&lt;/em&gt; 으로 FPS보다 효율적입니다. 다만 density가 높은 점들 위주로 sampling을 하기 때문에, sparse하지만 중요하게 여겨지는 일부 정보들을 소실할 수 있습니다. 또한 &lt;em&gt;O(N)&lt;/em&gt; 의 시간복잡도로는 실시간 3D segmentation을 수행하기에 여전히 연산량이 많습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Random Sampling (RS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;RS는 N개의 점들 중 임의로 K개의 점들을 추출하는 sampling 알고리즘입니다. 시간복잡도는 &lt;em&gt;O(1)&lt;/em&gt; 로 전체 점의 개수에 무관하게 결정됩니다. 이렇듯 RS는 계산량 측면에서 가장 효율적이지만, sampling한 점들이 전체 점들을 대표하지 못하고 중요한 정보를 잘 잃어버리기 때문에 일반적으로 사용하지 않는 방법입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Generator-based Sampling (GS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;GS는 학습된 네트워크를 통해 point cloud를 잘 대표할 수 있는 점들을 추출합니다. 하지만 기존의 점들과 sampling 이후의 점들을 matching하는 과정에서 FPS 알고리즘이 들어가기 때문에, 계산량 측면에서 비효율적입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Continuous Relaxation based Sampling (CRS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CRS는 모든 점들에 대한 가중합을 통해 sampling point들을 추출하는 방법이라고 합니다. 이 때 모든 점들의 feature vector를 input으로 받는 아주 큰 차원의 weight matrix가 필요하기 때문에 메모리 측면에서 비효율적입니다. 일반적으로 점들의 개수가 많아지면, 수백GB의 GPU 메모리가 필요하기 때문에 잘 사용하지 않는다고 합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Policy Gradient based Sampling (PGS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;PGS는 Markov decision process를 통해 sampling을 위한 확률분포값을 학습합니다. N개의 점들 중 어떠한 K개의 점들을 선택했을 때 reward가 가장 높을 지를 exploration 과정을 통해서 학습하는데, 점들의 개수가 많아지게 되면 exploration space가 커지게 되어 reward가 높은 지점을 잘 찾지 못하게 됩니다. 즉, large point cloud 데이터셋에 대해서는 손실함수가 잘 수렴하지 않아 네트워크 학습이 잘 되지 않는다고 합니다.&lt;/p&gt;
+
+&lt;p&gt;정리해보면, FPS, IDIS, GS는 연산량 측면에서 비효율적이고, CRS는 메모리 측면에서 비효율적이며, PGS는 학습이 잘 안된다는 문제가 발생합니다. 반면에 random sampling은 계산량 측면에서 효율적이고 메모리가 많이 필요하지도 않습니다. 따라서 large-scale point cloud 데이터셋을 다루기에는 가장 적절한 sampling 기법입니다. 다만, random sampling는 임의의 점들을 선정하는 방법이기 때문에 sampling 과정에서 중요한 점들이 소실될 수 있습니다. 이를 보완하기 위해서 RandLA-Net에서는 강력한 local feature aggregation module을 제안하였습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;local-feature-aggregation&quot;&gt;Local Feature Aggregation&lt;/h2&gt;
+
+&lt;p&gt;RandLA-Net은 &lt;em&gt;Dilated Residual Block&lt;/em&gt;을 이용해서 feature vector를 통합해주었습니다. Dilated residual block은 &lt;em&gt;Local Spatial Encoding(LocSE) block&lt;/em&gt;과 &lt;em&gt;Attentive Pooling block&lt;/em&gt; 으로 구성되어 있습니다. 각각이 어떤 역할을 하는지 확인해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/2-feature_aggregation.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Local Spatial Encoding (LocSE)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/15-position_feature.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;LocSE block은 크게 두 부분으로 구성되어 있습니다. 우선 하나의 중심점(&lt;em&gt;p&lt;/em&gt;)에 대해 인접한 K개의 점들을(&lt;em&gt;p1 ~ pk&lt;/em&gt;) KNN 알고리즘을 통해 선정합니다. 이후 중심점과 각 인접한 점 사이의 위치 관계를 담은 relative point position vector를 위와 같은 형식으로 추출합니다. 이 때 &lt;em&gt;p&lt;/em&gt; 와 &lt;em&gt;pk&lt;/em&gt; 는 점들의 xyz 좌표를 의미하고, +는 concatenation 연산을, ㅣㅣ는 유클리드 거리 연산을 의미합니다. Relative point position vector는 총 10차원의 벡터이며(3+3+3+1), 중심점과 주변 점들 사이의 공간적인 위치 정보를 담고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/16-position_feature_encoding.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후 각 벡터를 MLP layer에 통과시켜서 feature vector와 같은 차원으로 변환하는데, 이를 &lt;em&gt;relative point position encoding&lt;/em&gt; 이라고 부릅니다. 논문에서는 relative point position encoding 과정이 기하학적 패턴이나 복잡한 점들 간의 구조를 파악하는 데 효과적이라고 이야기하고 있습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Attentive Pooling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/4-attentive_score.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;LocSE를 통해서 얻은 spatial encoding vector는 feature vector와의 concatenation을 통해 총 &lt;em&gt;K x 2d&lt;/em&gt; 크기의 행렬로 변환됩니다. Attentive pooling은 K개의 vector에 attention score를 곱해주어서 하나의 통합된 feature vector를 생성하는 과정입니다. 이 때 Attention score는 local feature vector를 input으로 받아서 shared MLP와 softmax layer를 통과시켜 얻었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/5-multiplication_score.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후 K개의 vector에 attention score를 가중합하면, 주변 점들의 위치 관계와 특징을 담은 informative feature vector &lt;em&gt;f&lt;/em&gt; 를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dilated Residual Block&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/3-dilated_residual.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dilated residual block은 앞서 설명드린 LocSE block과 attentive pooling block으로 구성되어 있습니다. Down-sampling을 통해 점들의 개수를 줄여주면, 각 점들에 대한 receptive field를 확장시켜서 feature vector를 통합해주는 것이 중요합니다. 실제로 CNN의 경우 convolution이 반복적으로 일어나면서 feature의 크기가 줄어들기 때문에, feature vector의 각 pixel에 대한 receptive field는 커지게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/6-receptive_field.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;LocSE-Attentive pooling으로 이어지는 feature aggregation 과정의 경우, 인접한 K개의 점들의 특징이 집약된 feature vector를 얻을 수 있습니다. LocSE-Attentive pooling 과정을 두 번 거치게 되면, 인접한 각 점들도 K개의 점들의 특징이 통합된 점들이기 때문에, 위의 그림처럼 대략 &lt;em&gt;K^2&lt;/em&gt; 개의 점들의 공간적 관계와 특징을 통합한 벡터를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;Feature aggregation 과정은 반복하면 할수록 receptive field도 커지고 feature vector의 정보량도 늘어나지만, 연산 효율이 떨어지고 over-fitting에 취약해집니다. 따라서 RandLA-Net에서는 하나의 dilated residual block당 LocSE-Attentive pooling을 두 번 반복해서 적절한 범위의 점들을 통합해주었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;training&quot;&gt;Training&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/14-architecture.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;전체 RandLA-Net은 위의 그림과 같은 구조로 구성되었습니다. 학습시에는 Adam optimizer를 이용해주었고, nearest neighbor의 개수는(K) 16을 기본으로 설정했습니다. 또한 대략 10만개 정도의 고정된 점들에 대해 batch 단위로 학습을 진행하였고, test 과정에서는 전체 점들을 한번에 넣어주었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Efficiency of Random Sampling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;우선 random sampling의 효율성을 확인하기 위해, 앞서 설명한 다양한 sampling 방법들을 이용해 시간 및 메모리 측면에서의 효율성을 측정했습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/7-sampling_efficiency.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;결과적으로 적은 수의 점들을 대상으로는 sampling 방법들 사이에 큰 차이가 없지만, 점들의 개수가 많아지면 많아질수록 FPS/IDIS/GS/CRS/PGS는 학습 시간이 길거나 메모리를 많이 소비하는 문제를 야기했습니다. 논문에서는 이러한 비효율성 때문에 대부분의 모델들(PointNet, GACNet 등)의 학습 과정이 적을 수의 점들로 구성된 point cloud dataset으로만 진행되었다고 주장했습니다. 그에 비해 RS는 높은 시간-메모리적 효율성을 보여주었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Efficiency of RandLA-Net&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/8-model_efficiency.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 표는 많은 수의 점들로 구성된 point cloud dataset에 대한 여러 모델들의 효율성을 비교한 결과입니다. 각 모델의 parameter 개수 및 SemanticKITTI dataset에 대한 학습 시간을 비교하였습니다. 또한 전체 점들을 한번에 넣었을 때 추론 시간도 측정하였습니다. RandLA-Net은 모델 크기가 크지 않음에도 불구하고, 가장 빠른 학습 시간 및 추론 시간을 보여주었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;3d-segmentation-results&quot;&gt;3D Segmentation results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;S3DIS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/12-s3dis_result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;RandLA-Net은 다양한 dataset에 대해 3D semantic segmentation을 수행하였습니다. 우선 실내 dataset인 S3DIS에 대해 SOTA에 준하는 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Semantic3D&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/9-semantic3d-result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 실외 dataset인 Semantic3D에 대해서는 기존 KPConv의 성능을 뛰어넘으며 SOTA의 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Semantic-KITTI&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/10-semantickitti_result.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로 SLAM LiDAR dataset인 Semantic-KITTI에 대해서도 SOTA에 준하는 성능을 보여주었습니다. RangeNet 등의 projection 기반 방법들도 좋은 성능을 보여주었는데, RandLA-Net은 RangeNet에 비하면 40배 적은 parameter로 구성되어 있기 때문에 연산량 차원에서 훨씬 효율적이라고 이야기합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;ablation-study&quot;&gt;Ablation Study&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/13-ablation_study.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;RandLA-Net의 구성 요소들을 약간 바꿔보는 형식으로 제거 학습을 진행했습니다. LocSE를 없애거나 attentive pooling을 max-, mean-, sum-pooling 등으로 바꿔보았습니다. 그리고 dilated residual block에서 feature aggregation unit을 1개로 줄여보는 등의 실험을 했는데, 모두 기존의 모델 구조보다 저하된 성능을 보여주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/images/210423-RandLA-Net/17-ablation_encoding.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 LocSE block에서 relative point position vector의 구성에 따라 segmentation 결과가 어떻게 변하는지 비교해보았습니다. Relative point position vector를 구성하는 여러가지 요소들 중에, 특히 상대적인 위치 정보에 대한 component가 작은 공간의 기하학적 구조를 담고 있기 때문에 중요한 역할을 한다는 것을 알 수 있었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;RandLA-Net은 downsampling 방법으로 RS를 처음으로 이용하여 연산량 측면에서 효율성을 극대화하였습니다. 사실 RS는 sampling의 안정성 측면에서 조금 극단적인 측면이 있어서 잘 이용되지 않았었는데요. Feature aggregation만 잘 해준다면 random하게 점들을 골라도 충분히 좋은 성능이 나온다는 것을 보여주는 연구였습니다. 다양한 dataset에서 좋은 성능을 나타냈기 때문에 상황이 맞는다면 고려해볼만한 모델이라고 생각합니다. 궁금한 점이 있으시다면 댓글로 남겨주세요. 읽어주셔서 감사합니다 :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1911.11236&quot;&gt;https://arxiv.org/abs/1911.11236&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/aRI0U/RandLA-Net-pytorch&quot;&gt;https://github.com/aRI0U/RandLA-Net-pytorch&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyunsung Eun</name>
+        
+        
+      </author>
+
+      
+        <category term="3d" />
+      
+
+      
+        <category term="3d" />
+      
+
+      
+        <summary type="html">원문 : Hu, Qingyong, et al. “Randla-net: Efficient semantic segmentation of large-scale point clouds.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">Momentum Contrast(MoCo) v3 리뷰</title>
@@ -63,7 +274,7 @@
 
 &lt;p&gt;하지만 막상 학습을 진행해보니, 학습의 불안정성과 관련한 문제가 대두되었습니다. 여러 실험들에서 batch size를 키울수록 학습 정확도가 조금씩 떨어지기에, 원인 분석을 위해 kNN 결과값을 좀 더 촘촘히 확인해보습니다.(기존에는 1 epoch마다 1번씩 확인했다면, 이후에는 10 iterations마다 1번씩 확인하였습니다.) 그러자 batch size를 키우면 키울수록 kNN curve에서 dips가 많이 관찰되고 전반적인 학습 정확도도 감소하였습니다.&lt;/p&gt;
 
-&lt;p&gt;위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보엿습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.&lt;/p&gt;
+&lt;p&gt;위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보였습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;learning rate&lt;/li&gt;
@@ -274,7 +485,7 @@
 
 &lt;p&gt;&lt;img src=&quot;assets/images/210414-MoCo/11-NCE-loss.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Constrastive learning을 위한 loss function은 InfoNCE라고 불리는 위와 같은 형태의 함수를 이용했습니다. &lt;em&gt;q&lt;/em&gt; 는 query를, &lt;em&gt;k+&lt;/em&gt; 는 positive key를, &lt;em&gt;t&lt;/em&gt; 는 temperature htper-parameter를 의미합니다. &lt;em&gt;k+&lt;/em&gt; 를 제외한 나머지 &lt;em&gt;k&lt;/em&gt; 는 negative sample입니다.&lt;/p&gt;
+&lt;p&gt;Constrastive learning을 위한 loss function은 InfoNCE라고 불리는 위와 같은 형태의 함수를 이용했습니다. &lt;em&gt;q&lt;/em&gt; 는 query를, &lt;em&gt;k+&lt;/em&gt; 는 positive key를, &lt;em&gt;t&lt;/em&gt; 는 temperature hyper-parameter를 의미합니다. &lt;em&gt;k+&lt;/em&gt; 를 제외한 나머지 &lt;em&gt;k&lt;/em&gt; 는 negative sample입니다.&lt;/p&gt;
 
 &lt;p&gt;위 함수는 query와 positive key가 유사하고, 나머지 negative key와는 유사하지 않을때 값이 작아지는 cross-entropy 기반의 loss입니다. 유사도는 내적연산으로 계산합니다.&lt;/p&gt;
 
@@ -1323,183 +1534,6 @@ ModelNet 데이터셋은 물체에 대한 3D Mesh 형태의 데이터입니다. 
 
       
         <summary type="html">원문 : Simonovsky, Martin, and Nikos Komodakis. “Dynamic edge-conditioned filters in convolutional neural networks on graphs.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.</summary>
-      
-
-      
-      
-    </entry>
-  
-    <entry>
-      <title type="html">BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰</title>
-      <link href="https://rauleun.github.io/BERT" rel="alternate" type="text/html" title="BERT - Pretraining of Deep Bidirectional Transformers for Language Understanding 리뷰" />
-      <published>2020-11-03T09:00:00+09:00</published>
-      <updated>2020-11-03T09:00:00+09:00</updated>
-      <id>https://rauleun.github.io/BERT</id>
-      <content type="html" xml:base="https://rauleun.github.io/BERT">&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1810.04805&quot;&gt;Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).
-&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/bert.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;오늘 소개드릴 논문은 Google AI Language에서 2019년 arxiv에 발표한 &lt;strong&gt;&lt;em&gt;Bert: Pre-training of deep bidirectional transformers for language understanding&lt;/em&gt;&lt;/strong&gt; 논문에 대한 리뷰입니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문은 Transformer Encoder 구조를 활용하여 자연어에 대한 representation을 pre-training 하였습니다. Unsupervised learning 방식으로 학습을 진행하기 위해 Masked Language Model, Nest Sequence Prediction의 두 가지 학습 방식을 이용하였으며, 11개의 자연어 학습 능력 평가 지표에서 SOTA를 달성했다고 합니다.&lt;/p&gt;
-
-&lt;p&gt;그럼 시작하겠습니다!&lt;/p&gt;
-&lt;h2 id=&quot;feature-based-and-fine-tuning&quot;&gt;Feature-based and Fine-tuning&lt;/h2&gt;
-&lt;p&gt;언어 모델을 pre-training 방식으로 학습하여 여러 가지 task에 적용하는 것은 효율성과 성능의 측면에서 우수했기 때문에 자연어 분야의 학습 전략으로 널리 활용되어 왔습니다. 모델을 pre-training 한 뒤에, task에 알맞게 이용하는 방식에는 크게 두 가지가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;우선 Feature-based 방식은 pre-training 과정에서 각 단어에 대한 representation이 완벽하게 학습되었다고 가정하기 때문에, task-specific한 재학습 과정에서 pre-trained network의 parameter들을 바꾸지 않습니다. 대신에 pre-trainied network를 통해 얻은 Embedding vector를 task에 맞는 network에 통과시켜서 그 network의 parameter를 학습시키는 방향으로 task를 수행합니다.
-반면에 Fine-tuning 방식은 downstream task를 학습할 때 pre-trained network의 parameter를 전부 조정해줍니다. Feature-based 방식에 비해 Network capacity가 커지기 때문에 일반적으로 높은 정확도를 보이지만, 계산량도 마찬가지로 늘어난다는 단점이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;BERT는 Fine-tuning 방식을 기반으로 한 모델입니다. BERT를 각 downstream task 별로 어떻게 fine-tuning 했는지는 아래에서 자세히 다루겠습니다.&lt;/p&gt;
-&lt;h2 id=&quot;bert-model-architecture&quot;&gt;BERT Model Architecture&lt;/h2&gt;
-&lt;p&gt;BERT는 Vaswani의 논문에서 발표된 Transformer의 Encoder 구조를 그대로 차용하였습니다. 뒤에서 자세히 설명드리겠지만 encoder의 self-attention 메커니즘은 병렬적으로 output을 생성하기 때문에, 두 방향(bidirectional)에 대한 추론을 통해 학습할 수 있습니다. 이는 BERT가 기존의 단방향 모델(OpenAI GPT) 또는 제약이 있는 양방향 모델(Bi-LSTM을 활용한 ELMo 등)보다 좋은 성과를 내는 데에 큰 기여를 하게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;논문에서는 두 개의 모델을 공개하였는데, transformer layer 개수(12/24), hidden size(768/1024), self-attention head의 개수(12/16)에 따라 BERT base 모델과 BERT large 모델로 구분하였습니다. 각각의 parameter 개수는 110M/340M으로 BERT large가 약 세 배 정도의 capacity를 가지고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;BERT는 단일 문장에 대한 downstream task 뿐만 아니라 두 개 이상의 문장에 대해서도 잘 작동할 수 있도록 input의 형태를 변형하였습니다. BERT의 input인 sequence는 한 개 또는 두 개 이상의 문장으로 구성되었습니다. 각 sequence은 항상 [CLS] token으로 시작되는데, 이 [CLS] token에 대한 output은 classification이 필요한 task의 경우 그 probability value로 이용하였습니다. 만약 한 sequence가 두 개 이상의 문장으로 구성된 형태라면 첫 번째 문장과 두 번째 문장 사이에 [SEP] token을 넣어서 구분해주었습니다. 또한, 두 문장을 구분하기 위한 추가적인 장치로 첫 번째 문장과 두 번째 문장에 서로 다른 sentence embedding을 더해주었습니다.&lt;/p&gt;
-
-&lt;p&gt;문장 구성에 대한 이해를 위해 downstream task 몇 가지를 예를 들어 설명하겠습니다. 만약 한 문장 안에 하나의 빈칸을 뚫어 그 단어를 예측하는 형태의 task는, input으로 하나의 문장이 들어가고 output으로는 한개의 단어가 나오면 충분할 것입니다. 하지만 어떤 문단과 그에 대한 질문의 답을 찾는 복잡한 언어 추론 형태의 task에서는, 질문이 input의 첫 번째 문장으로 들어가고 문단이 input의 두 번째 문장으로 들어가며 두 문장에 대한 명확한 구분이 필요할 것입니다. 또한 output으로는 질문에 대한 답에 해당되는 문단의 위치를 start/end token으로 얻을 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/input-representation.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;결과적으로 BERT의 input representation은 token embedding, positional embedding, segment embedding의 합으로 구성됩니다. 우선 token embedding은 original input이 WordPiece Tokenization을 통해서 변환된 결과입니다. 또한 Transformer 논문에서 input에 순서 정보를 반영하기 위해서 활용한 positional embedding을 BERT에서도 마찬가지로 더해주었습니다. 마지막으로 두 개 이상의 문장이 input으로 들어올 수 있기 때문에 이를 구분하기 위한 segment embedding을 더해주었습니다.&lt;/p&gt;
-&lt;h2 id=&quot;pre-training-strategy&quot;&gt;Pre-training Strategy&lt;/h2&gt;
-&lt;p&gt;BERT의 pre-training에는 중요한 두 가지의 unsupervised task가 활용되었습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Masked Language Model&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;자연어를 잘 이해하고 있는 모델을 얻기 위해서는, 양방향 학습을 하는것이 아주 중요하다고 알려져 있습니다. 하지만 이전까지 대부분의 모델들은 LTR(Left to Right) 또는 RTL(Right to Left)이라고 불리는 단방향 학습이나 Bi-LSTM의 output을 이어붙이는 불완전한 양방향 학습을 통해 얻어지곤 했었습니다. BERT는 Transformer 구조와 Masked LM을 활용하여 multi-layer의 완벽한 양방향 학습을 구현하였습니다.&lt;/p&gt;
-
-&lt;p&gt;Masked Language Model은 문장의 일부분을 masking token으로 치환해서 input으로 넣어주고, 해당 mask token을 원래 단어로 올바르게 복원하도록 학습하는 전략입니다. BERT에서는 문장의 모든 토큰 중 15%를 임의로 선택해 치환하였습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만 이 과정에서 발생할 수 있는 문제가 있습니다. 학습 과정에서는 문장의 일부가 Mask 토큰으로 바뀌어 있는 input을 거의 대부분 보게 되지만, 실제 downstream task에 적용할 때는 Mask 토큰이 없는 문장을 주로 보게 됩니다. 따라서 training과 test 환경의 mismatch가 발생하여 성능이 저하됩니다.&lt;/p&gt;
-
-&lt;p&gt;이를 해결하기 위해서 논문에서는 15%의 확률로 선택된 토큰들에 대해서, (1) 80%는 [Mask] 토큰으로 변경하고, (2) 10%는 다른 임의의 토큰으로 변경하고, (3) 10%는 원래 토큰으로 그대로 두는 전략을 이용하였습니다. 이렇게 전혀 다른 토큰을 추가함으로써 모델의 학습이 방해될 수 있다는 지적에 대해, 저자는 전체 토큰의 1.5%의 만에 해당되기 때문에 큰 영향이 없을 것이라고 답했으며 실제 실험을 통해 증명하였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/ablation-mask.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;MLM에 대한 예시를 몇개 보여드리면, 기존의 “My dog is hairy”라는 문장에 대해 4번째 토큰이 선택되었다면, 해당 문장은
-(1) 80%의 확률로 “My dog is [Mask]”
-(2) 10%의 확률로 “My dog is apple”
-(3) 10%의 확률로 “My dog is hairy”
-로 변환될 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;BERT와 비교되는 유명한 pre-trained language representation 모델들은 단방향 학습이나 불완전한 양방향 학습을 통해 생성되었습니다. 아래는 BERT와 OpenAI GPT, ELMo의 모델 구조를 비교한 그림입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/elmo-gpt.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림에서 보이듯 완벽한 Bidirectional 구조를 가진 BERT와는 달리, OpenAI GPT는 Transformer decoder 구조를 차용한듯한 왼쪽에서 오른쪽을 향하는 단방향의 구조를 가지고 있습니다. 또한 ELMo 같은 경우에는, 왼쪽에서 오른쪽을 향하는 LSTM과 오른쪽에서 왼쪽을 향하는 LSTM의 output을 concatenate하여 양방향의 특성을 모두 가지는 representation을 생성하기 위한 구조를 보여주었습니다. 다만 두 LSTM의 결과를 이어붙인 것에 지나지 않기 때문에 완전한 양방향 학습이라고 보기는 어려우며, 계산량도 매우 많고 느리다는 단점이 있습니다. 따라서 Layer를 이어붙여서 깊게 쌓을 수 없고, 높은 성능을 보여주기 어렵게 됩니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Next Sentence Prediction&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Question and Answering(QA) 또는 Natural Language Inference(NLI) 등 몇 개의 downstream task는 두 문장 사이의 관계를 이해해야만 해결할 수 있습니다. 언어 모델이 문장 사이의 관계를 학습할 수 있게 하기 위해서 BERT는 NSP라는 학습 전략을 활용하였습니다. NSP는 corpus에서 A와 B라는 두 개의 문장을 고르되, 50%는 A와 B가 내용적으로 연결되게 선택하고 나머지 50%는 A와 B가 내용적으로 전혀 관련이 없게 선택합니다. 각각은 IsNext와 NotNext라는 binary output으로 labeling한 뒤 이를 예측하게끔 언어 모델을 학습시킵니다.&lt;/p&gt;
-
-&lt;p&gt;BERT의 NSP 정확도는 최종적으로 97~98%이었으며, 꽤나 높은 문장 간의 이해도를 보이게 됩니다. 이처럼 쉽고 간단한 NSP 학습 전략은 QA와 NLI 등의 downstream task 성능도 크게 향상시켜주었습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Pre-training data&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;BERT는 pre-training corpus로 800M 개의 단어로 구성된 BooksCorpus와 2,500M개의 단어로 구성된 English Wikipedia dataset을 활용했습니다. (list, table, header 등은 학습에서 제외하였습니다.)&lt;/p&gt;
-&lt;h2 id=&quot;fine-tuning-bert&quot;&gt;Fine-tuning BERT&lt;/h2&gt;
-&lt;p&gt;Pre-training된 BERT 모델은 fine-tuning을 통해 downstream task에 적용하였습니다. Fine-tuning은 BERT 모델에 task-specific한 input-output 데이터를 넣고 end-to-end로 모든 parameter를 학습하였습니다. Pre-training 과정에 비해 훨씬 더 가볍게 진행되었으며, Cloud TPU 1개로 1시간 정도 학습하였습니다.&lt;/p&gt;
-
-&lt;p&gt;논문에서는 BERT의 성능을 검증하기 위해 11개의 downstream task에 대해 fine-tuning을 진행했습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;GLUE
-&lt;img src=&quot;assets/images/201102-BERT/result-glue.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;8개의 task로 구성된 The General Language Understanding Evaluation(GLUE) task에 대해서 SOTA의 성능을 보여주었다. 모든 GLUE task에 대해 32의 batch size로 3 epoch만큼 fine-tuning 해주었으며, [CLS] 토큰의 output을 마지막 classification layer의 input으로 활용하여 K개의 class에 대해 분류했습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SQuAD
-&lt;img src=&quot;assets/images/201102-BERT/result-squad.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;SQuAD는 The Stanford Question Answering Dataset의 약자로 100k개 이상의 질문-정답 쌍으로 구성되어 있습니다. 질문과 정답을 포함한 Wikipedia 문단을 input으로 넣으면, 문단 내의 정답 text 위치를 찾아내어야 합니다. BERT는 위에서 설명한 NSP 전략을 활용해 문장 사이의 관계를 이해하도록 학습되었기 때문에, SQuAD에 대해서도 SOTA의 성능을 보여줄 수 있었습니다.&lt;/p&gt;
-
-&lt;p&gt;SQuAD 2.0은 정답이 없을 확률에 대해서도 label이 되었는데, 이 또한 마찬가지로 BERT는 SOTA의 성능을 보여주었습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SWAG
-&lt;img src=&quot;assets/images/201102-BERT/result-swag.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;SWAG는 The Situations With Adversarial Generations의 약자로 113k개의 문장 쌍으로 구성되어 있습니다. 한 문장이 주어질 때, 뒤에 나오기에 적절한 문장을 4개의 보기 중에 선택하는 형태로 구성되었습니다. [CLS] 토큰을 활용하여 4개의 선택지에 대한 score를 얻어서 평가하였습니다. BERT는 SWAG 데이터셋에 대해서도 마찬가지로 SOTA의 성능을 보여주었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/fine-tuning.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;ablation-studies&quot;&gt;Ablation Studies&lt;/h2&gt;
-
-&lt;p&gt;BERT의 성능은 다양한 downstream task들에서 SOTA의 수준으로 확인되었습니다. 그렇다면 앞에서 제안한 BERT의 어떤 특징들이 우수한 성능을 발휘할 수 있게 해준걸까요? 논문에서는 Ablation study를 통해 다양한 장치들의 역할을 분석하였습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Pre-training Strategies&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;BERT는 MLM과 NSP라는 두 개의 Task로 Pre-training 되었습니다. 논문에서는 각각의 task가 얼마나 중요한지를 보여주기 위해 NSP를 없애고 학습시켜보기도 하고, NSP를 없애고 단방향으로의(LTR) 학습을 진행해보기도 하였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/ablation-pretraining.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;NSP를 없애자 GLUE와 SQuAD의 성능이 동시에 크게 저하되었습니다. 문장 간의 이해도를 높이는 데 NSP가 중요한 역할을 하고 있으며, 일반적인 Language understanding에도 영향을 미치는 것으로 보입니다.&lt;/p&gt;
-
-&lt;p&gt;또한 MLM을 통한 bidirectional 학습에서 LTR의 단방향 학습으로 변경했을 때에는 SQuAD의 성능이 급격히 저하되었습니다. SQuAD는 단방향 토큰 추론에 대한 task가 아니기 때문에 방향성이 제한됨에 따라 성능이 저하되는 것으로 추측할 수 있을 것 같습니다. 저자는 이를 보완하기 위해서 Bi-LSTM 구조를 모델 위에 얹어서 학습했는데, SQuAD의 성능은 향상시켜주었지만 일반적인 GLUE 결과를 저하시켰습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Model Size&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;BERT 모델의 크기와 fine-tuning task의 정확도 간의 관계를 확인하기 위한 ablation study도 진행되었습니다. 다양한 layer 개수, hidden unit의 크기, attention head의 개수의 BERT 모델들이 같은 조건 하에서 학습되었습니다. 결과는 널리 알려진 바와 같이 모델의 크기가 커질수록 모델 capacity가 커지며 성능이 향상되었습니다. 또한 큰 capacity의 모델을 pre-training 한 경우에는 아주 작은 scale의 task에 대해서도 좋은 성능을 보여주었습니다. 이는 task의 scale이 아주 작은 경우에 BERT의 효용성이 높다는 의미인데, task-specific한 모델을 설계해서 scratch부터 학습하는 것보다 충분한 pre-training을 통해 얻은 general representation을 initial parameter로 fine-tuning을 하는 것이 더 좋은 성능을 보여주기 때문입니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Feature-based BERT&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;기존의 BERT는 downstream task에 대해 fine-tuning 방식으로 학습하였습니다. 하지만 fine-tuning 방식은 모델의 구조를 크게 바꾸지 않기 때문에 모든 경우의 downstream task를 represent하기 어렵고, 모든 parameter를 update하므로 계산량도 많다는 단점이 있습니다. 때문에 ELMo와 같은 feature-based approach로 BERT를 활용했을 때 결과가 어떨지에 대해 ablation study가 진행되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;assets/images/201102-BERT/ablation-feature.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;각 단어의 Entity를 찾는 NER task에 대해 다양한 방식의 feature-based 학습을 진행했는데, SOTA와 비슷한 성능을 보여주었습니다. 이로써 BERT는 fine-tuning과 feature-based approach에 모두 효과적이라는 것이 확인되었습니다.&lt;/p&gt;
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-&lt;p&gt;BERT는 다양한 NLP task에 대해 SOTA를 달성하면서, 발표 직후부터 지금까지 NLP 분야에 많은 영향력을 끼치고 있는 모델입니다. Bidirectional training을 위해 기존에 활용되지 않던 Masked Model Language를 도입했고, Next Sentence Prediction task를 통해 문장 사이의 관계도 효과적으로 학습하였습니다. 최근까지도 BERT를 기반으로 하거나 BERT를 뛰어넘기 위해 도전하는 논문들이 계속해서 출간되고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;BERT를 읽다 보니 NLP 관련 연구들에 관심이 더 생기는 것 같습니다. 시간이 되면 NLP 관련 논문들을 더 리뷰해보겠습니다. 읽어주셔서 감사합니다 :)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;참고 문헌 및 출처&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1810.04805ㅠ&quot;&gt;https://arxiv.org/abs/1810.04805&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/google-research/bert&quot;&gt;https://github.com/google-research/bert&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content>
-
-      
-      
-      
-      
-      
-
-      <author>
-          <name>Hyunsung Eun</name>
-        
-        
-      </author>
-
-      
-        <category term="nlp" />
-      
-
-      
-        <category term="nlp" />
-      
-
-      
-        <summary type="html">원문 : Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).</summary>
       
 
       

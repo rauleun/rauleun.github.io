@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>RandLA-Net 리뷰</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1911.11236&quot;&gt;Hu, Qingyong, et al. “Randla-net: Efficient semantic segmentation of large-scale point clouds.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 23 Apr 2021 09:00:00 +0900</pubDate>
+        <link>
+        https://rauleun.github.io/RandLA-Net</link>
+        <guid isPermaLink="true">https://rauleun.github.io/RandLA-Net</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Momentum Contrast(MoCo) v3 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2104.02057&quot;&gt;Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021).&lt;/a&gt;&lt;/p&gt;

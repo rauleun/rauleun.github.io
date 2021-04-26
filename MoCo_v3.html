@@ -216,7 +216,7 @@ into the {body} of the default.hbs template -->
 
 <p>하지만 막상 학습을 진행해보니, 학습의 불안정성과 관련한 문제가 대두되었습니다. 여러 실험들에서 batch size를 키울수록 학습 정확도가 조금씩 떨어지기에, 원인 분석을 위해 kNN 결과값을 좀 더 촘촘히 확인해보습니다.(기존에는 1 epoch마다 1번씩 확인했다면, 이후에는 10 iterations마다 1번씩 확인하였습니다.) 그러자 batch size를 키우면 키울수록 kNN curve에서 dips가 많이 관찰되고 전반적인 학습 정확도도 감소하였습니다.</p>
 
-<p>위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보엿습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.</p>
+<p>위의 그림에서 batch size가 4096보다 커지게 되면 dips가 발생하여 학습의 안정성이 급격히 떨어지게 되는데, 이는 마치 local optimum에서 벗어나 새로운 global optimum을 찾는 것처럼 보였습니다. 결과적으로 학습은 잘 수렴하였고 결과도 기존보다 살짝 낮은 정도로 측정되었지만, 학습 과정에서의 불안정성은 분명히 존재했습니다.</p>
 
 <ul>
   <li>learning rate</li>
@@ -445,6 +445,8 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
+                                
+                                  
                                     
                                   
                                 
@@ -512,6 +514,53 @@ into the {body} of the default.hbs template -->
             
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/RandLA-Net">
+                <div class="post-card-image" style="background-image: url(/assets/images/210423-RandLA-Net/cover.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/RandLA-Net">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">3d</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">RandLA-Net 리뷰</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <span class="post-card-author">
+                            <a href="/author/rauleun/">Hyunsung Eun</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
             
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
