@@ -194,35 +194,40 @@ into the {body} of the default.hbs template -->
 
 <p>오늘 소개드릴 논문은 Stanford에서 2017년 NIPS에 발표한 <strong><em>Pointnet++: Deep hierarchical feature learning on point sets in a metric space</em></strong> 논문에 대한 리뷰입니다.</p>
 
-<p>이 논문은 Point cloud 형식의 데이터를 Deep learning 분야에 적용시킨 선구적인 논문인 PointNet의 후속편으로, local한 특징을 잡아내지 못하는 기존의 PointNet을 보완하여 classification 및 segmentation 성능을 크게 끌어올렸습니다.</p>
+<p>이 논문은 Point cloud 형식의 데이터를 Deep learning 분야에 적용시킨 선구적인 논문인 PointNet의 후속편으로, local한 특징을 잡아내지 못하는 기존의 PointNet을 보완하여 classification 및 segmentation 성능을 크게 끌어올렸습니다. 그럼 PointNet++에 대한 리뷰를 시작하겠습니다!</p>
 
-<p>그럼 시작하겠습니다!</p>
 <h2 id="pointnet">PointNet</h2>
-<p>PointNet++에 대하여 설명드리기 전에, 전편인 PointNet에 관해서 간단히 짚고 넘어가겠습니다. (자세한 설명은 PointNet 논문 리뷰를 참고해주세요.) Point cloud는 3차원 공간 내의 물체를 표현하기 위한 데이터의 한 형식으로 각 점들에 대한 좌표값으로 구성되어 있습니다. Point cloud는 sparse한 점들의 집합이기 때문에 계산량 및 메모리 차원에서 효율적이지만, 순서가 없는 집합 형태의 데이터이기 때문에 neural network가 이를 처리하려면 permutation-invariant한 특성을 가진 layer를 포함하고 있어야 했습니다. PointNet에서는 symmetric function 중의 하나인 max-pooling 함수를 활용하여 point cloud 데이터에 대한 global한 feature vector를 추출하였습니다. 하지만 max-pooling 함수의 특성상 최대값을 제외한 local한 정보들을 소실될 수밖에 없고 이는 정교한 경계선 설정이 중요한 segmentation task 등에서 성능 저하의 요인이 되었습니다. PointNet++에서는 몇 가지 구조를 제안하여 local한 feature vector를 추출하였습니다.</p>
+<p>Point cloud는 3차원 공간 내의 물체를 표현하기 위한 데이터의 형식 중 하나로, 각 점들에 대한 xyz 좌표 및 특징을 담은 벡터들로 구성되어 있습니다. Point cloud는 sparse한 점들에 대한 집합(Set) 형태의 데이터이기 때문에 계산량 및 메모리 차원에서 효율적입니다. 하지만 점들의 순서가 정해져있지 않은 permutation-invariant한 특성 때문에, neural network의 입력으로 활용하려면 순서에 관계없이 항상 같은 결과를 도출해주는 연산 과정이 필수적입니다. PointNet에서는 symmetric한 특성을 가진 max-pooling 함수를 활용하여 point cloud의 global feature를 추출하였습니다. 하지만 max-pooling 함수의 특성상 최대값을 제외한 local한 정보들은 소실될 수밖에 없고, 이는 정교한 경계선 설정이 중요한 segmentation task에서 성능 저하의 요인이 되었습니다. PointNet++은 local한 정보를 담은 특징 벡터를 추출하여 정확도 측면에서 PointNet을 개선한 모델입니다.</p>
 
-<p>Local한 특징을 추출하는 것은 중요합니다. CNN에서도 다양한 receptive field를 가지는 convolution kernel을 활용함으로써 local한 특징을 추출하였고, 이는 2D image들에 대한 폭발적인 성능 향상을 이뤄냈습니다. PointNet++는 계층적 구조의 neural network를 활용하여 다양한 scale의 local feature를 추출하였고, 이를 통합하여 SOTA의 classification 및 segmentation 성능을 기록할 수 있었습니다. 그럼 PointNet++에 대해 좀 더 자세히 알아보겠습니다.</p>
+<p>Local한 특징 벡터를 추출하는 것은 중요합니다. CNN에서도 다양한 receptive field를 가지는 convolution kernel을 활용함으로써 local한 특징을 추출하였고, 이는 2D image들에 대한 폭발적인 성능 향상을 이뤄냈습니다. PointNet++는 계층적 형태의 U-Net 구조를 활용하여 다양한 scale의 local feature를 추출하였고, 이를 통합하여 SOTA의 classification 및 segmentation 성능을 기록할 수 있었습니다. 그럼 PointNet++에 대해 좀 더 자세히 알아보겠습니다.</p>
 
 <h2 id="pointnet-1">PointNet++</h2>
 <p><img src="assets/images/210121-pointnet++/1-pointnet++.png" alt="" />
-PointNet++는 <strong>Set abstraction layer</strong>과 <strong>Density adaptive layer</strong>로 구성되어 있습니다.</p>
+PointNet++는 크게 <em>Set abstraction layer</em> 과 <em>Density adaptive layer</em> 로 구성되어 있습니다.</p>
 
-<h2 id="set-abstraction">Set Abstraction</h2>
-<p>PointNet++에서는 set abstraction이라고 부르는 과정을 통해 point cloud의 local feature를 추출하였습니다. Set abstraction을 거치면, point 들의 집합은 이전보다 적은 수의 점들로 구성된 point cloud로 추상화되며, semantic한 정보를 담게 됩니다.</p>
+<h3 id="set-abstraction">Set Abstraction</h3>
+<p>Set abstraction은 PointNet++에서 point cloud의 local feature를 추출하기 위해 사용한 방법입니다. Point cloud가 set abstraction 과정을 거치게 되면, 전반적인 semantic 정보를 포함한 압축된 point cloud로 변환됩니다.</p>
 
-<p>Set abstraction은 세 단계로 구분할 수 있습니다. 우선 sampling 단계에서는 point cloud의 local한 부분집합의 중심에 해당하는 중요한 몇 개의 점들을 선택합니다. 이후 grouping 단계에서는 sampling 단계에서 찾은 중요한 몇 개의 점들과 이웃한 점들을 찾고 하나의 집합으로 구성합니다. 마지막으로 pointnet 단계에서는 local한 점들의 집합에 대한 패턴을 encoding하여 feature vector를 추출합니다.</p>
+<p>Set abstraction layer는 세 가지 layer로 구성되어 있습니다. 우선 <em>Sampling layer</em> 에서는 입력 point cloud에서 중심이 되는 몇개의 점들을 선택합니다. 이 때 선택된 점들은 이전 point cloud의 대표성을 잃지 않아야 하며, local한 공간의 중심이 되어야 합니다. 이후 <em>Grouping layer</em> 에서는 sampling layer에서 찾은 각 중심점에 대하여 이웃한 점들을 찾고, 이를 묶어서 하나의 점묶음으로 구성합니다. 마지막으로 <em>PointNet layer</em> 에서는 각 점묶음에 포함된 점들의 패턴을 파악하여 점묶음별로 특징 벡터를 추출합니다.</p>
 
-<p>예를 들어 Point cloud가 <em>N</em> 개의 점들로 구성되어 있고 각 점은 <em>d</em> 차원의 좌표를 가지며 <em>C</em> 차원의 feature vector를 가진다고 가정하겠습니다. Set abstraction 과정을 거치면 <em>N</em> x <em>(d+C)</em> 크기의 input 행렬이 <em>N’</em> x <em>(d+C’)</em> 크기의 행렬로 변환되어 출력됩니다. 이 때 <em>N’</em> 는 subsampling된 점들의 개수이고, <em>C’</em> 는 중심점 행렬의 feature vector의 차원입니다.</p>
+<p>예를 들어, 어떤 point cloud가 <em>N</em> 개의 점들로 구성되어 있고 각 점은 xyz 좌표와 <em>C</em> 차원의 특징 벡터를 가진다고 가정하겠습니다. 이는 <em>N</em> x <em>(3+C)</em> 의 크기를 가진 행렬로 표현이 가능한데, <em>set abstraction layer</em> 를 거치게 된다면 <em>N’</em> x <em>(3+C’)</em> 크기의 point cloud로 변환됩니다. 이 때 <em>N’</em> 는 subsampling된 점들의 개수이고, <em>C’</em> 는 출력된 특징 벡터의 차원입니다.</p>
 
-<p>Sampling 단계에서는 <em>N</em> 개의 점들 중 <em>N’</em> 개의 점을 중심점으로 선택합니다. 이 <em>N’</em> 개의 점들은 전체 점들 중 나머지 점들과의 거리가 가장 먼 점들로 구성됩니다. 이때 이 거리라는 개념은 Uclidian distance 일 수도 있고 그 외 다른 거리 관련 metric일 수도 있습니다. 논문에서는 이 거리가 가장 먼 점들의 집합을 Farthest point sampling (FPS) 알고리즘을 반복적으로 적용해 얻었다고 설명하였습니다. 또한, 이렇게 서로 최대한 떨어져 있는 점들을 선택하게 되면 random sampling을 통해서 점들을 선택하는 것보다 더 일반적이고 전체적인 범위의 point들을 얻을 수 있습니다.</p>
+<p>먼저 Sampling 단계에서는 <em>N</em> 개의 점들 중 <em>N’</em> 개 점들을 중심점으로 선택합니다. 이 때 중심점이란 전체 점들 중 서로 간의 Uclidian distance가 가장 먼 점들을 의미합니다. 이렇게 서로 간의 거리가 가장 먼 점들을 선택하는 과정을 <em>Farthest point sampling (FPS)</em> 이라고 부릅니다. 서로 가장 멀리 떨어져 있는 점들을 선택하게 되면, 임의로 점들을 선택하는 것보다 더 일반적이고 대표성을 띄는 점들을 얻을 수 있습니다.</p>
 
-<p>Grouping 단계에서는 sampling 단계에서 추출한 <em>N’</em> 개 중심점들의 주변 점들을 선택하여 local한 영역으로 묶어줍니다. 각 중심점과 묶이는 주변 점들의 개수는 영역마다 다를 수 있는데, 후에 설명드릴 pointnet 단계에서 점들의 개수와 상관 없이 같은 크기의 feature vector로 변환해주기 때문입니다. 또한 이웃한 점들을 선택하는 방식도 두 가지로 나뉠 수 있습니다. 우선, ball query 방식은 반지름 <em>r</em> 을 정해 이 반지름 내에 있는 점들을 모두 이웃한 점으로 선택하는 방식입니다. 또한, kNN 방식은 정해진 <em>K</em> 라는 개수의 가장 가까운 점들을 이웃한 점으로 선택하는 방식입니다. 논문에서는 ball query 방식을 선택했는데, kNN과 비교했을 때 정해진 크기의 지역을 확실하게 표현할 수 있기 때문입니다. 이는 일정하게 sampling되지 않은 point cloud 데이터에서 영역 별로 범위가 달라지는 문제를 방지할 수 있게 됩니다.</p>
+<p>이후 Grouping 단계에서는 sampling 단계에서 추출한 각 중심점과 그 주변 점들을 점묶음으로 묶어줍니다. 점묶음을 구성하는 점들의 개수는 조금씩 달라질 수 있는데, 이어지는 PointNet 단계에서 점묶음마다 점들의 개수에 상관없이 고정된 크기의 특징 벡터를 하나씩 추출해주기 때문입니다. 중심점에 대해 이웃한 점들을 정의하는 방식도 <em>ball query</em> 와 <em>KNN</em> 의 두 가지가 있습니다. 우선 ball query 방식은 반지름 <em>r</em> 을 정하고, 중심점을 기준으로 반지름 내에 있는 모든 점들을 이웃한 점으로 정의합니다. 또한 KNN 방식은 중심점에 대해 가장 가까운 K개의 점을 이웃한 점으로 정의합니다. PointNet++에서는 주변 점들을 ball query 방식으로 정의했는데, 정해진 크기의 영역만을 포함하는 고정적인 범위의 점묶음을 형성할 수 있기 때문입니다. 이는 점밀도가 일정하지 않은 point cloud의 경우에 점묶음별로 범위가 달라지는 문제를 방지할 수 있습니다.</p>
 
-<p>마지막으로 pointnet 단계에서는 각 local한 영역에 대해 특징 정보를 encoding한 하나의 feature vector를 추출할 수 있습니다. 각 중심점(총 <em>N’</em> 개)별로 생성된 <em>K</em> 개의 이웃한 점들에 대한 <em>(d+C)</em> 크기의 feature vector를 행렬로 표현하면 <em>N’</em> x <em>K</em> x <em>(d+C’)</em> 크기의 행렬이 되는데, 이 행렬이 pointnet 단계를 거치면 <em>N’</em>x<em>(d+C’)</em> 크기의 feature vector로 변환됩니다. 이 때, 점들의 좌표값은 중심점과의 상대적인 거리의 차이에 대한 값이 들어가게 되는데, 이를 통해 점들 사이의 위치적 관계에 대한 정보를 잡아낼 수 있기 때문입니다.</p>
+<p>마지막으로 PointNet 단계에서는 각 중심점과 주변 점들의 특징 벡터를 PointNet에 통과시켜 하나의 특징 벡터를 추출합니다. Point cloud의 모든 점묶음들은  <em>N’</em> x <em>K</em> x <em>(3+C’)</em> 크기의 행렬로 표현할 수 있는데, 각 중심점별로 PointNet을 통과하면 <em>N’</em> x <em>(3+C’)</em> 크기의 행렬로 변환됩니다. 이 때 절대적인 xyz 좌표값이 아닌 중심점과의 상대적인 좌표값을 입력으로 이용하였는데, 이를 통해 점들 간의 위치적 관계에 대한 정보를 담을 수 있기 때문입니다.</p>
 
 <h2 id="density-adaptive-feature-learning">Density Adaptive Feature Learning</h2>
-<p><img src="assets/images/210121-pointnet++/2-nonuniform-pointcloud.png" alt="" />
-Point cloud 데이터는 위의 그림처럼 non-uniform한 밀도 분포를 가지는 것이 대부분입니다. 이렇게 일정하지 않은 점들의 분포는 point cloud의 특징에 대한 학습을 어렵게 만드는데, density가 높은 point cloud에 대해 학습한 네트워크는 sparse한 점들의 point cloud를 만났을 때 정보가 부족하다고 느끼고 특징을 제대로 표현하지 못하기 때문입니다. (그 반대의 경우도 마찬가지입니다.) 논문에서는 이를 해결하기 위해 point cloud의 sampling density를 변화시키며 학습하였습니다. 또한, 다양한 scale의 point cloud에서 feature vector를 추출하는 multi-scale feature extraction 구조를 활용하였는데, 저자는 이를 <em>density adaptive layer</em> 이라고 표현했습니다. 다양한 크기의 density를 가지는 point cloud를 학습하는 두 가지 방법에 대해 소개하겠습니다.
-<img src="assets/images/210121-pointnet++/3-grouping.png" alt="" /></p>
+
+<p><img src="assets/images/210121-pointnet++/2-nonuniform-pointcloud.png" alt="" /></p>
+
+<p>Point cloud 데이터는 대부분 위의 그림처럼 일정하지 않은 밀도로 분포되어 있습니다. 조밀한 밀도 분포를 가진 point cloud에 대해 학습한 네트워크는 sparse한 point cloud를 만났을 때 정보가 부족하다고 느끼고 특징을 제대로 파악하지 못합니다. 마찬가지로 sparse한 point cloud로 학습한 네트워크의 경우 dense한 point cloud가 들어왔을 때, 다른 분포의 데이터 때문에 좋은 성능을 보이지 못합니다.</p>
+
+<p>이렇게 점들의 밀도가 일정하지 않은 특성은 point cloud의 일반적인 학습을 어렵게 만드는데, 논문에서는 이를 해결하기 위해 point cloud를 다양한 밀도로 sampling하여 학습하였습니다. 일종의 data augmentation이라고도 볼 수 있을 것 같습니다. 또한 다양한 scale의 point cloud에서 특징 벡터를 추출하는 네트워크 구조를 활용하였는데, 이를 <em>density adaptive layer</em> 라고 부릅니다. 다양한 크기를 가지는 point cloud를 학습하는 두 가지 방법에 대해 소개하겠습니다.</p>
+
+<p><img src="assets/images/210121-pointnet++/3-grouping.png" alt="" /></p>
+
 <ul>
   <li>Multi-scale grouping (MSG)</li>
 </ul>
@@ -376,6 +381,8 @@ ScanNet에서도 sampling density가 달라졌을 때 robust한 결과를 도출
                         <div class="read-next-card-content">
                             <ul>
                                 
+                                
+                                  
                                 
                                   
                                     

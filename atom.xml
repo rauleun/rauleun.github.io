@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>(리뷰) EfficientNetV2 - Smaller Models and Faster Training</title>
+        
+          <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/2104.02057&quot;&gt;Chen, Xinlei, Saining Xie, and Kaiming He. “An Empirical Study of Training Self-Supervised Visual Transformers.” arXiv preprint arXiv:2104.02057 (2021).&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 03 Jun 2021 09:00:00 +0900</pubDate>
+        <link>
+        https://rauleun.github.io/EfficientNetV2</link>
+        <guid isPermaLink="true">https://rauleun.github.io/EfficientNetV2</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>RandLA-Net - Efficient Semantic Segmentation of Large-Scale Point Clouds 리뷰</title>
         
           <description>&lt;p&gt;원문 : &lt;a href=&quot;https://arxiv.org/abs/1911.11236&quot;&gt;Hu, Qingyong, et al. “Randla-net: Efficient semantic segmentation of large-scale point clouds.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.&lt;/a&gt;&lt;/p&gt;

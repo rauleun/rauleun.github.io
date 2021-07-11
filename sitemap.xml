@@ -4,6 +4,22 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://rauleun.github.io/EfficientNetV2.html</loc>
+        
+        <lastmod>2021-06-03T09:00:00+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
         <loc>https://rauleun.github.io/RandLA-Net.html</loc>
         
         <lastmod>2021-04-23T09:00:00+09:00</lastmod>
